@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>home</title>
+</head>
+<body>
+<div>
+   Люба и HTML
+</div>
+
+<br>
+<div>Маленькие костыли</div>
+<p><a href="http://localhost:8080/vacancies">* Вакансии</a></p>
+<p><a href="http://localhost:8080/employees">* Сотрудники</a></p>
+<p><a href="http://localhost:8080/countries">* Страны</a></p>
+<p><a href="http://localhost:8080/companies">* Компании</a></p>
+
+
+
+<form method="post" action="home/newDBinit">
+    <button type="submit2">Заполнить БД</button>
+</form>
+<form method="post" action="home/findAverageAgeByCountry">
+    <input type="text" name="country">
+    <button type="submit">Узнать возраст по стране</button>
+</form>
+
+{{#age}}
+
+ <b>{{age}}</b>
+
+
+{{/age}}
+</body>
+</html>
