@@ -123,28 +123,34 @@ public class MainController {
         return "home";
     }
 
-    @PostMapping("home/findAverageAgeByCountry")
+    @GetMapping("home/findAverageAgeByCountry")
     public String filter(@RequestParam String country, Map<String, Object> model) {
+
+        Employee employee = employeeRepository.findById(1).get(0);
+        Country country1 = countryRepository.findByName("rus").get(0);
+        Company company = companyRepository.findByCountry(country1).get(0);
+        Vacancy vacancy = vacancyRepository.findByCompany(company).get(0);
 
         if (country != null && !country.isEmpty() ) {
             Country countryModel =  countryRepository.findByName(country).get(0);
+            System.out.println();
+//            int totalAge = (int) countryModel.getCompanies().stream()
+//                    .flatMap(company -> company.getVacancy().stream())
+//                    .map(vacancy -> (int)(new Date().getTime() - vacancy.getEmployee().getBirthday().getTime())/ 1000/ 60/ 60/ 24/ 365)
+//                    .reduce(0, (x, y) -> x+y);
+//            int count = (int) countryModel.getCompanies().stream()
+//                    .flatMap(company -> company.getVacancy().stream())
+//                    .map(vacancy -> vacancy.getEmployee())
+//                    .count();
 
-            int totalAge = (int) countryModel.getCompanies().stream()
-                    .flatMap(company -> company.getVacancy().stream())
-                    .map(vacancy -> (int)(new Date().getTime() - vacancy.getEmployee().getBirthday().getTime())/ 1000/ 60/ 60/ 24/ 365)
-                    .reduce(0, (x, y) -> x+y);
-            int count = (int) countryModel.getCompanies().stream()
-                    .flatMap(company -> company.getVacancy().stream())
-                    .map(vacancy -> vacancy.getEmployee())
-                    .count();
-
-
-            System.out.println(totalAge );
-            System.out.println( count);
-            System.out.println(totalAge / count);
-            model.put("age", totalAge / count);
+//
+//            System.out.println(totalAge );
+//            System.out.println( count);
+//            System.out.println(totalAge / count);
+            model.put("age", 123345);
         } else {
 //            vacancies = vacancyRepository.findAll();
+            model.put("age", 12345);
         }
 
 

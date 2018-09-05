@@ -11,16 +11,16 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode(exclude = "country_id")
 public class Country {
     @Id
-    @Column(name = "id")
+    @Column(name = "country_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private CountryLevel countryLevel;
 
-    @OneToMany
+    @OneToMany(mappedBy = "country", cascade=CascadeType.ALL)
     private Set<Company> companies;
 
     public Country(String name, CountryLevel countryLevel) {

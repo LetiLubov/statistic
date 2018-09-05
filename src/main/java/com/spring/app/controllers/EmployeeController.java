@@ -46,7 +46,7 @@ public class EmployeeController {
         return "employee";
     }
 
-    @PostMapping("employees/filter")
+    @GetMapping("employees/filter")
     public String filter(@RequestParam String filter, Map<String, Object> model) {
         Iterable<Employee> employees;
 

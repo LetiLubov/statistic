@@ -11,20 +11,19 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode(exclude = "company_id")
 public class Company {
     @Id
-    @Column(name = "id")
+    @Column(name = "company_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
 
     @ManyToOne
-//    @JoinColumn(name = "country_id")
+    @JoinColumn(name = "country_id")
     private Country country;
 
-    @OneToMany
-//    @JoinColumn(name = "vacancy_id")
+    @OneToMany(mappedBy = "company", cascade=CascadeType.ALL)
     private Set<Vacancy> vacancy;
 
     public Company(String name) {

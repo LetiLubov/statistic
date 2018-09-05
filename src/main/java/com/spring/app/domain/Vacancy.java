@@ -11,10 +11,10 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode(exclude = "vacancy_id")
 public class Vacancy implements Serializable {
     @Id
-    @Column(name = "id")
+    @Column(name = "vacancy_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
@@ -22,11 +22,11 @@ public class Vacancy implements Serializable {
     private boolean opened;
 
     @OneToOne
-//    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @ManyToOne
-//    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id")
     private Company company;
 //
 //    private long companyId;
