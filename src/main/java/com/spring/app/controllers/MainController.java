@@ -10,6 +10,8 @@ import com.spring.app.repos.CountryRepository;
 import com.spring.app.repos.EmployeeRepository;
 import com.spring.app.repos.VacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +41,7 @@ public class MainController {
     private EmployeeRepository employeeRepository;
 
     @PostMapping("home/newDBinit")
-    public Country filter(Map<String, Object> model){
+    public ResponseEntity filter(Map<String, Object> model){
         Country country1 = Country.builder()
                 .countryLevel(CountryLevel.GOOD)
                 .name("rus")
@@ -59,19 +61,19 @@ public class MainController {
         countryRepository.save(country3);
 
         Company company1 = Company.builder()
-                .country(country1)
+//                .country(country1)
                 .name("NIC")
                 .build();
         companyRepository.save(company1);
 
         Company company2 = Company.builder()
-                .country(country2)
+//                .country(country2)
                 .name("Google")
                 .build();
         companyRepository.save(company2);
 
         Company company3 = Company.builder()
-                .country(country2)
+//                .country(country2)
                 .name("IBM")
                 .build();
         companyRepository.save(company3);
@@ -96,7 +98,7 @@ public class MainController {
         employeeRepository.save(employee2);
 
         Vacancy vacancy3 = Vacancy.builder()
-                .company(company1)
+//                .company(company1)
                 .dateClosed(date)
                 .dateOpened(date2)
                 .employee(employee1)
@@ -104,7 +106,7 @@ public class MainController {
                 .build();
         vacancyRepository.save(vacancy3);
         vacancy3 = Vacancy.builder()
-                .company(company2)
+//                .company(company2)
                 .dateClosed(date)
                 .dateOpened(date2)
                 .employee(employee2)
@@ -112,7 +114,7 @@ public class MainController {
                 .build();
         vacancyRepository.save(vacancy3);
         vacancy3 = Vacancy.builder()
-                .company(company1)
+//                .company(company1)
                 .dateClosed(date)
                 .dateOpened(date2)
                 .employee(employee1)
@@ -120,11 +122,13 @@ public class MainController {
                 .build();
         vacancyRepository.save(vacancy3);
 
-        return country1;
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("home/findAverageAgeByCountry")
-    public String filter(@RequestParam String country, Map<String, Object> model) {
+    public ResponseEntity<Integer> filter(@RequestParam String country, Map<String, Object> model) {
+
+        Integer age = 0;
 
         Employee employee = employeeRepository.findById(1).get(0);
         Country country1 = countryRepository.findByName("rus").get(0);
@@ -147,13 +151,11 @@ public class MainController {
 //            System.out.println(totalAge );
 //            System.out.println( count);
 //            System.out.println(totalAge / count);
-            model.put("age", 123345);
         } else {
 //            vacancies = vacancyRepository.findAll();
-            model.put("age", 12345);
         }
 
 
-        return "home";
+        return new ResponseEntity<>(age, HttpStatus.OK);
     }
 }
