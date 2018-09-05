@@ -20,7 +20,7 @@ public class Country {
     private String name;
     private CountryLevel countryLevel;
 
-    @OneToMany(mappedBy = "country", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "country", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Company> companies;
 
     public Country(String name, CountryLevel countryLevel) {

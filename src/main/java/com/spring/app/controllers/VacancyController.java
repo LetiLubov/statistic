@@ -54,7 +54,7 @@ public class VacancyController {
         return "vacancy";
     }
 
-    @PostMapping("vacancies/filter")
+    @GetMapping("vacancies/filter")
     public String filter(@RequestParam String filter, Map<String, Object> model) {
         Iterable<Vacancy> vacancies;
 

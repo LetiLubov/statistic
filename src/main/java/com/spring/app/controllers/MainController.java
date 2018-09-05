@@ -39,13 +39,13 @@ public class MainController {
     private EmployeeRepository employeeRepository;
 
     @PostMapping("home/newDBinit")
-    public String filter(Map<String, Object> model){
+    public Country filter(Map<String, Object> model){
         Country country1 = Country.builder()
                 .countryLevel(CountryLevel.GOOD)
                 .name("rus")
                 .build();
-        countryRepository.save(country1);
 
+        countryRepository.save(country1);
         Country country2 = Country.builder()
                 .countryLevel(CountryLevel.GOOD)
                 .name("usa")
@@ -120,7 +120,7 @@ public class MainController {
                 .build();
         vacancyRepository.save(vacancy3);
 
-        return "home";
+        return country1;
     }
 
     @GetMapping("home/findAverageAgeByCountry")
