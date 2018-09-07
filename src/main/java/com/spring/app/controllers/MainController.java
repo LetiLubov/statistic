@@ -47,48 +47,49 @@ public class MainController {
     @GetMapping("findAverageAgeByCountry")
     public ResponseEntity<Long> findAverageAgeByCountry(@RequestParam String country, Map<String, Object> model) {
 
-        EntityManager session = entityManagerFactory.createEntityManager();
-        try {
-            double age = (Double)session.createNativeQuery("SELECT AVG(Now() - employee.birthday) FROM country " +
-                    "INNER JOIN company ON country.country_id = company.country_id " +
-                    "INNER JOIN vacancy ON company.company_id = vacancy.company_id " +
-                    "INNER JOIN employee ON vacancy.employee_id = employee.employee_id " +
-                    "WHERE country.name = ?1 AND vacancy.opened = TRUE")
-                    .setParameter(1, country)
-                    .getSingleResult();
-
-            return new ResponseEntity<>(Math.round(age), HttpStatus.OK);
-        }
-        catch (NoResultException e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        finally {
-            if(session.isOpen()) session.close();
-        }
-
+//        EntityManager session = entityManagerFactory.createEntityManager();
+//        try {
+//            double age = (Double)session.createNativeQuery("SELECT AVG(Now() - employee.birthday) FROM country " +
+//                    "INNER JOIN company ON country.country_id = company.country_id " +
+//                    "INNER JOIN vacancy ON company.company_id = vacancy.company_id " +
+//                    "INNER JOIN employee ON vacancy.employee_id = employee.employee_id " +
+//                    "WHERE country.name = ?1 AND vacancy.opened = TRUE")
+//                    .setParameter(1, country)
+//                    .getSingleResult();
+//
+//            return new ResponseEntity<>(Math.round(age), HttpStatus.OK);
+//        }
+//        catch (NoResultException e){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//        finally {
+//            if(session.isOpen()) session.close();
+//        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("findAverageExperienceByCountry")
     public ResponseEntity<Double> findAverageExperienceByCountry(@RequestParam String country, Map<String, Object> model) {
 
-        EntityManager session = entityManagerFactory.createEntityManager();
-        try {
-            Object age = session.createNativeQuery("SELECT AVG(Now()- employee.first_work_day) FROM employee " +
-                    "INNER JOIN vacancy ON employee.employee_id = vacancy.employee_id " +
-                    "INNER JOIN company ON vacancy.company_id = company.company_id " +
-                    "INNER JOIN country ON company.country_id = country.country_id " +
-                    "WHERE country.name = ?1 AND vacancy.opened = TRUE")
-                    .setParameter(1, country)
-                    .getSingleResult();
-
-            return new ResponseEntity<>(123d, HttpStatus.OK);
-        }
-        catch (NoResultException e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        finally {
-            if(session.isOpen()) session.close();
-        }
+//        EntityManager session = entityManagerFactory.createEntityManager();
+//        try {
+//            Object age = session.createNativeQuery("SELECT AVG(Now()- employee.first_work_day) FROM employee " +
+//                    "INNER JOIN vacancy ON employee.employee_id = vacancy.employee_id " +
+//                    "INNER JOIN company ON vacancy.company_id = company.company_id " +
+//                    "INNER JOIN country ON company.country_id = country.country_id " +
+//                    "WHERE country.name = ?1 AND vacancy.opened = TRUE")
+//                    .setParameter(1, country)
+//                    .getSingleResult();
+//
+//            return new ResponseEntity<>(123d, HttpStatus.OK);
+//        }
+//        catch (NoResultException e){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//        finally {
+//            if(session.isOpen()) session.close();
+//        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
     }
     @GetMapping("findAverageNumberOfEmployeesByCountry")
