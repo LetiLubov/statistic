@@ -6,6 +6,11 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Country
+ * Has an enum field that contains a living level
+ * @author lyubov
+ */
 @Data
 @Entity
 @Builder

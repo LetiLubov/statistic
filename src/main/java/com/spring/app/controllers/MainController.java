@@ -12,9 +12,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.Map;
 
+/**
+ * MainController
+ *
+ * Contains implementation of basic queries
+ * @author lyubov
+ */
 @Controller
 public class MainController {
     @Autowired

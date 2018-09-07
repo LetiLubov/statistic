@@ -17,7 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Date;
 import java.util.Map;
 
-public class CreateDB {
+/**
+ * InitDBController
+ *
+ * @author lyubov
+ */
+public class InitDBController {
 
     @Autowired
     private VacancyRepository vacancyRepository;

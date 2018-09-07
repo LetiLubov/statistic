@@ -16,6 +16,11 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * EmployeeController
+ *
+ * @author lyubov
+ */
 @Controller
 public class EmployeeController {
     @Autowired

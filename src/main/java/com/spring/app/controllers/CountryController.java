@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
+/**
+ * CountryController
+ *
+ * @author lyubov
+ */
 @Controller
 public class CountryController {
     @Autowired
