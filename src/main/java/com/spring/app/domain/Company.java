@@ -6,6 +6,11 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Company
+ * Has a one-directional relation bound to country
+ * @author lyubov
+ */
 @Data
 @Entity
 @Builder

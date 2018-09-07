@@ -5,6 +5,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * Employee
+ * @author lyubov
+ */
 @Data
 @Entity
 @Builder

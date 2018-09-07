@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
+/**
+ * CompanyController
+ *
+ * @author lyubov
+ */
 @Controller
-public class CompanyContoller {
+public class CompanyController {
     @Autowired
     private CompanyRepository companyRepository;
 
