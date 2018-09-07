@@ -1,4 +1,4 @@
-# statistic
+# Statistic
 A service that displays information about developers in the world. 
 The main focus of the service to calculate data with statistics on the developers.
 ---
