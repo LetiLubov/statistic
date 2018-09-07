@@ -1,6 +1,6 @@
 package com.spring.app.controllers;
 
-import com.spring.app.CountryLevel;
+import com.spring.app.QualityOfLiveIndex;
 import com.spring.app.domain.Company;
 import com.spring.app.domain.Country;
 import com.spring.app.domain.Employee;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.Map;
@@ -22,6 +23,7 @@ import java.util.Map;
  *
  * @author lyubov
  */
+@RestController
 public class InitDBController {
 
     @Autowired
@@ -33,22 +35,22 @@ public class InitDBController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @PostMapping("newDBinit")
-    public ResponseEntity filter(Map<String, Object> model){
+    @PostMapping("initDB")
+    public ResponseEntity initDB(){
         Country country1 = Country.builder()
-                .countryLevel(CountryLevel.GOOD)
+                .qualityOfLiveIndex(QualityOfLiveIndex.GOOD)
                 .name("rus")
                 .build();
 
         countryRepository.save(country1);
         Country country2 = Country.builder()
-                .countryLevel(CountryLevel.GOOD)
+                .qualityOfLiveIndex(QualityOfLiveIndex.GOOD)
                 .name("usa")
                 .build();
         countryRepository.save(country2);
 
         Country country3 = Country.builder()
-                .countryLevel(CountryLevel.EXCELENT)
+                .qualityOfLiveIndex(QualityOfLiveIndex.EXCELLENT)
                 .name("uk")
                 .build();
         countryRepository.save(country3);

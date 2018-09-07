@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,22 +21,22 @@ import java.util.Map;
 
 /**
  * VacancyController
- *
+ * All activities with vacancies
  * @author lyubov
  */
-@Controller
+@RestController("vacancies")
 public class VacancyController {
     @Autowired
     private VacancyRepository vacancyRepository;
 
-    @GetMapping("vacancies")
-    public ResponseEntity<Iterable<Vacancy>> main(Map<String, Object> model) {
+    @GetMapping
+    public ResponseEntity<Iterable<Vacancy>> listAllVacancies() {
         Iterable<Vacancy> vacancies = vacancyRepository.findAll();
         return new ResponseEntity<>(vacancies, HttpStatus.OK);
     }
 
-    @PostMapping("vacancies")
-    public ResponseEntity<Vacancy> add(@RequestParam String name, @RequestParam String sSalary, @RequestParam String sDate, Map<String, Object> model) {
+    @PostMapping
+    public ResponseEntity<Vacancy> add(@RequestParam String name, @RequestParam String sSalary, @RequestParam String sDate) {
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
         Date date = new Date();
         try {
@@ -47,16 +48,5 @@ public class VacancyController {
         Vacancy vacancy = new Vacancy(name, salary, date);
             vacancyRepository.save(vacancy);
         return new ResponseEntity<>(vacancy, HttpStatus.OK);
-    }
-
-    @GetMapping("vacancies/filter")
-    public ResponseEntity<Iterable<Vacancy>> filter(@RequestParam String filter, Map<String, Object> model) {
-        Iterable<Vacancy> vacancies;
-        if (filter != null && !filter.isEmpty() ) {
-            vacancies = vacancyRepository.findByName(filter);
-        } else {
-            vacancies = vacancyRepository.findAll();
-        }
-        return new ResponseEntity<>(vacancies, HttpStatus.OK);
     }
 }

@@ -1,10 +1,9 @@
 package com.spring.app.domain;
 
-import com.spring.app.CountryLevel;
+import com.spring.app.QualityOfLiveIndex;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Country
@@ -24,7 +23,7 @@ public class Country {
     private long id;
     private String name;
     @Enumerated(EnumType.ORDINAL)
-    private CountryLevel countryLevel;
+    private QualityOfLiveIndex qualityOfLiveIndex;
 
 //    @OneToMany(mappedBy = "country", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 //    private Set<Company> companies;

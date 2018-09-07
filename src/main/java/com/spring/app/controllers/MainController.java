@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,13 +21,13 @@ import java.util.Map;
  * Contains implementation of basic queries
  * @author lyubov
  */
-@Controller
+@RestController
 public class MainController {
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
     @GetMapping("findAverageSalaryByCountry")
-    public ResponseEntity<Double> findAverageSalaryByCountry(@RequestParam String country, Map<String, Object> model) {
+    public ResponseEntity<Double> findAverageSalaryByCountry(@RequestParam String country) {
 
         EntityManager session = entityManagerFactory.createEntityManager();
         try {
@@ -39,18 +40,15 @@ public class MainController {
             return new ResponseEntity<>(age, HttpStatus.OK);
         }
         catch (NoResultException e){
-
-
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         finally {
             if(session.isOpen()) session.close();
         }
-
     }
 
     @GetMapping("findAverageAgeByCountry")
-    public ResponseEntity<Long> findAverageAgeByCountry(@RequestParam String country, Map<String, Object> model) {
+    public ResponseEntity<Long> findAverageAgeByCountry(@RequestParam String country) {
 
 //        EntityManager session = entityManagerFactory.createEntityManager();
 //        try {
@@ -74,7 +72,7 @@ public class MainController {
     }
 
     @GetMapping("findAverageExperienceByCountry")
-    public ResponseEntity<Double> findAverageExperienceByCountry(@RequestParam String country, Map<String, Object> model) {
+    public ResponseEntity<Double> findAverageExperienceByCountry(@RequestParam String country) {
 
 //        EntityManager session = entityManagerFactory.createEntityManager();
 //        try {
@@ -98,7 +96,7 @@ public class MainController {
 
     }
     @GetMapping("findAverageNumberOfEmployeesByCountry")
-    public ResponseEntity<BigInteger> findAverageNumberOfEmployeesByCountry(@RequestParam String country, Map<String, Object> model) {
+    public ResponseEntity<BigInteger> findAverageNumberOfEmployeesByCountry(@RequestParam String country) {
 
         EntityManager session = entityManagerFactory.createEntityManager();
         try {

@@ -1,5 +1,6 @@
 package com.spring.app.controllers;
 
+import com.spring.app.Constants;
 import com.spring.app.domain.Employee;
 import com.spring.app.repos.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -18,25 +20,24 @@ import java.util.Map;
 
 /**
  * EmployeeController
- *
+ * All activities with employees
  * @author lyubov
  */
-@Controller
+@RestController("employees")
 public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @GetMapping("employees")
-    public ResponseEntity<Iterable<Employee>> main(Map<String, Object> model) {
+    @GetMapping
+    public ResponseEntity<Iterable<Employee>> listAllEmployees() {
         Iterable<Employee> employees = employeeRepository.findAll();
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
-    @PostMapping("employees")
-    public ResponseEntity<Employee> add(@RequestParam String birthday, @RequestParam String firstWorkDay, Map<String, Object> model) {
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+    @PostMapping
+    public ResponseEntity<Employee> addEmployee(@RequestParam String birthday, @RequestParam String firstWorkDay) {
         try {
-            Employee employee = new Employee(df.parse(birthday), df.parse(firstWorkDay));
+            Employee employee = new Employee(Constants.dateFormat.parse(birthday), Constants.dateFormat.parse(firstWorkDay));
             employeeRepository.save(employee);
             return new ResponseEntity<>(employee, HttpStatus.OK);
         } catch (ParseException e) {
@@ -44,23 +45,5 @@ public class EmployeeController {
             //todo remove stack to log! and find what response should i return if smth goes wrong
             return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
         }
-    }
-
-    @GetMapping("employees/filter")
-    public ResponseEntity<Iterable<Employee>> filter(@RequestParam String filter, Map<String, Object> model) {
-        Iterable<Employee> employees;
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-        try {
-            if (filter != null && !filter.isEmpty()) {
-                employees = employeeRepository.findByBirthday((df.parse(filter)));
-            } else {
-                employees = employeeRepository.findAll();
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-            //todo remove stack to log! and find what response should i return if smth goes wrong
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 }

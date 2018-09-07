@@ -9,27 +9,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
 /**
  * CompanyController
- *
+ * All activities with companies
  * @author lyubov
  */
-@Controller
+@RestController("companies")
 public class CompanyController {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @GetMapping("companies")
-    public ResponseEntity<Iterable<Company>> main(Map<String, Object> model) {
+    @GetMapping
+    public ResponseEntity<Iterable<Company>> listAllCompanies() {
         Iterable<Company> companies = companyRepository.findAll();
         return new ResponseEntity<>(companies, HttpStatus.OK);
     }
 
-    @PostMapping("companies")
-    public ResponseEntity<Company> add(@RequestParam String name, Map<String, Object> model) {
+    @PostMapping
+    public ResponseEntity<Company> addCompany(@RequestParam String name) {
         Company company = new Company(name);
         companyRepository.save(company);
         return new ResponseEntity<>(company, HttpStatus.OK);
