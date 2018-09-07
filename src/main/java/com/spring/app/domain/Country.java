@@ -18,15 +18,12 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    @Enumerated(EnumType.ORDINAL)
     private CountryLevel countryLevel;
 
-    @OneToMany(mappedBy = "country", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Company> companies;
+//    @OneToMany(mappedBy = "country", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Set<Company> companies;
 
-    public Country(String name, CountryLevel countryLevel) {
-        this.name = name;
-        this.countryLevel = countryLevel;
-    }
     public Country(String name) {
         this.name = name;
     }

@@ -1,161 +1,120 @@
 package com.spring.app.controllers;
 
-import com.spring.app.CountryLevel;
-import com.spring.app.domain.Company;
-import com.spring.app.domain.Country;
-import com.spring.app.domain.Employee;
-import com.spring.app.domain.Vacancy;
-import com.spring.app.repos.CompanyRepository;
-import com.spring.app.repos.CountryRepository;
-import com.spring.app.repos.EmployeeRepository;
-import com.spring.app.repos.VacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Time;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Controller
 public class MainController {
-    @GetMapping
-    public String main(Map<String, Object> model) {
-
-        return "home";
-    }
-
     @Autowired
-    private VacancyRepository vacancyRepository;
-    @Autowired
-    private CompanyRepository companyRepository;
-    @Autowired
-    private CountryRepository countryRepository;
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private EntityManagerFactory entityManagerFactory;
 
-    @PostMapping("home/newDBinit")
-    public ResponseEntity filter(Map<String, Object> model){
-        Country country1 = Country.builder()
-                .countryLevel(CountryLevel.GOOD)
-                .name("rus")
-                .build();
+    @GetMapping("findAverageSalaryByCountry")
+    public ResponseEntity<Double> findAverageSalaryByCountry(@RequestParam String country, Map<String, Object> model) {
 
-        countryRepository.save(country1);
-        Country country2 = Country.builder()
-                .countryLevel(CountryLevel.GOOD)
-                .name("usa")
-                .build();
-        countryRepository.save(country2);
+        EntityManager session = entityManagerFactory.createEntityManager();
+        try {
+            double age = (Double)session.createNativeQuery("SELECT AVG(vacancy.salary) FROM country INNER JOIN company " +
+                    "ON country.country_id = company.country_id INNER JOIN vacancy ON company.company_id = vacancy.company_id " +
+                    "WHERE country.name = ?1 AND vacancy.opened = TRUE")
+                    .setParameter(1, country)
+                    .getSingleResult();
 
-        Country country3 = Country.builder()
-                .countryLevel(CountryLevel.EXCELENT)
-                .name("uk")
-                .build();
-        countryRepository.save(country3);
-
-        Company company1 = Company.builder()
-//                .country(country1)
-                .name("NIC")
-                .build();
-        companyRepository.save(company1);
-
-        Company company2 = Company.builder()
-//                .country(country2)
-                .name("Google")
-                .build();
-        companyRepository.save(company2);
-
-        Company company3 = Company.builder()
-//                .country(country2)
-                .name("IBM")
-                .build();
-        companyRepository.save(company3);
+            return new ResponseEntity<>(age, HttpStatus.OK);
+        }
+        catch (NoResultException e){
 
 
-
-        Date date = new Date();
-        date.setYear(1993);
-        Date date2 = new Date();
-        date.setYear(1995);
-
-        Employee employee1 = Employee.builder()
-                .birthday(date)
-                .firstWorkDay(date2)
-                .build();
-        employeeRepository.save(employee1);
-
-        Employee employee2 = Employee.builder()
-                .birthday(date)
-                .firstWorkDay(date2)
-                .build();
-        employeeRepository.save(employee2);
-
-        Vacancy vacancy3 = Vacancy.builder()
-//                .company(company1)
-                .dateClosed(date)
-                .dateOpened(date2)
-                .employee(employee1)
-                .name("dgfsg")
-                .build();
-        vacancyRepository.save(vacancy3);
-        vacancy3 = Vacancy.builder()
-//                .company(company2)
-                .dateClosed(date)
-                .dateOpened(date2)
-                .employee(employee2)
-                .name("sfgsfds")
-                .build();
-        vacancyRepository.save(vacancy3);
-        vacancy3 = Vacancy.builder()
-//                .company(company1)
-                .dateClosed(date)
-                .dateOpened(date2)
-                .employee(employee1)
-                .name("sfhhhds")
-                .build();
-        vacancyRepository.save(vacancy3);
-
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @GetMapping("home/findAverageAgeByCountry")
-    public ResponseEntity<Integer> filter(@RequestParam String country, Map<String, Object> model) {
-
-        Integer age = 0;
-
-        Employee employee = employeeRepository.findById(1).get(0);
-        Country country1 = countryRepository.findByName("rus").get(0);
-        Company company = companyRepository.findByCountry(country1).get(0);
-        Vacancy vacancy = vacancyRepository.findByCompany(company).get(0);
-
-        if (country != null && !country.isEmpty() ) {
-            Country countryModel =  countryRepository.findByName(country).get(0);
-            System.out.println();
-//            int totalAge = (int) countryModel.getCompanies().stream()
-//                    .flatMap(company -> company.getVacancy().stream())
-//                    .map(vacancy -> (int)(new Date().getTime() - vacancy.getEmployee().getBirthday().getTime())/ 1000/ 60/ 60/ 24/ 365)
-//                    .reduce(0, (x, y) -> x+y);
-//            int count = (int) countryModel.getCompanies().stream()
-//                    .flatMap(company -> company.getVacancy().stream())
-//                    .map(vacancy -> vacancy.getEmployee())
-//                    .count();
-
-//
-//            System.out.println(totalAge );
-//            System.out.println( count);
-//            System.out.println(totalAge / count);
-        } else {
-//            vacancies = vacancyRepository.findAll();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        finally {
+            if(session.isOpen()) session.close();
         }
 
+    }
 
-        return new ResponseEntity<>(age, HttpStatus.OK);
+    @GetMapping("findAverageAgeByCountry")
+    public ResponseEntity<Long> findAverageAgeByCountry(@RequestParam String country, Map<String, Object> model) {
+
+        EntityManager session = entityManagerFactory.createEntityManager();
+        try {
+            double age = (Double)session.createNativeQuery("SELECT AVG(Now() - employee.birthday) FROM country " +
+                    "INNER JOIN company ON country.country_id = company.country_id " +
+                    "INNER JOIN vacancy ON company.company_id = vacancy.company_id " +
+                    "INNER JOIN employee ON vacancy.employee_id = employee.employee_id " +
+                    "WHERE country.name = ?1 AND vacancy.opened = TRUE")
+                    .setParameter(1, country)
+                    .getSingleResult();
+
+            return new ResponseEntity<>(Math.round(age), HttpStatus.OK);
+        }
+        catch (NoResultException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        finally {
+            if(session.isOpen()) session.close();
+        }
+
+    }
+
+    @GetMapping("findAverageExperienceByCountry")
+    public ResponseEntity<Double> findAverageExperienceByCountry(@RequestParam String country, Map<String, Object> model) {
+
+        EntityManager session = entityManagerFactory.createEntityManager();
+        try {
+            Object age = session.createNativeQuery("SELECT AVG(Now()- employee.first_work_day) FROM employee " +
+                    "INNER JOIN vacancy ON employee.employee_id = vacancy.employee_id " +
+                    "INNER JOIN company ON vacancy.company_id = company.company_id " +
+                    "INNER JOIN country ON company.country_id = country.country_id " +
+                    "WHERE country.name = ?1 AND vacancy.opened = TRUE")
+                    .setParameter(1, country)
+                    .getSingleResult();
+
+            return new ResponseEntity<>(123d, HttpStatus.OK);
+        }
+        catch (NoResultException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        finally {
+            if(session.isOpen()) session.close();
+        }
+
+    }
+    @GetMapping("findAverageNumberOfEmployeesByCountry")
+    public ResponseEntity<BigInteger> findAverageNumberOfEmployeesByCountry(@RequestParam String country, Map<String, Object> model) {
+
+        EntityManager session = entityManagerFactory.createEntityManager();
+        try {
+            BigDecimal age = (BigDecimal)session.createNativeQuery("SELECT AVG (count_table.number_of_emp) " +
+                    "FROM( " +
+                         "SELECT COUNT(vacancy.vacancy_id) as number_of_emp, company.name " +
+                         "FROM company JOIN country ON company.country_id = country.country_id " +
+                         "             JOIN vacancy ON vacancy.company_id = company.company_id " +
+                         "WHERE country.name = ?1 AND vacancy.opened = TRUE\n" +
+                         "GROUP BY company.name) AS count_table")
+                    .setParameter(1, country)
+                    .getSingleResult();
+
+            return new ResponseEntity<>(age.toBigInteger(), HttpStatus.OK);
+        }
+        catch (NoResultException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        finally {
+            if(session.isOpen()) session.close();
+
+        }
+
     }
 }

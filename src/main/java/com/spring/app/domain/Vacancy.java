@@ -25,7 +25,7 @@ public class Vacancy implements Serializable {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 //

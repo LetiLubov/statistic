@@ -10,6 +10,5 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
     List<Employee> findByBirthday(Date birthday);
 
-    List<Employee> findById(long id);
 
 }

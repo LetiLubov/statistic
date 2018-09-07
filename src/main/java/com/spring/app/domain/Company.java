@@ -23,8 +23,8 @@ public class Company {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @OneToMany(mappedBy = "company", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Vacancy> vacancy;
+//    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+//    private Set<Vacancy> vacancy;
 
     public Company(String name) {
         this.name = name;
