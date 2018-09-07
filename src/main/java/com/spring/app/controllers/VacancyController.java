@@ -4,6 +4,8 @@ import com.spring.app.domain.Employee;
 import com.spring.app.domain.Vacancy;
 import com.spring.app.repos.VacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,22 +18,24 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * VacancyController
+ *
+ * @author lyubov
+ */
 @Controller
 public class VacancyController {
     @Autowired
     private VacancyRepository vacancyRepository;
 
     @GetMapping("vacancies")
-    public String main(Map<String, Object> model) {
-        Iterable<Vacancy> messages = vacancyRepository.findAll();
-
-        model.put("vacancies", messages);
-
-        return "vacancy";
+    public ResponseEntity<Iterable<Vacancy>> main(Map<String, Object> model) {
+        Iterable<Vacancy> vacancies = vacancyRepository.findAll();
+        return new ResponseEntity<>(vacancies, HttpStatus.OK);
     }
 
     @PostMapping("vacancies")
-    public String add(@RequestParam String name, @RequestParam String sSalary, @RequestParam String sDate, Map<String, Object> model) {
+    public ResponseEntity<Vacancy> add(@RequestParam String name, @RequestParam String sSalary, @RequestParam String sDate, Map<String, Object> model) {
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
         Date date = new Date();
         try {
@@ -39,33 +43,20 @@ public class VacancyController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         float salary = Float.parseFloat(sSalary);
-
-
         Vacancy vacancy = new Vacancy(name, salary, date);
             vacancyRepository.save(vacancy);
-
-
-        Iterable<Vacancy> vacancies = vacancyRepository.findAll();
-
-        model.put("vacancies", vacancies);
-
-        return "vacancy";
+        return new ResponseEntity<>(vacancy, HttpStatus.OK);
     }
 
-    @PostMapping("vacancies/filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model) {
+    @GetMapping("vacancies/filter")
+    public ResponseEntity<Iterable<Vacancy>> filter(@RequestParam String filter, Map<String, Object> model) {
         Iterable<Vacancy> vacancies;
-
         if (filter != null && !filter.isEmpty() ) {
             vacancies = vacancyRepository.findByName(filter);
         } else {
             vacancies = vacancyRepository.findAll();
         }
-
-        model.put("vacancies", vacancies);
-
-        return "vacancy";
+        return new ResponseEntity<>(vacancies, HttpStatus.OK);
     }
 }

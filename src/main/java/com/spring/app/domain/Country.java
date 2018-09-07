@@ -6,27 +6,29 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Country
+ * Has an enum field that contains a living level
+ * @author lyubov
+ */
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode(exclude = "country_id")
 public class Country {
     @Id
-    @Column(name = "id")
+    @Column(name = "country_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    @Enumerated(EnumType.ORDINAL)
     private CountryLevel countryLevel;
 
-    @OneToMany
-    private Set<Company> companies;
+//    @OneToMany(mappedBy = "country", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Set<Company> companies;
 
-    public Country(String name, CountryLevel countryLevel) {
-        this.name = name;
-        this.countryLevel = countryLevel;
-    }
     public Country(String name) {
         this.name = name;
     }

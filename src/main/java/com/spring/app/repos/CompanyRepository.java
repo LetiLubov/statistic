@@ -6,10 +6,15 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+/**
+ * CompanyRepository
+ * The most common CRUD-requests
+ * @author lyubov
+ */
 public interface CompanyRepository extends CrudRepository<Company, Long> {
 
     List<Company> findByName(String name);
-    List<Company> findByCountryId(long countryId);
+    List<Company> findByCountry(Country country);
     List<Company> findAll();
 
 }

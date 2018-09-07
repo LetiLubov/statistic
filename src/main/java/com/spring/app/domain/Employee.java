@@ -5,15 +5,19 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * Employee
+ * @author lyubov
+ */
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode(exclude = "employee_id")
 public class Employee {
     @Id
-    @Column(name = "id")
+    @Column(name = "employee_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private Date birthday;

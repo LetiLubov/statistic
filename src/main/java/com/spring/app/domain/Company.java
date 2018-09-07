@@ -6,26 +6,30 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Company
+ * Has a one-directional relation bound to country
+ * @author lyubov
+ */
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode(exclude = "company_id")
 public class Company {
     @Id
-    @Column(name = "id")
+    @Column(name = "company_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
 
     @ManyToOne
-//    @JoinColumn(name = "country_id")
+    @JoinColumn(name = "country_id")
     private Country country;
 
-    @OneToMany
-//    @JoinColumn(name = "vacancy_id")
-    private Set<Vacancy> vacancy;
+//    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+//    private Set<Vacancy> vacancy;
 
     public Company(String name) {
         this.name = name;
