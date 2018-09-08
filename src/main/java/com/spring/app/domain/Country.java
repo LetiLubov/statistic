@@ -8,25 +8,19 @@ import javax.persistence.*;
 /**
  * Country
  * Has an enum field that contains a living level
- * @author lyubov
+ * @author Lyubov Ruzanova
  */
-@Data
 @Entity
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(exclude = "country_id")
-public class Country {
-    @Id
-    @Column(name = "country_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String name;
-    @Enumerated(EnumType.ORDINAL)
-    private QualityOfLiveIndex qualityOfLiveIndex;
+@EqualsAndHashCode(exclude = "COUNTRY_ID")
+public class Country extends BaseEntity {
 
-//    @OneToMany(mappedBy = "country", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Set<Company> companies;
+    @Column(name = "COUNTRY_NAME")
+    private String name;
+
+    @Column(name = "LIVE_INDEX")
+    @Enumerated(EnumType.STRING)
+    private QualityOfLiveIndex qualityOfLiveIndex;
 
     public Country(String name) {
         this.name = name;

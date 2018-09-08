@@ -16,21 +16,21 @@ import java.util.Date;
  * the second: employee was found, so flag is still true, and we had dateOpened, dateClosed == null
  * the last one: the closed vacancy, flag is turned to false and we have two dates dateOpened and dateClosed, that not null
  *
- * @author lyubov
+ * @author Lyubov Ruzanova
  */
-@Data
+
 @Entity
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(exclude = "vacancy_id")
-public class Vacancy implements Serializable {
-    @Id
-    @Column(name = "vacancy_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@EqualsAndHashCode(exclude = "VACANCY_ID")
+public class Vacancy extends BaseEntity {
+
+    @Column(name = "VACANCY_NAME")
     private String name;
+
+    @Column(name = "SALARY")
     private float salary;
+
+    @Column(name = "OPENED")
     private boolean opened;
 
     @OneToOne
@@ -40,10 +40,11 @@ public class Vacancy implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
-//
-//    private long companyId;
 
+    @Column(name = "DATE_OPENED")
     private Date dateOpened;
+
+    @Column(name = "DATE_CLOSED")
     private Date dateClosed;
 
     public Vacancy(String name, float salary, Date dateOpened) {

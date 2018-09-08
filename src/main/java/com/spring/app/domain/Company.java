@@ -9,30 +9,21 @@ import java.util.Set;
 /**
  * Company
  * Has a one-directional relation bound to country
- * @author lyubov
+ * @author Lyubov Ruzanova
  */
-@Data
 @Entity
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(exclude = "company_id")
-public class Company {
-    @Id
-    @Column(name = "company_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@EqualsAndHashCode(exclude = "COMPANY_ID")
+public class Company extends BaseEntity {
+
+    @Column(name = "COUNTRY_NAME")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "country_id")
+    @JoinColumn(name = "COUNTRY_ID")
     private Country country;
-
-//    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-//    private Set<Vacancy> vacancy;
 
     public Company(String name) {
         this.name = name;
     }
-
 }

@@ -7,20 +7,16 @@ import java.util.Date;
 
 /**
  * Employee
- * @author lyubov
+ * @author Lyubov Ruzanova
  */
-@Data
 @Entity
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(exclude = "employee_id")
-public class Employee {
-    @Id
-    @Column(name = "employee_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@EqualsAndHashCode(exclude = "EMPLOYEE_ID")
+public class Employee extends BaseEntity{
+
+    @Column(name = "BIRTHDAY")
     private Date birthday;
+    @Column(name = "FIRST_WORK_DAY")
     private Date firstWorkDay;
 
     public Employee(Date birthday, Date firstWorkDay) {
