@@ -1,6 +1,6 @@
 package com.spring.app.domain;
 
-import com.spring.app.QualityOfLiveIndex;
+import com.spring.app.EconomyLevel;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,7 +30,7 @@ public class Country extends BaseEntity {
 
     @Column(name = "LIVE_INDEX")
     @Enumerated(EnumType.STRING)
-    private QualityOfLiveIndex qualityOfLiveIndex;
+    private EconomyLevel economyLevel;
 }
 
 

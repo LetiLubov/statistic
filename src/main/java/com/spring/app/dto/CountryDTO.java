@@ -1,8 +1,7 @@
 package com.spring.app.dto;
 
-import com.spring.app.QualityOfLiveIndex;
+import com.spring.app.EconomyLevel;
 import com.spring.app.domain.Country;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,11 +16,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CountryDTO implements IWrapper<Country, CountryDTO> {
     private String name;
-    private QualityOfLiveIndex qualityOfLiveIndex;
+    private EconomyLevel economyLevel;
 
     private CountryDTO(Country country){
         this.name = country.getName();
-        this.qualityOfLiveIndex = country.getQualityOfLiveIndex();
+        this.economyLevel = country.getEconomyLevel();
     }
 
     @Override
@@ -33,7 +32,7 @@ public class CountryDTO implements IWrapper<Country, CountryDTO> {
     public Country toEntity() {
         Country country = new Country();
         country.setName(this.name);
-        country.setQualityOfLiveIndex(this.qualityOfLiveIndex);
+        country.setEconomyLevel(this.economyLevel);
         return country;
     }
 }

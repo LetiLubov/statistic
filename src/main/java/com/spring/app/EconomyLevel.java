@@ -1,12 +1,12 @@
 package com.spring.app;
 
 /**
- * QualityOfLiveIndex
+ * EconomyLevel
  * Contains a country's live level that reflects opportunities for a healthy, safe and prosperous life
  * that country provides in the years ahead
  * @author lyubov
  */
-public enum QualityOfLiveIndex {
+public enum EconomyLevel {
     EXCELLENT,
     PERFECT,
     GOOD,
