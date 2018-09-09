@@ -1,38 +1,45 @@
 package com.spring.app.controllers;
 
 import com.spring.app.domain.Country;
-import com.spring.app.repos.CountryRepository;
+import com.spring.app.dto.CountryDTO;
+import com.spring.app.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * CountryController
  * All activities with countries
  * @author lyubov
  */
-@RestController("countries")
+@RestController
+@RequestMapping("/countries")
 public class CountryController {
     @Autowired
-    private CountryRepository countryRepository;
+    private CountryService service;
 
     @GetMapping
-    public ResponseEntity<Iterable<Country>> listAllCountries() {
-        Iterable<Country> countries = countryRepository.findAll();
-        return new ResponseEntity<>(countries, HttpStatus.OK);
+    public ResponseEntity<List<CountryDTO>> listAllCountries() {
+        return new ResponseEntity<>(service.getAllCountries(), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Country> addCountry(@RequestParam String name) {
-        Country country = new Country(name);
-        countryRepository.save(country);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Country> addCountry(@RequestBody CountryDTO dto) {
+        Country country = dto.toEntity();
+        service.saveCountry(country);
         return new ResponseEntity<>(country, HttpStatus.OK);
     }
+
+//    @PostMapping
+//    public ResponseEntity<Country> addCountry(@RequestParam String dto) {
+//        Country country = new Country();
+//        service.saveCountry(country);
+//        return new ResponseEntity<>(country, HttpStatus.OK);
+//    }
+
 
 }

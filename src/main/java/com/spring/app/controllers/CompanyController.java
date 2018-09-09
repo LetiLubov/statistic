@@ -1,38 +1,37 @@
 package com.spring.app.controllers;
 
 import com.spring.app.domain.Company;
-import com.spring.app.repos.CompanyRepository;
+import com.spring.app.dto.CompanyDTO;
+import com.spring.app.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * CompanyController
  * All activities with companies
+ *
  * @author lyubov
  */
-@RestController("companies")
+@RestController
+@RequestMapping("/companies")
 public class CompanyController {
     @Autowired
-    private CompanyRepository companyRepository;
+    private CompanyService service;
 
     @GetMapping
-    public ResponseEntity<Iterable<Company>> listAllCompanies() {
-        Iterable<Company> companies = companyRepository.findAll();
-        return new ResponseEntity<>(companies, HttpStatus.OK);
+    public ResponseEntity<List<CompanyDTO>> listAllCompanies() {
+        return new ResponseEntity<>(service.getAllCompanies(), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Company> addCompany(@RequestParam String name) {
-        Company company = new Company(name);
-        companyRepository.save(company);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Company> addCompany(@RequestBody CompanyDTO dto) {
+        Company company = dto.toEntity();
+        service.saveCompany(company);
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 

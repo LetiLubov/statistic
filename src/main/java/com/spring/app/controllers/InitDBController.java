@@ -5,10 +5,10 @@ import com.spring.app.domain.Company;
 import com.spring.app.domain.Country;
 import com.spring.app.domain.Employee;
 import com.spring.app.domain.Vacancy;
-import com.spring.app.repos.CompanyRepository;
-import com.spring.app.repos.CountryRepository;
-import com.spring.app.repos.EmployeeRepository;
-import com.spring.app.repos.VacancyRepository;
+import com.spring.app.services.CompanyService;
+import com.spring.app.services.CountryService;
+import com.spring.app.services.EmployeeService;
+import com.spring.app.services.VacancyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
-import java.util.Map;
 
 /**
  * InitDBController
@@ -27,95 +26,91 @@ import java.util.Map;
 public class InitDBController {
 
     @Autowired
-    private VacancyRepository vacancyRepository;
+    private VacancyService vacancyService;
     @Autowired
-    private CompanyRepository companyRepository;
+    private CompanyService companyService;
     @Autowired
-    private CountryRepository countryRepository;
+    private CountryService countryService;
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
     @PostMapping("initDB")
     public ResponseEntity initDB(){
-        Country country1 = Country.builder()
-                .qualityOfLiveIndex(QualityOfLiveIndex.GOOD)
-                .name("rus")
-                .build();
+        Country country1 = new Country();
+        country1.setQualityOfLiveIndex(QualityOfLiveIndex.GOOD);
+        country1.setName("rus");
+        countryService.saveCountry(country1);
 
-        countryRepository.save(country1);
-        Country country2 = Country.builder()
-                .qualityOfLiveIndex(QualityOfLiveIndex.GOOD)
-                .name("usa")
-                .build();
-        countryRepository.save(country2);
+        Country country2 = new Country();
+        country2.setQualityOfLiveIndex(QualityOfLiveIndex.GOOD);
+        country2.setName("usa");
+        countryService.saveCountry(country2);
 
-        Country country3 = Country.builder()
-                .qualityOfLiveIndex(QualityOfLiveIndex.EXCELLENT)
-                .name("uk")
-                .build();
-        countryRepository.save(country3);
+        Country country3 = new Country();
+        country3.setQualityOfLiveIndex(QualityOfLiveIndex.EXCELLENT);
+        country3.setName("uk");
+        countryService.saveCountry(country3);
 
-        Company company1 = Company.builder()
-                .country(country1)
-                .name("NIC")
-                .build();
-        companyRepository.save(company1);
+        Company company1 = new Company();
+        company1.setCountry(country1);
+        company1.setName("NIC");
+        companyService.saveCompany(company1);
 
-        Company company2 = Company.builder()
-                .country(country2)
-                .name("Google")
-                .build();
-        companyRepository.save(company2);
+        Company company2 = new Company();
+        company2.setCountry(country2);
+        company2.setName("Google");
+        companyService.saveCompany(company2);
 
-        Company company3 = Company.builder()
-                .country(country2)
-                .name("IBM")
-                .build();
-        companyRepository.save(company3);
-
-
+        Company company3 = new Company();
+        company3.setCountry(country1);
+        company3.setName("Telegram");
+        companyService.saveCompany(company3);
 
         Date date = new Date();
         date.setYear(1993);
         Date date2 = new Date();
         date.setYear(1995);
 
-        Employee employee1 = Employee.builder()
-                .birthday(date)
-                .firstWorkDay(date2)
-                .build();
-        employeeRepository.save(employee1);
+        Employee employee1 = new Employee(date, date2);
+        employeeService.saveEmployee(employee1);
 
-        Employee employee2 = Employee.builder()
-                .birthday(date)
-                .firstWorkDay(date2)
-                .build();
-        employeeRepository.save(employee2);
+        date2.setYear(1994);
+        Employee employee2 = new Employee(date, date2);
+        employeeService.saveEmployee(employee2);
 
-        Vacancy vacancy3 = Vacancy.builder()
-                .company(company1)
-                .dateClosed(date)
-                .dateOpened(date2)
-                .employee(employee1)
-                .name("dgfsg")
-                .build();
-        vacancyRepository.save(vacancy3);
-        vacancy3 = Vacancy.builder()
-                .company(company2)
-                .dateClosed(date)
-                .dateOpened(date2)
-                .employee(employee2)
-                .name("sfgsfds")
-                .build();
-        vacancyRepository.save(vacancy3);
-        vacancy3 = Vacancy.builder()
-                .company(company1)
-                .dateClosed(date)
-                .dateOpened(date2)
-                .employee(employee1)
-                .name("sfhhhds")
-                .build();
-        vacancyRepository.save(vacancy3);
+        Vacancy vacancy3 = new Vacancy();
+        vacancy3.setDateClosed(date);
+        vacancy3.setDateOpened(date);
+        vacancy3.setCompany(company1);
+        vacancy3.setEmployee(employee1);
+        vacancy3.setOpened(false);
+        vacancy3.setSalary(1500);
+        vacancy3.setName("vac1");
+        vacancyService.saveVacancy(vacancy3);
+
+        date.setYear(2012);
+        date.setYear(2014);
+        vacancy3 = new Vacancy();
+        vacancy3.setDateClosed(date);
+        vacancy3.setDateOpened(date2);
+        vacancy3.setCompany(company1);
+        vacancy3.setEmployee(employee2);
+        vacancy3.setOpened(false);
+        vacancy3.setSalary(1000);
+        vacancy3.setName("vac2");
+        vacancyService.saveVacancy(vacancy3);
+
+        date.setYear(2011);
+        date.setYear(2014);
+        vacancy3 = new Vacancy();
+        vacancy3.setDateClosed(date);
+        vacancy3.setDateOpened(date2);
+        vacancy3.setCompany(company1);
+        vacancy3.setEmployee(employee1);
+        vacancy3.setOpened(false);
+        vacancy3.setSalary(1000);
+        vacancy3.setName("vac3");
+        vacancyService.saveVacancy(vacancy3);
 
         return new ResponseEntity(HttpStatus.OK);
     }
