@@ -27,13 +27,13 @@ public class CountryController {
 
     @GetMapping
     public ResponseEntity<List<CountryDTO>> getList() {
-        return new ResponseEntity<>(service.getAllCountries(), HttpStatus.OK);
+        return new ResponseEntity<>(service.getList(), HttpStatus.OK);
     }
 
     @PostMapping (consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Country> add(@RequestBody CountryDTO dto) {
         Country country = dto.toEntity();
-        service.saveCountry(country);
+        service.save(country);
         return new ResponseEntity<>(country, HttpStatus.OK);
     }
 }

@@ -46,43 +46,43 @@ public class InitDBController {
         Country country1 = new Country();
         country1.setEconomyLevel(EconomyLevel.GOOD);
         country1.setName("rus");
-        countryService.saveCountry(country1);
+        countryService.save(country1);
 
         Country country2 = new Country();
         country2.setEconomyLevel(EconomyLevel.GOOD);
         country2.setName("usa");
-        countryService.saveCountry(country2);
+        countryService.save(country2);
 
         Country country3 = new Country();
         country3.setEconomyLevel(EconomyLevel.EXCELLENT);
         country3.setName("uk");
-        countryService.saveCountry(country3);
+        countryService.save(country3);
 
         Company company1 = new Company();
         company1.setCountry(country1);
         company1.setName("NIC");
-        companyService.saveCompany(company1);
+        companyService.save(company1);
 
         Company company2 = new Company();
         company2.setCountry(country2);
         company2.setName("Google");
-        companyService.saveCompany(company2);
+        companyService.save(company2);
 
         Company company3 = new Company();
         company3.setCountry(country1);
         company3.setName("Telegram");
-        companyService.saveCompany(company3);
+        companyService.save(company3);
 
         Date date = new Date();
         date.setYear(1993);
         Date date2 = new Date();
         date.setYear(1995);
 
-        Employee employee1 = new Employee(date, date2);
+        Employee employee1 = new Employee(1976, 1999);
         employeeService.save(employee1);
 
         date2.setYear(1994);
-        Employee employee2 = new Employee(date, date2);
+        Employee employee2 = new Employee(1985, 2000);
         employeeService.save(employee2);
 
         Vacancy vacancy3 = new Vacancy();

@@ -11,8 +11,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class VacancyService {
-    @Autowired
+
     private VacancyDAO repository;
+
+    public VacancyService(@Autowired VacancyDAO repository) {
+        this.repository = repository;
+    }
 
     public List<VacancyDTO> getList(){
         return repository.findAll()

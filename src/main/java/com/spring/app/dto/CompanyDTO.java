@@ -25,11 +25,14 @@ public class CompanyDTO implements IWrapper<Company, CompanyDTO> {
 
     @Override
     public CompanyDTO fromEntity(Company entity) {
-        return null;
+        return new CompanyDTO(entity);
     }
 
     @Override
     public Company toEntity() {
-        return null;
+        Company company = new Company();
+        company.setName(this.name);
+        company.setCountry(this.country);
+        return company;
     }
 }

@@ -12,10 +12,13 @@ import java.util.stream.Collectors;
 @Service
 public class CountryService {
 
-    @Autowired
     private CountryDAO repository;
 
-    public List<CountryDTO> getAllCountries(){
+    public CountryService(@Autowired CountryDAO repository) {
+        this.repository = repository;
+    }
+
+    public List<CountryDTO> getList(){
         return repository
                 .findAll()
                 .stream()
@@ -23,7 +26,7 @@ public class CountryService {
                 .collect(Collectors.toList());
     }
 
-    public void saveCountry(Country country){
+    public void save(Country country){
         repository.create(country);
     }
 }

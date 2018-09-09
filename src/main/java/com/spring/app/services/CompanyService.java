@@ -11,17 +11,20 @@ import java.util.stream.Collectors;
 
 @Service
 public class CompanyService {
-    @Autowired
     private CompanyDAO repository;
 
-    public List<CompanyDTO> getAllCompanies(){
+    public CompanyService(@Autowired CompanyDAO repository) {
+        this.repository = repository;
+    }
+
+    public List<CompanyDTO> getList(){
         return repository.findAll()
                         .stream()
                         .map(c -> new CompanyDTO().fromEntity(c))
                         .collect(Collectors.toList());
     }
 
-    public void saveCompany(Company company){
+    public void save(Company company){
         repository.create(company);
     }
 }

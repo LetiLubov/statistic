@@ -3,7 +3,6 @@ package com.spring.app.controllers;
 import com.spring.app.domain.Company;
 import com.spring.app.dto.CompanyDTO;
 import com.spring.app.services.CompanyService;
-import com.spring.app.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,15 +27,16 @@ public class CompanyController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CompanyDTO>> getList() {
-        return new ResponseEntity<>(service.getAllCompanies(), HttpStatus.OK);
+        System.out.println(service.getList());
+        return new ResponseEntity<>(service.getList(), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Company> add(@RequestBody CompanyDTO dto) {
         Company company = dto.toEntity();
-        service.saveCompany(company);
+        service.save(company);
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 

@@ -11,8 +11,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
-    @Autowired
+
     private EmployeeDAO repository;
+
+    public EmployeeService(@Autowired EmployeeDAO repository) {
+        this.repository = repository;
+    }
 
     public List<EmployeeDTO> getList(){
         return repository
