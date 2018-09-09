@@ -19,28 +19,19 @@ import java.util.Date;
  * @author Lyubov Ruzanova
  */
 
-@NamedNativeQueries({
-        @NamedNativeQuery(name = "ALL_VACANCIES", query = "SELECT * FROM country")
-})
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "VACANCY_ID")
+@EqualsAndHashCode(callSuper = false)
 public class Vacancy extends BaseEntity {
 
-    public static String ALL_VACANCIES = "ALL_VACANCIES";
-
-    @Getter
-    @Setter
     @Column(name = "VACANCY_NAME")
     private String name;
 
-    @Getter
-    @Setter
     @Column(name = "SALARY")
     private float salary;
 
-    @Getter
-    @Setter
     @Column(name = "OPENED")
     private boolean opened;
 
@@ -57,42 +48,4 @@ public class Vacancy extends BaseEntity {
 
     @Column(name = "DATE_CLOSED")
     private Date dateClosed;
-
-    public Vacancy(String name, float salary, Date dateOpened) {
-        this.name = name;
-        this.salary = salary;
-        this.dateOpened = dateOpened;
-    }
-
-    public Employee getEmployee() {
-        return new Employee(this.employee);
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = new Employee(employee);
-    }
-
-    public Company getCompany() {
-        return new Company(this.company);
-    }
-
-    public void setCompany(Company company) {
-        this.company = new Company(company);
-    }
-
-    public Date getDateOpened() {
-        return (Date) dateOpened.clone();
-    }
-
-    public void setDateOpened(Date dateOpened) {
-        this.dateOpened = (Date) dateOpened.clone();
-    }
-
-    public Date getDateClosed() {
-        return (Date) dateClosed.clone();
-    }
-
-    public void setDateClosed(Date dateClosed) {
-        this.dateClosed = (Date) dateClosed.clone();
-    }
 }
