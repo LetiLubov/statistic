@@ -43,9 +43,11 @@ public class Vacancy extends BaseEntity {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE_OPENED")
     private Date dateOpened;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE_CLOSED")
     private Date dateClosed;
 }
