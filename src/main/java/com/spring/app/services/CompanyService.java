@@ -15,7 +15,7 @@ public class CompanyService {
     private CompanyDAO repository;
 
     public List<CompanyDTO> getAllCompanies(){
-        return repository.getAllCompanies()
+        return repository.findAll()
                         .stream()
                         .map(c -> new CompanyDTO().fromEntity(c))
                         .collect(Collectors.toList());

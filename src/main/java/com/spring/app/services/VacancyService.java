@@ -15,7 +15,7 @@ public class VacancyService {
     private VacancyDAO repository;
 
     public List<VacancyDTO> getAllVacancy(){
-        return repository.getAllVacancies()
+        return repository.findAll()
                             .stream()
                             .map(v -> new VacancyDTO().fromEntity(v))
                             .collect(Collectors.toList());
