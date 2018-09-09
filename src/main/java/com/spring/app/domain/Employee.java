@@ -22,8 +22,8 @@ import java.util.Date;
 @EqualsAndHashCode(exclude = "EMPLOYEE_ID")
 public class Employee extends BaseEntity{
 
-    @Column(name = "BIRTHDAY")
-    private Date birthday;
-    @Column(name = "FIRST_WORK_DAY")
-    private Date firstWorkDay;
+    @Column(name = "BIRTHDAY_YEAR")
+    private int birthdayYear;
+    @Column(name = "YEAR_OF_FIRST_WORK_DAY")
+    private int yearOfFirstWorkDay;
 }

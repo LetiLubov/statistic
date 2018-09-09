@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 /**
  * EmployeeDTO
  * Data layer for storage info about employee
@@ -16,12 +14,12 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class EmployeeDTO implements IWrapper<Employee, EmployeeDTO>{
-    private Date birthday;
-    private Date firstWorkDay;
+    private int birthdayYear;
+    private int YearOfFirstWorkDay;
 
     private EmployeeDTO(Employee employee){
-        this.birthday = employee.getBirthday();
-        this.firstWorkDay = employee.getFirstWorkDay();
+        this.birthdayYear = employee.getBirthdayYear();
+        this.YearOfFirstWorkDay = employee.getYearOfFirstWorkDay();
     }
 
     @Override
@@ -32,8 +30,8 @@ public class EmployeeDTO implements IWrapper<Employee, EmployeeDTO>{
     @Override
     public Employee toEntity() {
         Employee employee = new Employee();
-        employee.setBirthday(this.birthday);
-        employee.setFirstWorkDay(this.firstWorkDay);
+        employee.setBirthdayYear(this.birthdayYear);
+        employee.setYearOfFirstWorkDay(this.YearOfFirstWorkDay);
         return employee;
     }
 }

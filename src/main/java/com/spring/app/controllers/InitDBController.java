@@ -1,6 +1,6 @@
 package com.spring.app.controllers;
 
-import com.spring.app.QualityOfLiveIndex;
+import com.spring.app.EconomyLevel;
 import com.spring.app.domain.Company;
 import com.spring.app.domain.Country;
 import com.spring.app.domain.Employee;
@@ -25,29 +25,36 @@ import java.util.Date;
 @RestController
 public class InitDBController {
 
-    @Autowired
     private VacancyService vacancyService;
-    @Autowired
     private CompanyService companyService;
-    @Autowired
     private CountryService countryService;
-    @Autowired
     private EmployeeService employeeService;
+
+    //todo: Have i need to write annotations on each field?
+    public InitDBController(@Autowired VacancyService vacancyService,
+                            @Autowired CompanyService companyService,
+                            @Autowired CountryService countryService,
+                            @Autowired EmployeeService employeeService) {
+        this.vacancyService = vacancyService;
+        this.companyService = companyService;
+        this.countryService = countryService;
+        this.employeeService = employeeService;
+    }
 
     @PostMapping("initDB")
     public ResponseEntity initDB(){
         Country country1 = new Country();
-        country1.setQualityOfLiveIndex(QualityOfLiveIndex.GOOD);
+        country1.setEconomyLevel(EconomyLevel.GOOD);
         country1.setName("rus");
         countryService.saveCountry(country1);
 
         Country country2 = new Country();
-        country2.setQualityOfLiveIndex(QualityOfLiveIndex.GOOD);
+        country2.setEconomyLevel(EconomyLevel.GOOD);
         country2.setName("usa");
         countryService.saveCountry(country2);
 
         Country country3 = new Country();
-        country3.setQualityOfLiveIndex(QualityOfLiveIndex.EXCELLENT);
+        country3.setEconomyLevel(EconomyLevel.EXCELLENT);
         country3.setName("uk");
         countryService.saveCountry(country3);
 

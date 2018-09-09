@@ -52,7 +52,7 @@ public class MainController {
 
 //        EntityManager session = entityManagerFactory.createEntityManager();
 //        try {
-//            double age = (Double)session.createNativeQuery("SELECT AVG(Now() - employee.birthday) FROM country " +
+//            double age = (Double)session.createNativeQuery("SELECT AVG(Now() - employee.birthdayYear) FROM country " +
 //                    "INNER JOIN company ON country.country_id = company.country_id " +
 //                    "INNER JOIN vacancy ON company.company_id = vacancy.company_id " +
 //                    "INNER JOIN employee ON vacancy.employee_id = employee.employee_id " +
