@@ -19,18 +19,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/vacancies")
 public class VacancyController {
-    @Autowired
     private VacancyService service;
 
+    public VacancyController(@Autowired VacancyService service) {
+        this.service = service;
+    }
+
     @GetMapping
-    public ResponseEntity<List<VacancyDTO>> listAllVacancies() {
-        return new ResponseEntity<>(service.getAllVacancy(), HttpStatus.OK);
+    public ResponseEntity<List<VacancyDTO>> getList() {
+        return new ResponseEntity<>(service.getList(), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vacancy> addVacancy(@RequestBody VacancyDTO vacancyDTO) {
+    public ResponseEntity<Vacancy> add(@RequestBody VacancyDTO vacancyDTO) {
         Vacancy vacancy = vacancyDTO.toEntity();
-        service.saveVacancy(vacancy);
+        service.save(vacancy);
         return new ResponseEntity<>(vacancy, HttpStatus.OK);
     }
 }

@@ -19,18 +19,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-    @Autowired
     private EmployeeService service;
 
+    public EmployeeController(@Autowired EmployeeService service) {
+        this.service = service;
+    }
+
     @GetMapping
-    public ResponseEntity<List<EmployeeDTO>> listAllEmployees() {
-        return new ResponseEntity<>(service.getAllEmployees(), HttpStatus.OK);
+    public ResponseEntity<List<EmployeeDTO>> getList() {
+        return new ResponseEntity<>(service.getList(), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Employee> addEmployee(@RequestBody EmployeeDTO dto) {
+    public ResponseEntity<Employee> add(@RequestBody EmployeeDTO dto) {
         Employee employee = dto.toEntity();
-        service.saveEmployee(employee);
+        service.save(employee);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 }

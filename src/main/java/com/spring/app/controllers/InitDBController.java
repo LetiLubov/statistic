@@ -72,11 +72,11 @@ public class InitDBController {
         date.setYear(1995);
 
         Employee employee1 = new Employee(date, date2);
-        employeeService.saveEmployee(employee1);
+        employeeService.save(employee1);
 
         date2.setYear(1994);
         Employee employee2 = new Employee(date, date2);
-        employeeService.saveEmployee(employee2);
+        employeeService.save(employee2);
 
         Vacancy vacancy3 = new Vacancy();
         vacancy3.setDateClosed(date);
@@ -86,7 +86,7 @@ public class InitDBController {
         vacancy3.setOpened(false);
         vacancy3.setSalary(1500);
         vacancy3.setName("vac1");
-        vacancyService.saveVacancy(vacancy3);
+        vacancyService.save(vacancy3);
 
         date.setYear(2012);
         date.setYear(2014);
@@ -98,7 +98,7 @@ public class InitDBController {
         vacancy3.setOpened(false);
         vacancy3.setSalary(1000);
         vacancy3.setName("vac2");
-        vacancyService.saveVacancy(vacancy3);
+        vacancyService.save(vacancy3);
 
         date.setYear(2011);
         date.setYear(2014);
@@ -110,7 +110,7 @@ public class InitDBController {
         vacancy3.setOpened(false);
         vacancy3.setSalary(1000);
         vacancy3.setName("vac3");
-        vacancyService.saveVacancy(vacancy3);
+        vacancyService.save(vacancy3);
 
         return new ResponseEntity(HttpStatus.OK);
     }

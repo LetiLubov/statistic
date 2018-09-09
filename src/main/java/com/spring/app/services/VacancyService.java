@@ -14,14 +14,14 @@ public class VacancyService {
     @Autowired
     private VacancyDAO repository;
 
-    public List<VacancyDTO> getAllVacancy(){
+    public List<VacancyDTO> getList(){
         return repository.findAll()
                             .stream()
                             .map(v -> new VacancyDTO().fromEntity(v))
                             .collect(Collectors.toList());
     }
 
-    public void saveVacancy(Vacancy vacancy){
+    public void save(Vacancy vacancy){
         repository.create(vacancy);
     }
 }

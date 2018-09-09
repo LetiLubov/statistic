@@ -19,27 +19,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/countries")
 public class CountryController {
-    @Autowired
     private CountryService service;
 
+    public CountryController(@Autowired CountryService service) {
+        this.service = service;
+    }
+
     @GetMapping
-    public ResponseEntity<List<CountryDTO>> listAllCountries() {
+    public ResponseEntity<List<CountryDTO>> getList() {
         return new ResponseEntity<>(service.getAllCountries(), HttpStatus.OK);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Country> addCountry(@RequestBody CountryDTO dto) {
+    @PostMapping (consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Country> add(@RequestBody CountryDTO dto) {
         Country country = dto.toEntity();
         service.saveCountry(country);
         return new ResponseEntity<>(country, HttpStatus.OK);
     }
-
-//    @PostMapping
-//    public ResponseEntity<Country> addCountry(@RequestParam String dto) {
-//        Country country = new Country();
-//        service.saveCountry(country);
-//        return new ResponseEntity<>(country, HttpStatus.OK);
-//    }
-
-
 }

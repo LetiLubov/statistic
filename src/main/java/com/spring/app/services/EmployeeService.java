@@ -14,7 +14,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeDAO repository;
 
-    public List<EmployeeDTO> getAllEmployees(){
+    public List<EmployeeDTO> getList(){
         return repository
                 .findAll()
                 .stream()
@@ -22,7 +22,7 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    public void saveEmployee(Employee employee){
+    public void save(Employee employee){
         repository.create(employee);
     }
 
