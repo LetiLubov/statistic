@@ -29,7 +29,6 @@ public class CompanyController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CompanyDTO>> getList() {
-        System.out.println(service.getList());
         return new ResponseEntity<>(service.getList(), HttpStatus.OK);
     }
 

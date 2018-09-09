@@ -1,16 +1,18 @@
 package com.spring.app.domain;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Vacancy
  * Has a one-directional relation bound to company
  *                                      and to employee
- * Has a boolean field opened and fields to registry date of employee start his work and when he retired.
+ * Has a boolean field isOpened and fields to registry date of employee start his work and when he retired.
  * This options work together to show different situation:
  * the first one: The Vacancy is exist, but no one has responded it. Equivalent for flag is true and null dates
  * the second: employee was found, so flag is still true, and we had dateOpened, dateClosed == null
@@ -33,7 +35,7 @@ public class Vacancy extends BaseEntity {
     private float salary;
 
     @Column(name = "OPENED")
-    private boolean opened;
+    private boolean isOpened;
 
     @OneToOne
     @JoinColumn(name = "employee_id")

@@ -21,7 +21,7 @@ public class VacancyDTO implements IWrapper<Vacancy, VacancyDTO> {
 
     private String name;
     private float salary;
-    private boolean opened;
+    private boolean isOpened;
     private Employee employee;
     private Company company;
     private Date dateOpened;
@@ -30,7 +30,7 @@ public class VacancyDTO implements IWrapper<Vacancy, VacancyDTO> {
     private VacancyDTO(Vacancy vacancy){
         this.name = vacancy.getName();
         this.salary = vacancy.getSalary();
-        this.opened = vacancy.isOpened();
+        this.isOpened = vacancy.isOpened();
         this.employee = vacancy.getEmployee();
         this.company = vacancy.getCompany();
         this.dateOpened = vacancy.getDateOpened();
@@ -47,7 +47,7 @@ public class VacancyDTO implements IWrapper<Vacancy, VacancyDTO> {
         Vacancy vacancy = new Vacancy();
         vacancy.setName(this.name);
         vacancy.setSalary(this.salary);
-        vacancy.setOpened(this.opened);
+        vacancy.setOpened(this.isOpened);
         vacancy.setEmployee(this.employee);
         vacancy.setCompany(this.company);
         vacancy.setDateOpened(this.dateOpened);

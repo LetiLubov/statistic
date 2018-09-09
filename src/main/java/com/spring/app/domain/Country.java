@@ -1,7 +1,10 @@
 package com.spring.app.domain;
 
 import com.spring.app.EconomyLevel;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
