@@ -3,7 +3,9 @@ package com.spring.app.dto;
 import com.spring.app.domain.Company;
 import com.spring.app.domain.Employee;
 import com.spring.app.domain.Vacancy;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
@@ -12,6 +14,8 @@ import java.util.Date;
  * Data layer for storage info about vacancy
  * @author Lyubov Ruzanova
  */
+@Getter
+@Setter
 @NoArgsConstructor
 public class VacancyDTO implements IWrapper<Vacancy, VacancyDTO> {
 

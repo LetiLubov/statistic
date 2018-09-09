@@ -2,13 +2,17 @@ package com.spring.app.dto;
 
 import com.spring.app.domain.Company;
 import com.spring.app.domain.Country;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * CompanyDTO
  * Data layer for storage info about company
  * @author Lyubov Ruzanova
  */
+@Getter
+@Setter
 @NoArgsConstructor
 public class CompanyDTO implements IWrapper<Company, CompanyDTO> {
     private String name;
