@@ -19,8 +19,3 @@
 *.tar.gz
 *.rar
 
-target/
-target/generated-sources/
-target/maven-archiver/
-target/maven-status/
-target/programmer-statistic-1.0-SNAPSHOT.jar.original
