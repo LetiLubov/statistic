@@ -19,7 +19,7 @@
 *.tar.gz
 *.rar
 
-
+target/
 target/generated-sources/
 target/maven-archiver/
 target/maven-status/

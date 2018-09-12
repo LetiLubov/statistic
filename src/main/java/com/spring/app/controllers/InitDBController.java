@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import java.util.Date;
 
 /**
@@ -31,6 +32,7 @@ public class InitDBController {
     private EmployeeService employeeService;
 
     //todo: Have i need to write annotations on each field?
+
     public InitDBController(@Autowired VacancyService vacancyService,
                             @Autowired CompanyService companyService,
                             @Autowired CountryService countryService,
@@ -41,7 +43,7 @@ public class InitDBController {
         this.employeeService = employeeService;
     }
 
-    @PostMapping("initDB")
+    @PostConstruct
     public ResponseEntity initDB(){
         Country country1 = new Country();
         country1.setEconomyLevel(EconomyLevel.GOOD);
@@ -55,7 +57,7 @@ public class InitDBController {
 
         Country country3 = new Country();
         country3.setEconomyLevel(EconomyLevel.EXCELLENT);
-        country3.setName("uk");
+        country3.setName("test");
         countryService.save(country3);
 
         Company company1 = new Company();
