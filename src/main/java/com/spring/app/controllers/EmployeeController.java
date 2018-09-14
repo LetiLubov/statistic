@@ -22,15 +22,28 @@ import java.util.List;
 public class EmployeeController {
     private final EmployeeService service;
 
+    /**
+     * Inject a employee service
+     * @param service - employee service
+     */
     public EmployeeController(@Autowired EmployeeService service) {
         this.service = service;
     }
 
+    /**
+     * Send a request to the service to get all employees
+     * @return list of employees
+     */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<EmployeeDTO>> getList() {
         return new ResponseEntity<>(service.getList(), HttpStatus.OK);
     }
 
+    /**
+     * Send a request to the service to save a new instance
+     * @param dto - employee info
+     * @return employeeDTO object
+     */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmployeeDTO> add(@RequestBody EmployeeDTO dto) {
         Employee employee = dto.toEntity();

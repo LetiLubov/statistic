@@ -21,10 +21,18 @@ public class EmployeeService {
 
     private EmployeeDAO repository;
 
+    /**
+     * Inject a employee repository
+     * @param repository - employee repository
+     */
     public EmployeeService(@Autowired EmployeeDAO repository) {
         this.repository = repository;
     }
 
+    /**
+     * Get all employees from repository and convert them to EmployeeDTO format
+     * @return list of employees
+     */
     public List<EmployeeDTO> getList(){
         return repository
                 .findAll()
@@ -33,6 +41,10 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Save a new employee to DB
+     * @param employee - the employee to save in DB
+     */
     public void save(Employee employee){
         repository.create(employee);
     }

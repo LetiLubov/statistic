@@ -13,6 +13,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class VacancyDAO extends GenericDaoImpl<Vacancy> {
 
+    /**
+     * Set Vacancy.class as a persistent class
+     */
     public VacancyDAO(){
         setPersistentClass(Vacancy.class);
     }

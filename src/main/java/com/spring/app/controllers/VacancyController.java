@@ -22,19 +22,32 @@ import java.util.List;
 public class VacancyController {
     private final VacancyService service;
 
+    /**
+     * Inject a vacancy service
+     * @param service - vacancy service
+     */
     public VacancyController(@Autowired VacancyService service) {
         this.service = service;
     }
 
+    /**
+     * Send a request to the service to get all vacancies
+     * @return list of vacancies
+     */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<VacancyDTO>> getList() {
         return new ResponseEntity<>(service.getList(), HttpStatus.OK);
     }
 
+    /**
+     * Send a request to the service to save a new instance
+     * @param dto - vacancy info
+     * @return vacancyDTO object
+     */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<VacancyDTO> add(@RequestBody VacancyDTO vacancyDTO) {
-        Vacancy vacancy = vacancyDTO.toEntity();
+    public ResponseEntity<VacancyDTO> add(@RequestBody VacancyDTO dto) {
+        Vacancy vacancy = dto.toEntity();
         service.save(vacancy);
-        return new ResponseEntity<>(vacancyDTO, HttpStatus.OK);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }

@@ -30,8 +30,14 @@ public class InitDBController {
     private final CountryService countryService;
     private final EmployeeService employeeService;
 
-    //todo: Have i need to write annotations on each field?
-
+    /**
+     * Inject all services
+     *
+     * @param companyService  - company service
+     * @param countryService  - country service
+     * @param employeeService - employee service
+     * @param vacancyService  - vacancy service
+     */
     public InitDBController(@Autowired VacancyService vacancyService,
                             @Autowired CompanyService companyService,
                             @Autowired CountryService countryService,
@@ -42,8 +48,11 @@ public class InitDBController {
         this.employeeService = employeeService;
     }
 
+    /**
+     * Database initialization using test data
+     */
     @PostConstruct
-    public ResponseEntity initDB(){
+    public ResponseEntity initDB() {
         Country country1 = new Country();
         country1.setEconomyLevel(EconomyLevel.GOOD);
         country1.setName("rus");

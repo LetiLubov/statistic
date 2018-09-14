@@ -21,10 +21,18 @@ public class VacancyService {
 
     private VacancyDAO repository;
 
+    /**
+     * Inject a vacancy repository
+     * @param repository - vacancy repository
+     */
     public VacancyService(@Autowired VacancyDAO repository) {
         this.repository = repository;
     }
 
+    /**
+     * Get all vacancies from repository and convert them to VacancyDTO format
+     * @return list of vacancies
+     */
     public List<VacancyDTO> getList(){
         return repository.findAll()
                             .stream()
@@ -32,6 +40,10 @@ public class VacancyService {
                             .collect(Collectors.toList());
     }
 
+    /**
+     * Save a new vacancy to DB
+     * @param vacancy - the vacancy to save in DB
+     */
     public void save(Vacancy vacancy){
         repository.create(vacancy);
     }
