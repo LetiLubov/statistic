@@ -28,8 +28,6 @@ public class VacancyController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<VacancyDTO>> getList() {
-        System.out.println(service.getList());
-        List<VacancyDTO> list = service.getList();
         return new ResponseEntity<>(service.getList(), HttpStatus.OK);
     }
 

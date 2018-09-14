@@ -13,7 +13,7 @@ import java.util.List;
  * Has default features
  *
  * @author Lyubov Ruzanova
- * @see GenericDAO
+ * {@inheritDoc}
  * And special query to get a value of average salary by country name
  */
 @Repository
