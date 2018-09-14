@@ -36,4 +36,10 @@ public class CountryController {
         Country country = dto.toEntity();
         service.save(country);
     }
+
+    @GetMapping("/salary")
+    public ResponseEntity<Double> findAverageSalaryByCountry(@RequestParam String countryName) {
+        return new ResponseEntity<>(service.getMeanSalary(countryName), HttpStatus.OK);
+    }
+
 }

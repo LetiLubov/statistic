@@ -15,11 +15,13 @@ import javax.persistence.*;
  * @author Lyubov Ruzanova
  */
 
-@NamedNativeQueries({
-        @NamedNativeQuery(name = "MEAN_SALARY", query = "SELECT AVG(vacancy.salary) FROM country INNER JOIN company " +
-                "ON country.country_id = company.country_id INNER JOIN vacancy ON company.company_id = vacancy.company_id " +
-                "WHERE country.name = ?1 AND vacancy.opened = TRUE")
-})
+@NamedNativeQueries(
+        @NamedNativeQuery(
+                name = "MEAN_SALARY",
+                query = "SELECT AVG(vacancy.salary) FROM country INNER JOIN company " +
+                        "ON country.id = company.country_id INNER JOIN vacancy ON company.id = vacancy.company_id " +
+                        "WHERE country.name = ?1 AND vacancy.opened = TRUE")
+)
 @Entity
 @Getter
 @Setter
@@ -28,7 +30,7 @@ import javax.persistence.*;
 public class Country extends BaseEntity {
     public static String MEAN_SALARY = "MEAN_SALARY";
 
-    @Column(name = "COUNTRY_NAME")
+    @Column(name = "NAME")
     private String name;
 
     @Column(name = "LIVE_INDEX")

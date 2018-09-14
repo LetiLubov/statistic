@@ -33,6 +33,10 @@ public class CountryService {
                 .collect(Collectors.toList());
     }
 
+    public double getMeanSalary(String name){
+        return repository.findMeanSalary(name);
+    }
+
     public void save(Country country){
         repository.create(country);
     }
