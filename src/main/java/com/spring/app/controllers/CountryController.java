@@ -20,26 +20,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/countries")
 public class CountryController {
-    private CountryService service;
+    private final CountryService service;
     private final static String MEAN_SALARY_TEXT_MESSAGE = "Mean salary in %s is %f";
 
     public CountryController(@Autowired CountryService service) {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CountryDTO>> getList() {
         return new ResponseEntity<>(service.getList(), HttpStatus.OK);
     }
 
-    @PostMapping
-    @ResponseStatus(value = HttpStatus.OK)
-    public void add(@RequestBody CountryDTO dto) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CountryDTO> add(@RequestBody CountryDTO dto) {
         Country country = dto.toEntity();
         service.save(country);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @GetMapping(value = "{countryName}/mean-salary")
+    @GetMapping(value = "{countryName}/mean-salary", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> findAverageSalaryByCountry(@PathVariable String countryName) {
         String message =  String.format(MEAN_SALARY_TEXT_MESSAGE, countryName, service.getMeanSalary(countryName));
         return new ResponseEntity<>(message, HttpStatus.OK);

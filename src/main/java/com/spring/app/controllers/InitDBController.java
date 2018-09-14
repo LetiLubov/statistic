@@ -25,10 +25,10 @@ import java.util.Date;
 @RestController
 public class InitDBController {
 
-    private VacancyService vacancyService;
-    private CompanyService companyService;
-    private CountryService countryService;
-    private EmployeeService employeeService;
+    private final VacancyService vacancyService;
+    private final CompanyService companyService;
+    private final CountryService countryService;
+    private final EmployeeService employeeService;
 
     //todo: Have i need to write annotations on each field?
 

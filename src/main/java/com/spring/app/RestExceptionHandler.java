@@ -18,13 +18,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {IllegalArgumentException.class, IllegalStateException.class})
-    protected ResponseEntity<Object> catchIllegal(
-            RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Oops! Something went wrong, please contact Lyubov \n Telegram: @akelanova";
-        return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.CONFLICT, request);
-    }
     @ExceptionHandler(value = RuntimeException.class)
     protected ResponseEntity<Object> catchRuntimeException(
             RuntimeException ex, WebRequest request) {
