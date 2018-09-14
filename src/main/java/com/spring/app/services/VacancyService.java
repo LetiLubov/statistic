@@ -9,6 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service for vacancy
+ * Save new entry to db
+ * Get list of all entries from db
+ *
+ * @author Lyubov Ruzanova
+ */
 @Service
 public class VacancyService {
 

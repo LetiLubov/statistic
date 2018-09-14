@@ -9,6 +9,7 @@ import lombok.Setter;
 /**
  * CountryDTO
  * Data layer for storage info about country
+ *
  * @author Lyubov Ruzanova
  */
 @Getter

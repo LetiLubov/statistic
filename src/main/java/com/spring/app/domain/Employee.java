@@ -19,8 +19,8 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(exclude = "EMPLOYEE_ID")
 public class Employee extends BaseEntity{
 
-    @Column(name = "BIRTHDAY_YEAR")
-    private int birthdayYear;
-    @Column(name = "YEAR_OF_FIRST_WORK_DAY")
-    private int yearOfFirstWorkDay;
+    @Column(name = "BIRTH_YEAR")
+    private int birthYear;
+    @Column(name = "CAREER_START_YEAR")
+    private int careerStartYear;
 }

@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 /**
  * Company
  * Has a one-directional relation bound to country
+ * 
  * @author Lyubov Ruzanova
  */
 

@@ -6,6 +6,11 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Base entity for my db entries
+ *
+ * @author Lyubov Ruzanova
+ */
 @Getter
 @Setter
 @MappedSuperclass

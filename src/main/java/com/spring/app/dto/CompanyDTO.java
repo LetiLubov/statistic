@@ -9,6 +9,7 @@ import lombok.Setter;
 /**
  * CompanyDTO
  * Data layer for storage info about company
+ *
  * @author Lyubov Ruzanova
  */
 @Getter

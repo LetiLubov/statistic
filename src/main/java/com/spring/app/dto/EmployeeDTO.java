@@ -8,18 +8,19 @@ import lombok.Setter;
 /**
  * EmployeeDTO
  * Data layer for storage info about employee
+ *
  * @author Lyubov Ruzanova
  */
 @Getter
 @Setter
 @NoArgsConstructor
 public class EmployeeDTO implements IWrapper<Employee, EmployeeDTO>{
-    private int birthdayYear;
-    private int YearOfFirstWorkDay;
+    private int birthYear;
+    private int careerStartYear;
 
     private EmployeeDTO(Employee employee){
-        this.birthdayYear = employee.getBirthdayYear();
-        this.YearOfFirstWorkDay = employee.getYearOfFirstWorkDay();
+        this.birthYear = employee.getBirthYear();
+        this.careerStartYear = employee.getCareerStartYear();
     }
 
     @Override
@@ -30,8 +31,8 @@ public class EmployeeDTO implements IWrapper<Employee, EmployeeDTO>{
     @Override
     public Employee toEntity() {
         Employee employee = new Employee();
-        employee.setBirthdayYear(this.birthdayYear);
-        employee.setYearOfFirstWorkDay(this.YearOfFirstWorkDay);
+        employee.setBirthYear(this.birthYear);
+        employee.setCareerStartYear(this.careerStartYear);
         return employee;
     }
 }

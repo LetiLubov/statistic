@@ -12,6 +12,7 @@ import java.util.Date;
 /**
  * VacancyDTO
  * Data layer for storage info about vacancy
+ *
  * @author Lyubov Ruzanova
  */
 @Getter

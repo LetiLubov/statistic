@@ -38,11 +38,11 @@ public class Vacancy extends BaseEntity {
     private boolean isOpened;
 
     @OneToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "EMPLOYEE_ID")
     private Employee employee;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "COMPANY_ID")
     private Company company;
 
     @Temporal(TemporalType.TIMESTAMP)

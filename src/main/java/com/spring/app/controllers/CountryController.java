@@ -5,7 +5,6 @@ import com.spring.app.dto.CountryDTO;
 import com.spring.app.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,9 @@ import java.util.List;
 /**
  * CountryController
  * All activities with countries
- * @author lyubov
+ * @author Lyubov Ruzanova
  */
+@ResponseBody
 @RestController
 @RequestMapping("/countries")
 public class CountryController {
@@ -30,10 +30,10 @@ public class CountryController {
         return new ResponseEntity<>(service.getList(), HttpStatus.OK);
     }
 
-    @PostMapping (consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Country> add(@RequestBody CountryDTO dto) {
+    @PostMapping
+    @ResponseStatus(value = HttpStatus.OK)
+    public void add(@RequestBody CountryDTO dto) {
         Country country = dto.toEntity();
         service.save(country);
-        return new ResponseEntity<>(country, HttpStatus.OK);
     }
 }
