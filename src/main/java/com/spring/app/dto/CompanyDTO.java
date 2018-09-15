@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * CompanyDTO
- * Data layer for storage info about company
+ * Data transfer object for storage info about company
  *
  * @author Lyubov Ruzanova
  */

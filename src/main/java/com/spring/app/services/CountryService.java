@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 
 /**
  * Service for country
- * Save new entry to db
- * Get list of all entries from db
  *
  * @author Lyubov Ruzanova
  */
@@ -42,7 +40,7 @@ public class CountryService {
     }
 
     /**
-     * Calculate the average salary of a country
+     * Calculate the average salary of employees in the country
      * @param name - country's name
      * @return the double value of the average salary
      */
@@ -51,7 +49,7 @@ public class CountryService {
     }
 
     /**
-     * Calculate the average employee's experience of a country
+     * Calculate the average employee's experience in the country
      * @param name - country's name
      * @return the Integer value of the average experience
      */
@@ -60,7 +58,7 @@ public class CountryService {
     }
 
     /**
-     * Calculate the average employee's age of a country
+     * Calculate the average employee's age in the country
      * @param name - country's name
      * @return the Integer value of the average experience
      */
@@ -69,7 +67,7 @@ public class CountryService {
     }
 
     /**
-     * Calculate the average number of employees in companies of a country
+     * Calculate the average number of employees in companies in the country
      * @param name - country's name
      * @return the Integer value of the average number of employee
      */

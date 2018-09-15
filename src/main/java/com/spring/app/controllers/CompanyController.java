@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * CompanyController
- * All activities with companies
+ * Rest controller for a companies
+ * Provide all actions with companies
  *
  * @author Lyubov Ruzanova
  */
@@ -42,7 +42,7 @@ public class CompanyController {
 
     /**
      * Send a request to the service to save a new instance
-     * @param dto - company info
+     * @param dto - company info storage
      * @return companyDTO object
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

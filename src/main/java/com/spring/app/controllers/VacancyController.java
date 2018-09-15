@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * VacancyController
+ * Rest controller for a vacancies
  * All activities with vacancies
+ *
  * @author Lyubov Ruzanova
  */
 @ResponseBody

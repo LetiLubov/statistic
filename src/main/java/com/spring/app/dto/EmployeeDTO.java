@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * EmployeeDTO
- * Data layer for storage info about employee
+ * Data transfer object for storage info about employee
  *
  * @author Lyubov Ruzanova
  */

@@ -5,8 +5,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * DAO for Company
- * Has default features
- * {@inheritDoc}
+ * Has default features {@inheritDoc}
  *
  * @author Lyubov Ruzanova
  */

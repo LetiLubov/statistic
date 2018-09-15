@@ -7,11 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 /**
- * VacancyDTO
- * Data layer for storage info about vacancy
+ * Data transfer object for storage info about vacancy
  *
  * @author Lyubov Ruzanova
  */

@@ -15,10 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
-import java.util.Date;
 
 /**
- * InitDBController
+ * Rest controller to initialize DB for testing
  *
  * @author Lyubov Ruzanova
  */

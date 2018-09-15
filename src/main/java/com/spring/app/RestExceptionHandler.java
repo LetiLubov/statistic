@@ -29,7 +29,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = InvalidDataAccessResourceUsageException.class)
     protected ResponseEntity<Object> catchInvalidDataAccess(
             RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Oops! Something went wrong, please contact Lyubov \n Telegram: @akelanova";
+        String bodyOfResponse = "Oops! Failed to get response from database, please contact Lyubov \n Telegram: @akelanova";
         return handleExceptionInternal(ex, bodyOfResponse,
                 new HttpHeaders(), HttpStatus.CONFLICT, request);
     }

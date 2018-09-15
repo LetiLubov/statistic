@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * CountryDTO
- * Data layer for storage info about country
+ * Data transfer object for storage info about country
  *
  * @author Lyubov Ruzanova
  */

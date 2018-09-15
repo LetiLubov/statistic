@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 
 /**
  * Service for vacancy
- * Save new entry to db
- * Get list of all entries from db
  *
  * @author Lyubov Ruzanova
  */

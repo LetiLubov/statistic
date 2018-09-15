@@ -13,8 +13,8 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * CountryController
- * All activities with countries
+ * Rest controller for a countries
+ * Provide all actions with countries
  *
  * @author Lyubov Ruzanova
  */
@@ -53,7 +53,7 @@ public class CountryController {
     /**
      * Send a request to the service to save a new instance
      *
-     * @param dto - country info
+     * @param dto - country info storage
      * @return countryDTO object
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -64,7 +64,7 @@ public class CountryController {
     }
 
     /**
-     * Get the average salary by country from country's service
+     * Get the average salary by country name from country's service
      *
      * @param countryName - country's name
      * @return the double value of the average salary
@@ -88,7 +88,7 @@ public class CountryController {
     }
 
     /**
-     * Get the average employee's experience by country from country's service
+     * Get the average number of employee's experience by country from country's service
      * @param countryName - country's name
      * @return the Integer value of the average experience
      */
@@ -111,7 +111,7 @@ public class CountryController {
     /**
      * Get the average employee's age by country from country's service
      * @param countryName - country's name
-     * @return the Integer value of the average experience
+     * @return the Integer value of the average age
      */
     @GetMapping(value = "{countryName}/avg-age",
             produces = MediaType.TEXT_PLAIN_VALUE)
@@ -131,10 +131,10 @@ public class CountryController {
 
 
     /**
-     * Get the average salary by country from country's service
+     * Get the average number of employees in companies by country from country's service
      *
      * @param countryName - country's name
-     * @return the Integer value of the average salary
+     * @return the Integer value of the average number of employees
      */
     @GetMapping(value = "{countryName}/average-number-of-employees",
             produces = MediaType.TEXT_PLAIN_VALUE)

@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * EmployeeController
- * All activities with employees
+ * Rest controller for an employees
+ * Provide all actions with employees
+ *
  * @author Lyubov Ruzanova
  */
 @ResponseBody
