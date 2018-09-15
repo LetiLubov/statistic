@@ -25,7 +25,7 @@ import javax.persistence.ManyToOne;
 @EqualsAndHashCode(callSuper = false)
 public class Company extends BaseEntity {
 
-    @Column(name = "COUNTRY_NAME")
+    @Column(name = "NAME")
     private String name;
 
     @ManyToOne

@@ -45,11 +45,9 @@ public class Vacancy extends BaseEntity {
     @JoinColumn(name = "COMPANY_ID")
     private Company company;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE_OPENED")
-    private Date dateOpened;
+    private int dateOpened;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE_CLOSED")
-    private Date dateClosed;
+    private int dateClosed;
 }

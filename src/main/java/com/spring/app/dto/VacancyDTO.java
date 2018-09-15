@@ -25,8 +25,8 @@ public class VacancyDTO implements IWrapper<Vacancy, VacancyDTO> {
     private boolean isOpened;
     private Employee employee;
     private Company company;
-    private Date dateOpened;
-    private Date dateClosed;
+    private int dateOpened;
+    private int dateClosed;
 
     private VacancyDTO(Vacancy vacancy){
         this.name = vacancy.getName();

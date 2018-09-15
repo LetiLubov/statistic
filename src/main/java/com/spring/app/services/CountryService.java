@@ -46,8 +46,35 @@ public class CountryService {
      * @param name - country's name
      * @return the double value of the average salary
      */
-    public double getMeanSalary(String name){
-        return repository.findMeanSalary(name);
+    public Double getMeanSalary(String name, int data1, int data2){
+        return repository.findMeanSalary(name, data1, data2);
+    }
+
+    /**
+     * Calculate the average employee's experience of a country
+     * @param name - country's name
+     * @return the Integer value of the average experience
+     */
+    public Integer getAvgExperience(String name, int year){
+        return repository.findAvgExperience(name, year);
+    }
+
+    /**
+     * Calculate the average employee's age of a country
+     * @param name - country's name
+     * @return the Integer value of the average experience
+     */
+    public Integer getAvgAge(String name, int year){
+        return repository.findAvgAge(name, year);
+    }
+
+    /**
+     * Calculate the average number of employees in companies of a country
+     * @param name - country's name
+     * @return the Integer value of the average number of employee
+     */
+    public Integer getAvgNumberOfEmployees(String name, int data){
+        return repository.findAvgNumberOfEmployees(name, data);
     }
 
     /**
