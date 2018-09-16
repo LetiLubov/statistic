@@ -104,12 +104,10 @@ public class CountryController {
     @PostMapping(value = "{countryName}/avg-age")
     public ResponseEntity<String> findAverageAgeByCountry(@PathVariable String countryName,
                                                           @RequestBody DataRange data) {
-
         Integer age = service.getAvgAge(countryName, data.getValidFrom(), data.getValidTo());
         if (age == null) {
             return ResponseEntity.ok(MessageEnum.ERROR_NO_EMP_FOUND.getErrorMessage());
         }
-
         return ResponseEntity.ok(MessageEnum.AVG_AGE.getErrorMessage(countryName, age));
     }
 
@@ -124,9 +122,7 @@ public class CountryController {
     @PostMapping(value = "{countryName}/average-number-of-employees")
     public ResponseEntity<String> findAverageNumberOfEmployeesByCountry(@PathVariable String countryName,
                                                                         @RequestBody DataRange data) {
-
         Integer averageNumberOfEmployees = service.getAvgNumberOfEmployees(countryName, data.getValidFrom(), data.getValidTo());
-
         if (averageNumberOfEmployees == null) {
             return ResponseEntity.ok(MessageEnum.ERROR_NO_EMP_FOUND.getErrorMessage());
         }

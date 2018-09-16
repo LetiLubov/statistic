@@ -1,14 +1,10 @@
 package com.spring.app.dto;
 
 import com.spring.app.domain.Company;
-import com.spring.app.domain.Country;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.Date;
 
 /**

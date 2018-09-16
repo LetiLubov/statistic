@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import java.io.Serializable;
 
 /**
- * Messages templates
+ * Message templates
  *
  * @author Lyubov Ruzanova
  */

@@ -4,7 +4,6 @@ import com.spring.app.domain.Company;
 import com.spring.app.dto.CompanyDTO;
 import com.spring.app.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

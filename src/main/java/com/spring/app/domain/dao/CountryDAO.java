@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * DAO for Country
  * Has default features {@inheritDoc}
- * And special query to get a value of average salary by country name
+ * And special queries to DB
  *
  * @author Lyubov Ruzanova
  */

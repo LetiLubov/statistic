@@ -1,7 +1,5 @@
 package com.spring.app.dto;
 
-import com.spring.app.domain.Company;
-import com.spring.app.domain.Employee;
 import com.spring.app.domain.Vacancy;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

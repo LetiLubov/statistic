@@ -3,6 +3,11 @@ package com.spring.app.services.mappers;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Map data set to single value and cast it to Integer
+ *
+ * @author Lyubov Ruzanova
+ */
 public class IntegerResultMapper implements ResultMapper<List<Object>, Integer> {
     private static final int INDEX = 0;
 
