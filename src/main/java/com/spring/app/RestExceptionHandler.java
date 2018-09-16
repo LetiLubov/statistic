@@ -8,7 +8,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 /**
  * Exception handler
- * Return a message to client to explain problem
  *
  * @author Lyubov Ruzanova
  */
@@ -29,7 +28,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return response to the client that there are some problems at the DAO layer
      */
     @ExceptionHandler(value = InvalidDataAccessResourceUsageException.class)
-    protected ResponseEntity<Object> catchInvalidDataAccess() {
+    protected ResponseEntity<String> catchInvalidDataAccess() {
         return ResponseEntity.badRequest().body(MessageEnum.ERROR_INVALID_DATA_ACCESS.getErrorMessage());
     }
 }
