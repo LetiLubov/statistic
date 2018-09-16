@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.spring.app.Constants.*;
+
 /**
  * Rest controller for a countries
  * Provide all actions with countries
@@ -23,13 +25,6 @@ import java.util.List;
 @RequestMapping("/countries")
 public class CountryController {
     private final CountryService service;
-    private final static String MEAN_SALARY_TEXT_MESSAGE = "Mean salary between %d-%d in %s is %f";
-    private final static String AVG_EXPERIENCE_TEXT_MESSAGE = "Average experience of employees in %s is %d";
-    private final static String AVG_AGE_TEXT_MESSAGE = "Average age of employees in %s is %d";
-    private final static String AVG_NUM_OF_EMP_TEXT_MESSAGE = "Average number of employees in companies in %s is %d";
-
-    private final static String NO_SALARY_INFO_FOUND_ERROR_TEXT_MESSAGE = "There is no information about the salary for this period";
-    private final static String NO_EMP_FOUND_ERROR_TEXT_MESSAGE = "There is no information about employees for this period";
 
     /**
      * Inject a country service
