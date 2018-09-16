@@ -17,9 +17,8 @@ import java.util.List;
  *
  * @author Lyubov Ruzanova
  */
-@ResponseBody
 @RestController
-@RequestMapping("/vacancies")
+@RequestMapping(value = "/vacancies", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VacancyController {
     private final VacancyService service;
 
@@ -35,9 +34,10 @@ public class VacancyController {
      * Send a request to the service to get all vacancies
      * @return list of vacancies
      */
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
+    @ResponseBody
     public ResponseEntity<List<VacancyDTO>> getList() {
-        return new ResponseEntity<>(service.getList(), HttpStatus.OK);
+        return ResponseEntity.ok(service.getList());
     }
 
     /**
@@ -45,10 +45,11 @@ public class VacancyController {
      * @param dto - vacancy info
      * @return vacancyDTO object
      */
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
+    @ResponseBody
     public ResponseEntity<VacancyDTO> add(@RequestBody VacancyDTO dto) {
         Vacancy vacancy = dto.toEntity();
         service.save(vacancy);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        return ResponseEntity.ok(dto);
     }
 }

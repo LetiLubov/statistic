@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
 
 /**
  * Rest controller to initialize DB for testing
@@ -67,21 +68,30 @@ public class InitDBController {
         country3.setName("test");
         countryService.save(country3);
 
+        Date date = new Date();
+        date.setYear(62);
+        Date date2 = new Date();
+        date2.setTime(109);
+
         Company company1 = new Company();
         company1.setCountry(country1);
         company1.setName("NIC");
+        company1.setDateOpened(date);
         companyService.save(company1);
 
         Company company2 = new Company();
+        date.setYear(62);
+        company2.setDateOpened(date);
         company2.setCountry(country2);
         company2.setName("Google");
         companyService.save(company2);
 
         Company company3 = new Company();
         company3.setCountry(country1);
+        date.setYear(110);
+        company3.setDateOpened(date);
         company3.setName("Telegram");
         companyService.save(company3);
-
 
         Employee employee1 = new Employee(1976, 1999);
         employeeService.save(employee1);
@@ -90,8 +100,10 @@ public class InitDBController {
         employeeService.save(employee2);
 
         Vacancy vacancy3 = new Vacancy();
-        vacancy3.setDateClosed(2000);
-        vacancy3.setDateOpened(2014);
+        date.setYear(100);
+        date2.setYear(105);
+        vacancy3.setDateClosed(date2);
+        vacancy3.setDateOpened(date);
         vacancy3.setCompany(company1);
         vacancy3.setEmployee(employee1);
         vacancy3.setOpened(true);
@@ -99,19 +111,25 @@ public class InitDBController {
         vacancy3.setName("vac1");
         vacancyService.save(vacancy3);
 
+        date.setYear(105);
+        date2.setYear(108);
+
         vacancy3 = new Vacancy();
-        vacancy3.setDateClosed(2012);
-        vacancy3.setDateOpened(2000);
+        vacancy3.setDateClosed(date2);
+        vacancy3.setDateOpened(date);
         vacancy3.setCompany(company1);
-        vacancy3.setEmployee(employee2);
+        vacancy3.setEmployee(employee1);
         vacancy3.setOpened(true);
         vacancy3.setSalary(1000);
         vacancy3.setName("vac2");
         vacancyService.save(vacancy3);
 
+        date.setYear(106);
+        date2.setYear(115);
+
         vacancy3 = new Vacancy();
-        vacancy3.setDateClosed(2014);
-        vacancy3.setDateOpened(2012);
+        vacancy3.setDateClosed(date2);
+        vacancy3.setDateOpened(date);
         vacancy3.setCompany(company1);
         vacancy3.setEmployee(employee1);
         vacancy3.setOpened(true);

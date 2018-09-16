@@ -17,9 +17,8 @@ import java.util.List;
  *
  * @author Lyubov Ruzanova
  */
-@ResponseBody
 @RestController
-@RequestMapping("/employees")
+@RequestMapping(value = "/employees", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmployeeController {
     private final EmployeeService service;
 
@@ -35,9 +34,10 @@ public class EmployeeController {
      * Send a request to the service to get all employees
      * @return list of employees
      */
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
+    @ResponseBody
     public ResponseEntity<List<EmployeeDTO>> getList() {
-        return new ResponseEntity<>(service.getList(), HttpStatus.OK);
+        return ResponseEntity.ok(service.getList());
     }
 
     /**
@@ -45,10 +45,11 @@ public class EmployeeController {
      * @param dto - employee info
      * @return employeeDTO object
      */
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
+    @ResponseBody
     public ResponseEntity<EmployeeDTO> add(@RequestBody EmployeeDTO dto) {
         Employee employee = dto.toEntity();
         service.save(employee);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        return ResponseEntity.ok(dto);
     }
 }

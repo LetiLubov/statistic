@@ -17,9 +17,8 @@ import java.util.List;
  *
  * @author Lyubov Ruzanova
  */
-@ResponseBody
 @RestController
-@RequestMapping(value = "/companies")
+@RequestMapping(value = "/companies", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CompanyController {
     private final CompanyService service;
 
@@ -35,9 +34,10 @@ public class CompanyController {
      * Send a request to the service to get all companies
      * @return list of companies
      */
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
+    @ResponseBody
     public ResponseEntity<List<CompanyDTO>> getList() {
-        return new ResponseEntity<>(service.getList(), HttpStatus.OK);
+        return ResponseEntity.ok(service.getList());
     }
 
     /**
@@ -45,11 +45,12 @@ public class CompanyController {
      * @param dto - company info storage
      * @return companyDTO object
      */
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
+    @ResponseBody
     public ResponseEntity<CompanyDTO> add(@RequestBody CompanyDTO dto){
         Company company = dto.toEntity();
         service.save(company);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        return ResponseEntity.ok(dto);
     }
 
 }

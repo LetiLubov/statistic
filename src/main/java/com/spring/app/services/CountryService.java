@@ -6,6 +6,7 @@ import com.spring.app.dto.CountryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class CountryService {
      * @param name - country's name
      * @return the double value of the average salary
      */
-    public Double getMeanSalary(String name, int data1, int data2){
+    public Double getMeanSalary(String name, Date data1, Date data2){
         return repository.findMeanSalary(name, data1, data2);
     }
 
@@ -53,8 +54,8 @@ public class CountryService {
      * @param name - country's name
      * @return the Integer value of the average experience
      */
-    public Integer getAvgExperience(String name, int year){
-        return repository.findAvgExperience(name, year);
+    public Integer getAvgExperience(String name, Date date1, Date date2){
+        return repository.findAvgExperience(name, date1, date2);
     }
 
     /**
@@ -62,8 +63,8 @@ public class CountryService {
      * @param name - country's name
      * @return the Integer value of the average experience
      */
-    public Integer getAvgAge(String name, int year){
-        return repository.findAvgAge(name, year);
+    public Integer getAvgAge(String name, Date date1, Date date2){
+        return repository.findAvgAge(name, date1, date2);
     }
 
     /**
@@ -71,8 +72,8 @@ public class CountryService {
      * @param name - country's name
      * @return the Integer value of the average number of employee
      */
-    public Integer getAvgNumberOfEmployees(String name, int data){
-        return repository.findAvgNumberOfEmployees(name, data);
+    public Integer getAvgNumberOfEmployees(String name, Date date1, Date date2){
+        return repository.findAvgNumberOfEmployees(name, date1, date2);
     }
 
     /**

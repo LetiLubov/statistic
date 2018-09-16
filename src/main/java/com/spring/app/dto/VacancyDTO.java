@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * Data transfer object for storage info about vacancy
  *
@@ -22,8 +24,8 @@ public class VacancyDTO implements IWrapper<Vacancy, VacancyDTO> {
     private boolean isOpened;
     private EmployeeDTO employee;
     private CompanyDTO company;
-    private int dateOpened;
-    private int dateClosed;
+    private Date dateOpened;
+    private Date dateClosed;
 
     private VacancyDTO(Vacancy vacancy){
         this.name = vacancy.getName();

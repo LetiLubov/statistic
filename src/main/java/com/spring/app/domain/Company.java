@@ -6,10 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Company
@@ -31,4 +29,12 @@ public class Company extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "COUNTRY_ID")
     private Country country;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_OPENED")
+    private Date dateOpened;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_CLOSED")
+    private Date dateClosed;
 }

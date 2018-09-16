@@ -1,18 +1,16 @@
 package com.spring.app.controllers;
 
+import com.spring.app.MessageEnum;
 import com.spring.app.domain.Country;
 import com.spring.app.dto.CountryDTO;
+import com.spring.app.dto.DataRange;
 import com.spring.app.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
 import java.util.List;
-
-import static com.spring.app.Constants.*;
 
 /**
  * Rest controller for a countries
@@ -20,9 +18,8 @@ import static com.spring.app.Constants.*;
  *
  * @author Lyubov Ruzanova
  */
-@ResponseBody
 @RestController
-@RequestMapping("/countries")
+@RequestMapping(value = "/countries", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CountryController {
     private final CountryService service;
 
@@ -40,9 +37,10 @@ public class CountryController {
      *
      * @return list of countries
      */
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
+    @ResponseBody
     public ResponseEntity<List<CountryDTO>> getList() {
-        return new ResponseEntity<>(service.getList(), HttpStatus.OK);
+        return ResponseEntity.ok(service.getList());
     }
 
     /**
@@ -51,11 +49,12 @@ public class CountryController {
      * @param dto - country info storage
      * @return countryDTO object
      */
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
+    @ResponseBody
     public ResponseEntity<CountryDTO> add(@RequestBody CountryDTO dto) {
         Country country = dto.toEntity();
         service.save(country);
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        return ResponseEntity.ok(dto);
     }
 
     /**
@@ -64,64 +63,54 @@ public class CountryController {
      * @param countryName - country's name
      * @return the double value of the average salary
      */
-    @GetMapping(value = "{countryName}/mean-salary",
-            produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> findAverageSalaryByCountry(
-            @PathVariable String countryName,
-            @RequestParam(required = false, defaultValue = "0") int data1, //можно оставить примитив и вырубить дефолт
-            @RequestParam(required = false) Integer data2) {
-        if (data2 == null) {
-            data2 = Calendar.getInstance().get(Calendar.YEAR);
+    @ResponseBody
+    @PostMapping(value = "{countryName}/mean-salary")
+    public ResponseEntity<String> findAverageSalaryByCountry(@PathVariable String countryName,
+                                                             @RequestBody DataRange data) {
+        Double averageSalary = service.getMeanSalary(countryName, data.getValidFrom(), data.getValidTo());
+        if (averageSalary == null) {
+            return ResponseEntity.ok(MessageEnum.ERROR_NO_SALARY_INFO_FOUND.getErrorMessage());
         }
-        Double averageSalary = service.getMeanSalary(countryName, data1, data2);
-
-        if (averageSalary == null)
-            return new ResponseEntity<>(NO_SALARY_INFO_FOUND_ERROR_TEXT_MESSAGE, HttpStatus.OK);
-
-        String message = String.format(MEAN_SALARY_TEXT_MESSAGE, data1, data2, countryName, averageSalary);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        return ResponseEntity.ok(MessageEnum.MEAN_SALARY.getErrorMessage(data.getValidFromToString(),
+                                                                         data.getValidToToString(),
+                                                                         countryName,
+                                                                         averageSalary));
     }
 
     /**
      * Get the average number of employee's experience by country from country's service
+     *
      * @param countryName - country's name
      * @return the Integer value of the average experience
      */
-    @GetMapping(value = "{countryName}/avg-experience",
-            produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    @PostMapping(value = "{countryName}/avg-experience")
     public ResponseEntity<String> findAverageExperienceByCountry(@PathVariable String countryName,
-                                                                 @RequestParam(required = false) Integer data) {
-        if (data == null) {
-            data = Calendar.getInstance().get(Calendar.YEAR);
+                                                                 @RequestBody DataRange data) {
+        Integer experience = service.getAvgExperience(countryName, data.getValidFrom(), data.getValidTo());
+        if (experience == null) {
+            return ResponseEntity.ok(MessageEnum.ERROR_NO_EMP_FOUND.getErrorMessage());
         }
-
-        Integer experience = service.getAvgExperience(countryName, data);
-        if (experience == null)
-            return new ResponseEntity<>(NO_EMP_FOUND_ERROR_TEXT_MESSAGE, HttpStatus.OK);
-
-        String message =  String.format(AVG_EXPERIENCE_TEXT_MESSAGE, countryName, experience);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        return ResponseEntity.ok(MessageEnum.AVG_EXPERIENCE.getErrorMessage(countryName, experience));
     }
 
     /**
      * Get the average employee's age by country from country's service
+     *
      * @param countryName - country's name
      * @return the Integer value of the average age
      */
-    @GetMapping(value = "{countryName}/avg-age",
-            produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    @PostMapping(value = "{countryName}/avg-age")
     public ResponseEntity<String> findAverageAgeByCountry(@PathVariable String countryName,
-                                                                 @RequestParam(required = false) Integer data) {
-        if (data == null) {
-            data = Calendar.getInstance().get(Calendar.YEAR);
+                                                          @RequestBody DataRange data) {
+
+        Integer age = service.getAvgAge(countryName, data.getValidFrom(), data.getValidTo());
+        if (age == null) {
+            return ResponseEntity.ok(MessageEnum.ERROR_NO_EMP_FOUND.getErrorMessage());
         }
 
-        Integer age = service.getAvgAge(countryName, data);
-        if (age == null)
-            return new ResponseEntity<>(NO_EMP_FOUND_ERROR_TEXT_MESSAGE, HttpStatus.OK);
-
-        String message =  String.format(AVG_AGE_TEXT_MESSAGE, countryName, age);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        return ResponseEntity.ok(MessageEnum.AVG_AGE.getErrorMessage(countryName, age));
     }
 
 
@@ -131,21 +120,17 @@ public class CountryController {
      * @param countryName - country's name
      * @return the Integer value of the average number of employees
      */
-    @GetMapping(value = "{countryName}/average-number-of-employees",
-            produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> findAverageNumberOfEmployeesByCountry(
-            @PathVariable String countryName,
-            @RequestParam(required = false) Integer data) {
-        if (data == null) {
-            data = Calendar.getInstance().get(Calendar.YEAR);
+    @ResponseBody
+    @PostMapping(value = "{countryName}/average-number-of-employees")
+    public ResponseEntity<String> findAverageNumberOfEmployeesByCountry(@PathVariable String countryName,
+                                                                        @RequestBody DataRange data) {
+
+        Integer averageNumberOfEmployees = service.getAvgNumberOfEmployees(countryName, data.getValidFrom(), data.getValidTo());
+
+        if (averageNumberOfEmployees == null) {
+            return ResponseEntity.ok(MessageEnum.ERROR_NO_EMP_FOUND.getErrorMessage());
         }
-        Integer averageNumberOfEmployees = service.getAvgNumberOfEmployees(countryName, data);
-
-        if (averageNumberOfEmployees == null)
-            return new ResponseEntity<>(NO_EMP_FOUND_ERROR_TEXT_MESSAGE, HttpStatus.OK);
-
-        String message = String.format(AVG_NUM_OF_EMP_TEXT_MESSAGE, countryName, averageNumberOfEmployees);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        return ResponseEntity.ok(MessageEnum.AVG_NUM_OF_EMP.getErrorMessage(countryName, averageNumberOfEmployees));
     }
 
 }

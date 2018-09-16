@@ -1,7 +1,11 @@
 package com.spring.app.domain.dao;
 
 import com.spring.app.domain.Country;
+import com.spring.app.services.mappers.DoubleResultMapper;
+import com.spring.app.services.mappers.IntegerResultMapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
 
 /**
  * DAO for Country
@@ -15,65 +19,67 @@ public class CountryDAO extends GenericDaoImpl<Country> {
 
     /**
      * Create query to DB to find out the average salary of the country in period of time
-     * @param data1 - start date of the period
-     * @param data2 - end date of the period
+     *
+     * @param date1       - start date of the period
+     * @param date2       - end date of the period
      * @param countryName - country's name
      * @return the double value of the average salary
      */
-    public Double findMeanSalary(String countryName, int data1, int data2) {
-        return (Double) em.createNamedQuery(Country.MEAN_SALARY)
-                .setParameter(1, countryName)
-                .setParameter(2, data1)
-                .setParameter(3, data2)
-                .getSingleResult();
+    public Double findMeanSalary(String countryName, Date date1, Date date2) {
+        return new DoubleResultMapper().map(em.createNamedQuery(Country.MEAN_SALARY)
+                .setParameter("countryName", countryName)
+                .setParameter("fromDate", date1)
+                .setParameter("toDate", date2)
+                .getResultList());
     }
 
     /**
-     * Create query to DB to find out the average number of employees in companies in the country by the date
-     * @param year - date for calculation
+     * Create query to DB to find out the average number of employees in companies in the country in period of time
+     *
+     * @param date1       - start date of the period
+     * @param date2       - end date of the period
      * @param countryName - country's name
      * @return the Integer value of the average number of employees
      */
-    public Integer findAvgNumberOfEmployees(String countryName, int year) {
-        Number singleResult = (Number) em.createNamedQuery(Country.AVG_NUMBER_OF_EMPLOYEES) //потому что иногда возвращает биг десмиаль
-                .setParameter(1, countryName)
-                .setParameter(2, year)
-                .getSingleResult();
-        if (singleResult == null)
-            return null;
-        return singleResult.intValue();
+    public Integer findAvgNumberOfEmployees(String countryName, Date date1, Date date2) {
+        return new IntegerResultMapper().map(em.createNamedQuery(Country.AVG_NUMBER_OF_EMPLOYEES) //потому что иногда возвращает биг десмиаль
+                .setParameter("countryName", countryName)
+                .setParameter("fromDate", date1)
+                .setParameter("toDate", date2)
+                .getResultList());
+
     }
 
     /**
-     * Create query to DB to find out the average experience of employees in the country by the date
-     * @param year - date for calculation
+     * Create query to DB to find out the average experience of employees in the country in period of time
+     *
+     * @param date1       - start date of the period
+     * @param date2       - end date of the period
      * @param countryName - country's name
      * @return the Integer value of the average experience
      */
-    public Integer findAvgExperience(String countryName, int year) {
-        Number singleResult = (Number) em.createNamedQuery(Country.AVG_EXPERIENCE)
-                .setParameter(1, countryName)
-                .setParameter(2, year)
-                .getSingleResult();
-        if (singleResult == null)
-            return null;
-        return singleResult.intValue();
+    public Integer findAvgExperience(String countryName, Date date1, Date date2) {
+        return new IntegerResultMapper().map(em.createNamedQuery(Country.AVG_EXPERIENCE)
+                .setParameter("countryName", countryName)
+                .setParameter("fromDate", date1)
+                .setParameter("toDate", date2)
+                .getResultList());
     }
 
     /**
-     * Create query to DB to find out the average age of employees in the country by the date
-     * @param year - date for calculation
+     * Create query to DB to find out the average age of employees in the country in period of time
+     *
+     * @param date1       - start date of the period
+     * @param date2       - end date of the period
      * @param countryName - country's name
      * @return the Integer value of the average experience
      */
-    public Integer findAvgAge(String countryName, int year) {
-        Number singleResult = (Number) em.createNamedQuery(Country.AVG_AGE)
-                .setParameter(1, countryName)
-                .setParameter(2, year)
-                .getSingleResult();
-        if (singleResult == null)
-            return null;
-        return singleResult.intValue();
+    public Integer findAvgAge(String countryName, Date date1, Date date2) {
+        return new IntegerResultMapper().map(em.createNamedQuery(Country.AVG_AGE)
+                .setParameter("countryName", countryName)
+                .setParameter("fromDate", date1)
+                .setParameter("toDate", date2)
+                .getResultList());
     }
 
     /**

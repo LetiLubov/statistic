@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Vacancy
@@ -44,9 +46,11 @@ public class Vacancy extends BaseEntity {
     @JoinColumn(name = "COMPANY_ID")
     private Company company;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE_OPENED")
-    private int dateOpened;
+    private Date dateOpened;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE_CLOSED")
-    private int dateClosed;
+    private Date dateClosed;
 }

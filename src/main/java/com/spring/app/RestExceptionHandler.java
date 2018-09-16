@@ -1,12 +1,9 @@
 package com.spring.app;
 
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
@@ -19,22 +16,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = RuntimeException.class)
-    protected ResponseEntity<Object> catchRuntimeException(
-            RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Oops! Something went wrong, please contact Lyubov \n Telegram: @akelanova";
-        return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.CONFLICT, request);
+    protected ResponseEntity<String> catchRuntimeException() {
+        return ResponseEntity.badRequest().body(MessageEnum.ERROR_AT_RUNTIME.getErrorMessage());
     }
 
     @ExceptionHandler(value = InvalidDataAccessResourceUsageException.class)
-    protected ResponseEntity<Object> catchInvalidDataAccess(
-            RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Oops! Failed to get response from database, please contact Lyubov \n Telegram: @akelanova";
-        return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.CONFLICT, request);
+    protected ResponseEntity<Object> catchInvalidDataAccess() {
+        return ResponseEntity.badRequest().body(MessageEnum.ERROR_INVALID_DATA_ACCESS.getErrorMessage());
     }
-
-
-
 }
 
