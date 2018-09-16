@@ -16,11 +16,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CompanyDTO implements IWrapper<Company, CompanyDTO> {
     private String name;
-    private Country country;
+    private CountryDTO country;
 
     private CompanyDTO(Company company){
         this.name = company.getName();
-        this.country = company.getCountry();
+        this.country = new CountryDTO().fromEntity(company.getCountry());
     }
 
     @Override
@@ -32,7 +32,7 @@ public class CompanyDTO implements IWrapper<Company, CompanyDTO> {
     public Company toEntity() {
         Company company = new Company();
         company.setName(this.name);
-        company.setCountry(this.country);
+        company.setCountry(this.country.toEntity());
         return company;
     }
 }
