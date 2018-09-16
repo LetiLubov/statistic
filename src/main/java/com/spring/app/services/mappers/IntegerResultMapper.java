@@ -1,5 +1,7 @@
 package com.spring.app.services.mappers;
 
+import com.spring.app.DataNotFoundException;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -11,8 +13,11 @@ import java.util.List;
 public class IntegerResultMapper implements ResultMapper<List<Object>, Integer> {
     private static final int INDEX = 0;
 
+    /**
+     * {@InheritDoc}
+     */
     @Override
-    public Integer map(List<Object> objects) {
+    public Integer map(List<Object> objects) throws DataNotFoundException {
         if (objects != null && !objects.isEmpty() && objects.get(INDEX) != null) {
             Object object = objects.get(INDEX);
             if (object instanceof BigDecimal) {
@@ -21,7 +26,8 @@ public class IntegerResultMapper implements ResultMapper<List<Object>, Integer> 
             if (object instanceof Double) {
                 return ((Double) object).intValue();
             }
+            throw new DataNotFoundException("The received value is incorrect.");
         }
-        return 0;
+        throw new DataNotFoundException("Data not found.");
     }
 }

@@ -1,5 +1,6 @@
 package com.spring.app.domain.dao;
 
+import com.spring.app.DataNotFoundException;
 import com.spring.app.domain.Country;
 import com.spring.app.services.mappers.DoubleResultMapper;
 import com.spring.app.services.mappers.IntegerResultMapper;
@@ -27,9 +28,9 @@ public class CountryDAO extends GenericDaoImpl<Country> {
      */
     public Double findMeanSalary(String countryName, Date date1, Date date2) {
         return new DoubleResultMapper().map(em.createNamedQuery(Country.MEAN_SALARY)
-                .setParameter("countryName", countryName)
-                .setParameter("fromDate", date1)
-                .setParameter("toDate", date2)
+                .setParameter("country_name", countryName)
+                .setParameter("from_date", date1)
+                .setParameter("to_date", date2)
                 .getResultList());
     }
 
@@ -42,10 +43,10 @@ public class CountryDAO extends GenericDaoImpl<Country> {
      * @return the Integer value of the average number of employees
      */
     public Integer findAvgNumberOfEmployees(String countryName, Date date1, Date date2) {
-        return new IntegerResultMapper().map(em.createNamedQuery(Country.AVG_NUMBER_OF_EMPLOYEES) //потому что иногда возвращает биг десмиаль
-                .setParameter("countryName", countryName)
-                .setParameter("fromDate", date1)
-                .setParameter("toDate", date2)
+        return new IntegerResultMapper().map(em.createNamedQuery(Country.AVG_NUMBER_OF_EMPLOYEES)
+                .setParameter("country_name", countryName)
+                .setParameter("from_date", date1)
+                .setParameter("to_date", date2)
                 .getResultList());
 
     }
@@ -58,11 +59,11 @@ public class CountryDAO extends GenericDaoImpl<Country> {
      * @param countryName - country's name
      * @return the Integer value of the average experience
      */
-    public Integer findAvgExperience(String countryName, Date date1, Date date2) {
+    public Integer findAvgExperience(String countryName, Date date1, Date date2)  {
         return new IntegerResultMapper().map(em.createNamedQuery(Country.AVG_EXPERIENCE)
-                .setParameter("countryName", countryName)
-                .setParameter("fromDate", date1)
-                .setParameter("toDate", date2)
+                .setParameter("country_name", countryName)
+                .setParameter("from_date", date1)
+                .setParameter("to_date", date2)
                 .getResultList());
     }
 
@@ -76,9 +77,9 @@ public class CountryDAO extends GenericDaoImpl<Country> {
      */
     public Integer findAvgAge(String countryName, Date date1, Date date2) {
         return new IntegerResultMapper().map(em.createNamedQuery(Country.AVG_AGE)
-                .setParameter("countryName", countryName)
-                .setParameter("fromDate", date1)
-                .setParameter("toDate", date2)
+                .setParameter("country_name", countryName)
+                .setParameter("from_date", date1)
+                .setParameter("to_date", date2)
                 .getResultList());
     }
 

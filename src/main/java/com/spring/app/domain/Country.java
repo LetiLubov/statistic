@@ -22,49 +22,49 @@ import javax.persistence.*;
                         query = "SELECT AVG(vacancy.salary) " +
                                 "FROM country " +
                                 "INNER JOIN company ON (country.id = company.country_id " +
-                                "           AND company.date_opened <= :toDate " +
-                                "           AND (company.date_closed ISNULL OR company.date_closed >= :fromDate)) " +
+                                "           AND company.date_opened <= :to_date " +
+                                "           AND (company.date_closed ISNULL OR company.date_closed >= :from_date)) " +
                                 "INNER JOIN vacancy ON (company.id = vacancy.company_id AND vacancy.opened = TRUE " +
-                                "           AND vacancy.date_opened  >= :fromDate " +
-                                "           AND (vacancy.date_closed ISNULL OR vacancy.date_closed >= :toDate))" +
+                                "           AND vacancy.date_opened  >= :from_date " +
+                                "           AND (vacancy.date_closed ISNULL OR vacancy.date_closed >= :to_date))" +
                                 "INNER JOIN employee ON vacancy.employee_id = employee.id " +
-                                "WHERE country.name = :countryName"),
+                                "WHERE country.name = :country_name"),
                 @NamedNativeQuery(
                         name = "AVG_EXPERIENCE",
-                        query = "SELECT AVG((cast(extract(year FROM cast (:toDate AS DATE)) AS int)) -  employee.career_start_year) " +
+                        query = "SELECT AVG((cast(extract(year FROM cast (:to_date AS DATE)) AS int)) -  employee.career_start_year) " +
                                 "FROM country " +
                                 "INNER JOIN company ON (country.id = company.country_id " +
-                                "           AND company.date_opened <= :toDate " +
-                                "           AND (company.date_closed ISNULL OR company.date_closed >= :fromDate)) " +
+                                "           AND company.date_opened <= :to_date " +
+                                "           AND (company.date_closed ISNULL OR company.date_closed >= :from_date)) " +
                                 "INNER JOIN vacancy ON (company.id = vacancy.company_id AND vacancy.opened = TRUE " +
-                                "           AND vacancy.date_opened  >= :fromDate " +
-                                "           AND (vacancy.date_closed ISNULL OR vacancy.date_closed >= :toDate))" +
+                                "           AND vacancy.date_opened  >= :from_date " +
+                                "           AND (vacancy.date_closed ISNULL OR vacancy.date_closed >= :to_date))" +
                                 "INNER JOIN employee ON vacancy.employee_id = employee.id " +
-                                "WHERE country.name = :countryName"),
+                                "WHERE country.name = :country_name"),
                 @NamedNativeQuery(
                         name = "AVG_AGE",
-                        query = "SELECT AVG((cast(extract(year FROM cast (:toDate AS DATE)) AS int)) -  employee.birth_year) " +
+                        query = "SELECT AVG((cast(extract(year FROM cast (:to_date AS DATE)) AS int)) -  employee.birth_year) " +
                                 "FROM country " +
                                 "INNER JOIN company ON (country.id = company.country_id " +
-                                "           AND company.date_opened <= :toDate " +
-                                "           AND (company.date_closed ISNULL OR company.date_closed >= :fromDate)) " +
+                                "           AND company.date_opened <= :to_date " +
+                                "           AND (company.date_closed ISNULL OR company.date_closed >= :from_date)) " +
                                 "INNER JOIN vacancy ON (company.id = vacancy.company_id AND vacancy.opened = TRUE " +
-                                "           AND vacancy.date_opened  >= :fromDate " +
-                                "           AND (vacancy.date_closed ISNULL OR vacancy.date_closed >= :toDate))" +
+                                "           AND vacancy.date_opened  >= :from_date " +
+                                "           AND (vacancy.date_closed ISNULL OR vacancy.date_closed >= :to_date))" +
                                 "INNER JOIN employee ON vacancy.employee_id = employee.id " +
-                                "WHERE country.name = :countryName"),
+                                "WHERE country.name = :country_name"),
                 @NamedNativeQuery(
                         name = "AVG_NUMBER_OF_EMPLOYEES",
                         query = "SELECT AVG (count_table.number_of_emp)" +
                                 "FROM(" +
                                 "    SELECT COUNT(vacancy.id) as number_of_emp" +
                                 "    FROM company JOIN country ON (country.id = company.country_id " +
-                                "                              AND company.date_opened <= :toDate " +
-                                "                              AND (company.date_closed ISNULL OR company.date_closed >= :fromDate)) " +
+                                "                              AND company.date_opened <= :to_date " +
+                                "                              AND (company.date_closed ISNULL OR company.date_closed >= :from_date)) " +
                                 "    JOIN vacancy ON (company.id = vacancy.company_id AND vacancy.opened = TRUE " +
-                                "                              AND vacancy.date_opened  >= :fromDate " +
-                                "                              AND (vacancy.date_closed ISNULL OR vacancy.date_closed >= :toDate))" +
-                                "    WHERE country.name = :countryName " +
+                                "                              AND vacancy.date_opened  >= :from_date " +
+                                "                              AND (vacancy.date_closed ISNULL OR vacancy.date_closed >= :to_date))" +
+                                "    WHERE country.name = :country_name " +
                                 "    GROUP BY company.name) " +
                                 "AS count_table"
                 )

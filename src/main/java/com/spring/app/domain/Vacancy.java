@@ -32,7 +32,7 @@ public class Vacancy extends BaseEntity {
     private String name;
 
     @Column(name = "SALARY")
-    private float salary;
+    private double salary;
 
     @Column(name = "OPENED")
     private boolean isOpened;

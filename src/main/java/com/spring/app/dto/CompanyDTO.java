@@ -18,9 +18,13 @@ import java.util.Date;
 public class CompanyDTO implements IWrapper<Company, CompanyDTO> {
     private String name;
     private CountryDTO country;
-    private Date dateOpened;
+    private Date dateOpened = new Date(Integer.MIN_VALUE);
     private Date dateClosed;
 
+    /**
+     * Constructor for copying the Company object to the CompanyDTO object
+     * @param company - storage for an entity from a DB
+     */
     private CompanyDTO(Company company){
         this.name = company.getName();
         this.country = new CountryDTO().fromEntity(company.getCountry());
@@ -28,11 +32,16 @@ public class CompanyDTO implements IWrapper<Company, CompanyDTO> {
         this.dateClosed = company.getDateClosed();
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */    @Override
     public CompanyDTO fromEntity(Company entity) {
         return new CompanyDTO(entity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Company toEntity() {
         Company company = new Company();

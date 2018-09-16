@@ -1,5 +1,6 @@
 package com.spring.app.services;
 
+import com.spring.app.DataNotFoundException;
 import com.spring.app.domain.Country;
 import com.spring.app.domain.dao.CountryDAO;
 import com.spring.app.dto.CountryDTO;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class CountryService {
 
-    private CountryDAO repository;
+    private final CountryDAO repository;
 
     /**
      * Inject a country repository
@@ -45,7 +46,7 @@ public class CountryService {
      * @param name - country's name
      * @return the double value of the average salary
      */
-    public Double getMeanSalary(String name, Date data1, Date data2){
+    public Double getMeanSalary(String name, Date data1, Date data2) {
         return repository.findMeanSalary(name, data1, data2);
     }
 
@@ -54,7 +55,7 @@ public class CountryService {
      * @param name - country's name
      * @return the Integer value of the average experience
      */
-    public Integer getAvgExperience(String name, Date date1, Date date2){
+    public Integer getAvgExperience(String name, Date date1, Date date2) {
         return repository.findAvgExperience(name, date1, date2);
     }
 
@@ -63,7 +64,7 @@ public class CountryService {
      * @param name - country's name
      * @return the Integer value of the average experience
      */
-    public Integer getAvgAge(String name, Date date1, Date date2){
+    public Integer getAvgAge(String name, Date date1, Date date2) {
         return repository.findAvgAge(name, date1, date2);
     }
 
@@ -72,7 +73,7 @@ public class CountryService {
      * @param name - country's name
      * @return the Integer value of the average number of employee
      */
-    public Integer getAvgNumberOfEmployees(String name, Date date1, Date date2){
+    public Integer getAvgNumberOfEmployees(String name, Date date1, Date date2) {
         return repository.findAvgNumberOfEmployees(name, date1, date2);
     }
 

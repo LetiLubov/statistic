@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class CompanyService {
-    private CompanyDAO repository;
+    private final CompanyDAO repository;
 
     /**
      * Inject a company repository
@@ -30,7 +30,7 @@ public class CompanyService {
      * Get all companies from repository and convert them to CompanyDTO format
      * @return list of companies
      */
-    public List<CompanyDTO> getList() throws RuntimeException {
+    public List<CompanyDTO> getList(){
         return repository.findAll()
                 .stream()
                 .map(c -> new CompanyDTO().fromEntity(c))
@@ -41,7 +41,7 @@ public class CompanyService {
      * Save a new company to DB
      * @param company - the company to save in DB
      */
-    public void save(Company company) throws IllegalArgumentException {
+    public void save(Company company){
         repository.create(company);
     }
 }

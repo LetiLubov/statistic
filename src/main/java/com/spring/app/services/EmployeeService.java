@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class EmployeeService {
 
-    private EmployeeDAO repository;
+    private final EmployeeDAO repository;
 
     /**
      * Inject a employee repository

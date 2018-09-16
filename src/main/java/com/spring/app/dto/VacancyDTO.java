@@ -18,13 +18,17 @@ import java.util.Date;
 public class VacancyDTO implements IWrapper<Vacancy, VacancyDTO> {
 
     private String name;
-    private float salary;
+    private double salary;
     private boolean isOpened;
     private EmployeeDTO employee;
     private CompanyDTO company;
-    private Date dateOpened;
+    private Date dateOpened = new Date(Integer.MIN_VALUE);
     private Date dateClosed;
 
+    /**
+     * Constructor for copying the Vacancy object to the VacancyDTO object
+     * @param vacancy - storage for an entity from a DB
+     */
     private VacancyDTO(Vacancy vacancy){
         this.name = vacancy.getName();
         this.salary = vacancy.getSalary();
@@ -35,11 +39,17 @@ public class VacancyDTO implements IWrapper<Vacancy, VacancyDTO> {
         this.dateClosed = vacancy.getDateClosed();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public VacancyDTO fromEntity(Vacancy entity) {
         return new VacancyDTO(entity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Vacancy toEntity() {
         Vacancy vacancy = new Vacancy();

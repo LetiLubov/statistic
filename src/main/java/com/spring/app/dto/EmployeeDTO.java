@@ -17,16 +17,26 @@ public class EmployeeDTO implements IWrapper<Employee, EmployeeDTO>{
     private int birthYear;
     private int careerStartYear;
 
+    /**
+     * Constructor for copying the Employee object to the EmployeeDTO object
+     * @param employee - storage for an entity from a DB
+     */
     private EmployeeDTO(Employee employee){
         this.birthYear = employee.getBirthYear();
         this.careerStartYear = employee.getCareerStartYear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public EmployeeDTO fromEntity(Employee entity) {
         return new EmployeeDTO(entity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Employee toEntity() {
         Employee employee = new Employee();

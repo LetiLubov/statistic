@@ -18,16 +18,26 @@ public class CountryDTO implements IWrapper<Country, CountryDTO> {
     private String name;
     private EconomyLevel economyLevel;
 
+    /**
+     * Constructor for copying the Country object to the CountryDTO object
+     * @param country - storage for an entity from a DB
+     */
     private CountryDTO(Country country){
         this.name = country.getName();
         this.economyLevel = country.getEconomyLevel();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CountryDTO fromEntity(Country entity) {
         return new CountryDTO(entity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Country toEntity() {
         Country country = new Country();

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class VacancyService {
 
-    private VacancyDAO repository;
+    private final VacancyDAO repository;
 
     /**
      * Inject a vacancy repository

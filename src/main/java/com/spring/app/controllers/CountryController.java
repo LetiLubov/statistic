@@ -1,5 +1,6 @@
 package com.spring.app.controllers;
 
+import com.spring.app.DataNotFoundException;
 import com.spring.app.MessageEnum;
 import com.spring.app.domain.Country;
 import com.spring.app.dto.CountryDTO;
@@ -68,9 +69,6 @@ public class CountryController {
     public ResponseEntity<String> findAverageSalaryByCountry(@PathVariable String countryName,
                                                              @RequestBody DataRange data) {
         Double averageSalary = service.getMeanSalary(countryName, data.getValidFrom(), data.getValidTo());
-        if (averageSalary == null) {
-            return ResponseEntity.ok(MessageEnum.ERROR_NO_SALARY_INFO_FOUND.getErrorMessage());
-        }
         return ResponseEntity.ok(MessageEnum.MEAN_SALARY.getErrorMessage(data.getValidFromToString(),
                                                                          data.getValidToToString(),
                                                                          countryName,
@@ -88,9 +86,6 @@ public class CountryController {
     public ResponseEntity<String> findAverageExperienceByCountry(@PathVariable String countryName,
                                                                  @RequestBody DataRange data) {
         Integer experience = service.getAvgExperience(countryName, data.getValidFrom(), data.getValidTo());
-        if (experience == null) {
-            return ResponseEntity.ok(MessageEnum.ERROR_NO_EMP_FOUND.getErrorMessage());
-        }
         return ResponseEntity.ok(MessageEnum.AVG_EXPERIENCE.getErrorMessage(countryName, experience));
     }
 
@@ -105,9 +100,6 @@ public class CountryController {
     public ResponseEntity<String> findAverageAgeByCountry(@PathVariable String countryName,
                                                           @RequestBody DataRange data) {
         Integer age = service.getAvgAge(countryName, data.getValidFrom(), data.getValidTo());
-        if (age == null) {
-            return ResponseEntity.ok(MessageEnum.ERROR_NO_EMP_FOUND.getErrorMessage());
-        }
         return ResponseEntity.ok(MessageEnum.AVG_AGE.getErrorMessage(countryName, age));
     }
 
@@ -123,9 +115,6 @@ public class CountryController {
     public ResponseEntity<String> findAverageNumberOfEmployeesByCountry(@PathVariable String countryName,
                                                                         @RequestBody DataRange data) {
         Integer averageNumberOfEmployees = service.getAvgNumberOfEmployees(countryName, data.getValidFrom(), data.getValidTo());
-        if (averageNumberOfEmployees == null) {
-            return ResponseEntity.ok(MessageEnum.ERROR_NO_EMP_FOUND.getErrorMessage());
-        }
         return ResponseEntity.ok(MessageEnum.AVG_NUM_OF_EMP.getErrorMessage(countryName, averageNumberOfEmployees));
     }
 
