@@ -1,6 +1,5 @@
 package com.spring.app.domain.dao;
 
-import com.spring.app.DataNotFoundException;
 import com.spring.app.domain.Country;
 import com.spring.app.services.mappers.DoubleResultMapper;
 import com.spring.app.services.mappers.IntegerResultMapper;

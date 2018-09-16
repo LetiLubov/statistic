@@ -12,6 +12,10 @@ import java.util.Locale;
 public final class Constants {
     public final static DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
 
+    /**
+     * Doesn't need to provide a possibility to create instance of this class
+     * @throws IllegalAccessException - any way
+     */
     private Constants() throws IllegalAccessException {
         throw new IllegalAccessException();
     }

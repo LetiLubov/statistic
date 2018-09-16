@@ -1,6 +1,5 @@
 package com.spring.app.controllers;
 
-import com.spring.app.DataNotFoundException;
 import com.spring.app.MessageEnum;
 import com.spring.app.domain.Country;
 import com.spring.app.dto.CountryDTO;

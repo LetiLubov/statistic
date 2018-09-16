@@ -1,6 +1,5 @@
 package com.spring.app.services;
 
-import com.spring.app.DataNotFoundException;
 import com.spring.app.domain.Country;
 import com.spring.app.domain.dao.CountryDAO;
 import com.spring.app.dto.CountryDTO;
