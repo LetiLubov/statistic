@@ -7,26 +7,26 @@ import java.math.BigInteger;
 import java.util.List;
 
 /**
- * Map data set to single value and cast it to Integer
+ * Map data set to single value and cast it to Long
  *
  * @author Lyubov Ruzanova
  */
-public class IntegerResultMapper implements ResultMapper<List<Object>, Integer> {
+public class LongResultMapper implements ResultMapper<List<Object>, Long> {
     private static final int INDEX = 0;
 
     /**
      * {@InheritDoc}
      */
     @Override
-    public Integer map(List<Object> objects) throws DataNotFoundException {
+    public Long map(List<Object> objects) throws DataNotFoundException {
         if (objects != null && !objects.isEmpty() && objects.get(INDEX) != null) {
             Object object = objects.get(INDEX);
             if (object instanceof BigDecimal) {
-                return ((BigDecimal) object).intValue();
+                return ((BigDecimal) object).longValue();
             }else if (object instanceof BigInteger) {
-                return ((BigInteger) object).intValue();
+                return ((BigInteger) object).longValue();
             }else if (object instanceof Double) {
-                return ((Double) object).intValue();
+                return ((Double) object).longValue();
             }
             throw new DataNotFoundException("The received value is incorrect.");
         }

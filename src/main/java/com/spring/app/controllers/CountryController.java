@@ -61,6 +61,7 @@ public class CountryController {
      * Get the average salary by country name from country's service
      *
      * @param countryName - country's name
+     * @param data        - period of time
      * @return the double value of the average salary
      */
     @ResponseBody
@@ -69,15 +70,16 @@ public class CountryController {
                                                              @RequestBody DataRange data) {
         Double averageSalary = service.getMeanSalary(countryName, data.getValidFrom(), data.getValidTo());
         return ResponseEntity.ok(MessageEnum.MEAN_SALARY.getMessage(data.getValidFromToString(),
-                                                                         data.getValidToToString(),
-                                                                         countryName,
-                                                                         averageSalary));
+                data.getValidToToString(),
+                countryName,
+                averageSalary));
     }
 
     /**
      * Get the average number of employee's experience by country from country's service
      *
      * @param countryName - country's name
+     * @param data        - period of time
      * @return the Integer value of the average experience
      */
     @ResponseBody
@@ -92,6 +94,7 @@ public class CountryController {
      * Get the average employee's age by country from country's service
      *
      * @param countryName - country's name
+     * @param data        - period of time
      * @return the Integer value of the average age
      */
     @ResponseBody
@@ -107,13 +110,15 @@ public class CountryController {
      * Get the average number of employees in companies by country from country's service
      *
      * @param countryName - country's name
+     * @param data        - period of time
      * @return the Integer value of the average number of employees
      */
     @ResponseBody
     @PostMapping(value = "{countryName}/average-number-of-employees")
     public ResponseEntity<String> findAverageNumberOfEmployeesByCountry(@PathVariable String countryName,
                                                                         @RequestBody DataRange data) {
-        Integer averageNumberOfEmployees = service.getAvgNumberOfEmployees(countryName, data.getValidFrom(), data.getValidTo());
+        Integer averageNumberOfEmployees = service.getAvgNumberOfEmployeesInCompanies(countryName, data.getValidFrom(),
+                data.getValidTo());
         return ResponseEntity.ok(MessageEnum.AVG_NUM_OF_EMP.getMessage(countryName, averageNumberOfEmployees));
     }
 
