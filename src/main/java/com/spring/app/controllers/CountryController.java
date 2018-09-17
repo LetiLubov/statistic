@@ -68,7 +68,7 @@ public class CountryController {
     public ResponseEntity<String> findAverageSalaryByCountry(@PathVariable String countryName,
                                                              @RequestBody DataRange data) {
         Double averageSalary = service.getMeanSalary(countryName, data.getValidFrom(), data.getValidTo());
-        return ResponseEntity.ok(MessageEnum.MEAN_SALARY.getErrorMessage(data.getValidFromToString(),
+        return ResponseEntity.ok(MessageEnum.MEAN_SALARY.getMessage(data.getValidFromToString(),
                                                                          data.getValidToToString(),
                                                                          countryName,
                                                                          averageSalary));
@@ -85,7 +85,7 @@ public class CountryController {
     public ResponseEntity<String> findAverageExperienceByCountry(@PathVariable String countryName,
                                                                  @RequestBody DataRange data) {
         Integer experience = service.getAvgExperience(countryName, data.getValidFrom(), data.getValidTo());
-        return ResponseEntity.ok(MessageEnum.AVG_EXPERIENCE.getErrorMessage(countryName, experience));
+        return ResponseEntity.ok(MessageEnum.AVG_EXPERIENCE.getMessage(countryName, experience));
     }
 
     /**
@@ -99,7 +99,7 @@ public class CountryController {
     public ResponseEntity<String> findAverageAgeByCountry(@PathVariable String countryName,
                                                           @RequestBody DataRange data) {
         Integer age = service.getAvgAge(countryName, data.getValidFrom(), data.getValidTo());
-        return ResponseEntity.ok(MessageEnum.AVG_AGE.getErrorMessage(countryName, age));
+        return ResponseEntity.ok(MessageEnum.AVG_AGE.getMessage(countryName, age));
     }
 
 
@@ -114,7 +114,7 @@ public class CountryController {
     public ResponseEntity<String> findAverageNumberOfEmployeesByCountry(@PathVariable String countryName,
                                                                         @RequestBody DataRange data) {
         Integer averageNumberOfEmployees = service.getAvgNumberOfEmployees(countryName, data.getValidFrom(), data.getValidTo());
-        return ResponseEntity.ok(MessageEnum.AVG_NUM_OF_EMP.getErrorMessage(countryName, averageNumberOfEmployees));
+        return ResponseEntity.ok(MessageEnum.AVG_NUM_OF_EMP.getMessage(countryName, averageNumberOfEmployees));
     }
 
 }
