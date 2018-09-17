@@ -1,26 +1,26 @@
 package com.spring.app.domain;
 
+
 import lombok.*;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
-@Data
+/**
+ * Employee
+ * @author Lyubov Ruzanova
+ */
+
 @Entity
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
-public class Employee {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private Date birthday;
-    private Date firstWorkDay;
+@EqualsAndHashCode(exclude = "EMPLOYEE_ID")
+public class Employee extends BaseEntity{
 
-    public Employee(Date birthday, Date firstWorkDay) {
-        this.birthday = birthday;
-        this.firstWorkDay = firstWorkDay;
-    }
+    @Column(name = "BIRTH_YEAR")
+    private int birthYear;
+    @Column(name = "CAREER_START_YEAR")
+    private int careerStartYear;
 }

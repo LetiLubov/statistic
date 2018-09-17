@@ -1,34 +1,40 @@
 package com.spring.app.domain;
 
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.Date;
 
-@Data
+/**
+ * Company
+ * Has a one-directional relation bound to country
+ * 
+ * @author Lyubov Ruzanova
+ */
+
 @Entity
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
-public class Company {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@EqualsAndHashCode(callSuper = false)
+public class Company extends BaseEntity {
+
+    @Column(name = "NAME")
     private String name;
 
     @ManyToOne
-//    @JoinColumn(name = "country_id")
+    @JoinColumn(name = "COUNTRY_ID")
     private Country country;
 
-    @OneToMany
-//    @JoinColumn(name = "vacancy_id")
-    private Set<Vacancy> vacancy;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_OPENED")
+    private Date dateOpened;
 
-    public Company(String name) {
-        this.name = name;
-    }
-
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_CLOSED")
+    private Date dateClosed;
 }

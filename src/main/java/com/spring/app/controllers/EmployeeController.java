@@ -1,71 +1,54 @@
 package com.spring.app.controllers;
 
 import com.spring.app.domain.Employee;
-import com.spring.app.repos.EmployeeRepository;
+import com.spring.app.dto.EmployeeDTO;
+import com.spring.app.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
+import java.util.List;
 
-@Controller
+/**
+ * Rest controller for an employees
+ * Provide all actions with employees
+ *
+ * @author Lyubov Ruzanova
+ */
+@RestController
+@RequestMapping(value = "/employees", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmployeeController {
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeService service;
 
-    @GetMapping("employees")
-    public String main(Map<String, Object> model) {
-        Iterable<Employee> messages = employeeRepository.findAll();
-
-        model.put("employees", messages);
-
-        return "employee";
+    /**
+     * Inject a employee service
+     * @param service - employee service
+     */
+    public EmployeeController(@Autowired EmployeeService service) {
+        this.service = service;
     }
 
-    @PostMapping("employees")
-    public String add(@RequestParam String birthday, @RequestParam String firstWorkDay, Map<String, Object> model) {
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-        try {
-            Employee employee = new Employee(df.parse(birthday), df.parse(firstWorkDay));
-            employeeRepository.save(employee);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Iterable<Employee> employees = employeeRepository.findAll();
-
-        model.put("employees", employees);
-
-        return "employee";
+    /**
+     * Send a request to the service to get all employees
+     * @return list of employees
+     */
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<List<EmployeeDTO>> getList() {
+        return ResponseEntity.ok(service.getList());
     }
 
-    @PostMapping("employees/filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model) {
-        Iterable<Employee> employees;
-
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-        try {
-            if (filter != null && !filter.isEmpty()) {
-                employees = employeeRepository.findByBirthday((df.parse(filter)));
-            } else {
-                employees = employeeRepository.findAll();
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-            employees = employeeRepository.findAll();
-        }
-
-
-
-        model.put("employees", employees);
-
-        return "employee";
+    /**
+     * Send a request to the service to save a new instance
+     * @param dto - employee info
+     * @return employeeDTO object
+     */
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity<EmployeeDTO> add(@RequestBody EmployeeDTO dto) {
+        Employee employee = dto.toEntity();
+        service.save(employee);
+        return ResponseEntity.ok(dto);
     }
 }

@@ -1,40 +1,120 @@
 package com.spring.app.controllers;
 
-import com.spring.app.CountryLevel;
+import com.spring.app.MessageEnum;
 import com.spring.app.domain.Country;
-import com.spring.app.repos.CountryRepository;
+import com.spring.app.dto.CountryDTO;
+import com.spring.app.dto.DataRange;
+import com.spring.app.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
-@Controller
+/**
+ * Rest controller for a countries
+ * Provide all actions with countries
+ *
+ * @author Lyubov Ruzanova
+ */
+@RestController
+@RequestMapping(value = "/countries", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CountryController {
-    @Autowired
-    private CountryRepository countryRepository;
+    private final CountryService service;
 
-    @GetMapping("countries")
-    public String main(Map<String, Object> model) {
-        Iterable<Country> countries = countryRepository.findAll();
-
-        model.put("countries", countries);
-
-        return "country";
+    /**
+     * Inject a country service
+     *
+     * @param service - country service
+     */
+    public CountryController(@Autowired CountryService service) {
+        this.service = service;
     }
 
-    @PostMapping("countries")
-    public String add(@RequestParam String name, Map<String, Object> model) {
-        Country country = new Country(name);
-        countryRepository.save(country);
+    /**
+     * Send a request to the service to get all countries
+     *
+     * @return list of countries
+     */
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<List<CountryDTO>> getList() {
+        return ResponseEntity.ok(service.getList());
+    }
 
-        Iterable<Country> countries = countryRepository.findAll();
+    /**
+     * Send a request to the service to save a new instance
+     *
+     * @param dto - country info storage
+     * @return countryDTO object
+     */
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity<CountryDTO> add(@RequestBody CountryDTO dto) {
+        Country country = dto.toEntity();
+        service.save(country);
+        return ResponseEntity.ok(dto);
+    }
 
-        model.put("countries", countries);
+    /**
+     * Get the average salary by country name from country's service
+     *
+     * @param countryName - country's name
+     * @return the double value of the average salary
+     */
+    @ResponseBody
+    @PostMapping(value = "{countryName}/mean-salary")
+    public ResponseEntity<String> findAverageSalaryByCountry(@PathVariable String countryName,
+                                                             @RequestBody DataRange data) {
+        Double averageSalary = service.getMeanSalary(countryName, data.getValidFrom(), data.getValidTo());
+        return ResponseEntity.ok(MessageEnum.MEAN_SALARY.getMessage(data.getValidFromToString(),
+                                                                         data.getValidToToString(),
+                                                                         countryName,
+                                                                         averageSalary));
+    }
 
-        return "country";
+    /**
+     * Get the average number of employee's experience by country from country's service
+     *
+     * @param countryName - country's name
+     * @return the Integer value of the average experience
+     */
+    @ResponseBody
+    @PostMapping(value = "{countryName}/avg-experience")
+    public ResponseEntity<String> findAverageExperienceByCountry(@PathVariable String countryName,
+                                                                 @RequestBody DataRange data) {
+        Integer experience = service.getAvgExperience(countryName, data.getValidFrom(), data.getValidTo());
+        return ResponseEntity.ok(MessageEnum.AVG_EXPERIENCE.getMessage(countryName, experience));
+    }
+
+    /**
+     * Get the average employee's age by country from country's service
+     *
+     * @param countryName - country's name
+     * @return the Integer value of the average age
+     */
+    @ResponseBody
+    @PostMapping(value = "{countryName}/avg-age")
+    public ResponseEntity<String> findAverageAgeByCountry(@PathVariable String countryName,
+                                                          @RequestBody DataRange data) {
+        Integer age = service.getAvgAge(countryName, data.getValidFrom(), data.getValidTo());
+        return ResponseEntity.ok(MessageEnum.AVG_AGE.getMessage(countryName, age));
+    }
+
+
+    /**
+     * Get the average number of employees in companies by country from country's service
+     *
+     * @param countryName - country's name
+     * @return the Integer value of the average number of employees
+     */
+    @ResponseBody
+    @PostMapping(value = "{countryName}/average-number-of-employees")
+    public ResponseEntity<String> findAverageNumberOfEmployeesByCountry(@PathVariable String countryName,
+                                                                        @RequestBody DataRange data) {
+        Integer averageNumberOfEmployees = service.getAvgNumberOfEmployees(countryName, data.getValidFrom(), data.getValidTo());
+        return ResponseEntity.ok(MessageEnum.AVG_NUM_OF_EMP.getMessage(countryName, averageNumberOfEmployees));
     }
 
 }

@@ -1,71 +1,54 @@
 package com.spring.app.controllers;
 
-import com.spring.app.domain.Employee;
 import com.spring.app.domain.Vacancy;
-import com.spring.app.repos.VacancyRepository;
+import com.spring.app.dto.VacancyDTO;
+import com.spring.app.services.VacancyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
+import java.util.List;
 
-@Controller
+/**
+ * Rest controller for a vacancies
+ * Provide all actions with vacancies
+ *
+ * @author Lyubov Ruzanova
+ */
+@RestController
+@RequestMapping(value = "/vacancies", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VacancyController {
-    @Autowired
-    private VacancyRepository vacancyRepository;
+    private final VacancyService service;
 
-    @GetMapping("vacancies")
-    public String main(Map<String, Object> model) {
-        Iterable<Vacancy> messages = vacancyRepository.findAll();
-
-        model.put("vacancies", messages);
-
-        return "vacancy";
+    /**
+     * Inject a vacancy service
+     * @param service - vacancy service
+     */
+    public VacancyController(@Autowired VacancyService service) {
+        this.service = service;
     }
 
-    @PostMapping("vacancies")
-    public String add(@RequestParam String name, @RequestParam String sSalary, @RequestParam String sDate, Map<String, Object> model) {
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-        Date date = new Date();
-        try {
-            date = df.parse(sDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        float salary = Float.parseFloat(sSalary);
-
-
-        Vacancy vacancy = new Vacancy(name, salary, date);
-            vacancyRepository.save(vacancy);
-
-
-        Iterable<Vacancy> vacancies = vacancyRepository.findAll();
-
-        model.put("vacancies", vacancies);
-
-        return "vacancy";
+    /**
+     * Send a request to the service to get all vacancies
+     * @return list of vacancies
+     */
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<List<VacancyDTO>> getList() {
+        return ResponseEntity.ok(service.getList());
     }
 
-    @PostMapping("vacancies/filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model) {
-        Iterable<Vacancy> vacancies;
-
-        if (filter != null && !filter.isEmpty() ) {
-            vacancies = vacancyRepository.findByName(filter);
-        } else {
-            vacancies = vacancyRepository.findAll();
-        }
-
-        model.put("vacancies", vacancies);
-
-        return "vacancy";
+    /**
+     * Send a request to the service to save a new instance
+     * @param dto - vacancy info
+     * @return vacancyDTO object
+     */
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity<VacancyDTO> add(@RequestBody VacancyDTO dto) {
+        Vacancy vacancy = dto.toEntity();
+        service.save(vacancy);
+        return ResponseEntity.ok(dto);
     }
 }
