@@ -130,7 +130,7 @@ public class InitDBController {
         vacancy3 = new Vacancy();
         vacancy3.setDateClosed(date2);
         vacancy3.setDateOpened(date);
-        vacancy3.setCompany(company1);
+        vacancy3.setCompany(company2);
         vacancy3.setEmployee(employee1);
         vacancy3.setOpened(true);
         vacancy3.setSalary(1000);

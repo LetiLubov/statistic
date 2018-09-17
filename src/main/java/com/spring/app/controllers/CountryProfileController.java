@@ -1,6 +1,5 @@
 package com.spring.app.controllers;
 
-import com.spring.app.EconomicLevel;
 import com.spring.app.dto.CountryProfileDTO;
 import com.spring.app.dto.DataRange;
 import com.spring.app.services.CountryService;
@@ -8,6 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+
+////////////////////////////
+//
+//          w.p.
+//
+//    Nothing to show
+//
+////////////////////////////
+
+
 
 /**
  * Composite statistical information on the performance indicators in the country
@@ -33,20 +43,17 @@ public class CountryProfileController {
     /**
      * Send requests to the service to get all statistical information
      *
-     * @param countryName - name of the country
      * @param data        - period of time
      * @return country's profile DTO
      */
     @ResponseBody
-    @PostMapping(value = "/{countryName}")
-    public ResponseEntity<CountryProfileDTO> getProfile(@PathVariable String countryName, @RequestBody DataRange data) {
-        Long numberOfEmployees = countryService.getNumberOfEmployees(countryName, data.getValidFrom(), data.getValidTo());
-        Long numberOfVacancies = countryService.getNumberOfVacancies(countryName, data.getValidFrom(), data.getValidTo());
-        EconomicLevel economicLevel = countryService.getCountryLevel(countryName);
-        CountryProfileDTO countryProfileDTO = new CountryProfileDTO();
-        countryProfileDTO.setEconomicLevel(economicLevel);
-        countryProfileDTO.setNumberOfEmployees(numberOfEmployees);
-        countryProfileDTO.setNumberOfVacancies(numberOfVacancies);
-        return ResponseEntity.ok(countryProfileDTO);
+    @PostMapping
+    public ResponseEntity<CountryProfileDTO> getProfiles(@RequestBody DataRange data) {
+        ////////////////////////////
+        //
+        //          w.p.
+        //
+        ////////////////////////////
+        return null;
     }
 }

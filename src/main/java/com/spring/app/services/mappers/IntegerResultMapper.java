@@ -20,12 +20,23 @@ public class IntegerResultMapper implements ResultMapper<List<Object>, Integer> 
     @Override
     public Integer map(List<Object> objects) throws DataNotFoundException {
         if (objects != null && !objects.isEmpty() && objects.get(INDEX) != null) {
-            Object object = objects.get(INDEX);
+            return getInteger(objects.get(INDEX));
+        }
+        throw new DataNotFoundException("Data not found.");
+    }
+
+    /**
+     * Resolver for an object that should contain an integer value
+     * @param object - input
+     * @return converted object
+     */
+    public static Integer getInteger(Object object) {
+        if (object != null) {
             if (object instanceof BigDecimal) {
                 return ((BigDecimal) object).intValue();
-            }else if (object instanceof BigInteger) {
+            } else if (object instanceof BigInteger) {
                 return ((BigInteger) object).intValue();
-            }else if (object instanceof Double) {
+            } else if (object instanceof Double) {
                 return ((Double) object).intValue();
             }
             throw new DataNotFoundException("The received value is incorrect.");

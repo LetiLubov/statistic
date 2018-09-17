@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * Composite statistical information about average indicators for developers in the country
  *
@@ -32,22 +34,13 @@ public class EmployeeProfileController {
     /**
      * Send requests to the service to get all statistical information
      *
-     * @param countryName - name of the country
-     * @param data        - period of time
-     * @return employee's profile DTO of this country
+     * @param data - period of time
+     * @return map of employee's profile DTO by the country's name key
      */
     @ResponseBody
-    @PostMapping(value = "/{countryName}")
-    public ResponseEntity<EmployeeProfileDTO> getProfile(@PathVariable String countryName, @RequestBody DataRange data) {
-        Double salary = countryService.getMeanSalary(countryName, data.getValidFrom(), data.getValidTo());
-        Integer experience = countryService.getAvgExperience(countryName, data.getValidFrom(), data.getValidTo());
-        Integer age = countryService.getAvgAge(countryName, data.getValidFrom(), data.getValidTo());
-        Integer numberOfEmployees = countryService.getAvgNumberOfEmployeesInCompanies(countryName, data.getValidFrom(), data.getValidTo());
-        EmployeeProfileDTO profileDTO = new EmployeeProfileDTO();
-        profileDTO.setAge(age);
-        profileDTO.setSalary(salary);
-        profileDTO.setExperience(experience);
-        profileDTO.setNumberOfEmployees(numberOfEmployees);
-        return ResponseEntity.ok(profileDTO);
+    @PostMapping
+    public ResponseEntity<Map<String, EmployeeProfileDTO>> getProfiles(@RequestBody DataRange data) {
+        Map<String, EmployeeProfileDTO> map = countryService.getProfiles(data.getValidFrom(), data.getValidTo());
+        return ResponseEntity.ok(map);
     }
 }
