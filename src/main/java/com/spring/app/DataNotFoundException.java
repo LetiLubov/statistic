@@ -5,7 +5,7 @@ package com.spring.app;
  *
  * @author Lyubov Ruzanova
  */
-public class DataNotFoundException extends IllegalArgumentException {
+public class DataNotFoundException extends RuntimeException {
 
     /**
      * Constructor to initialize an exception with additional info
