@@ -19,19 +19,26 @@ public class EconomyLevelResultMapper implements ResultMapper<List<Object>, Econ
      */
     @Override
     public EconomicLevel map(List<Object> objects) throws DataNotFoundException {
-        if (objects != null && !objects.isEmpty() && objects.get(SALARY_INDEX) != null) {
+        if (objects != null && !objects.isEmpty()) {
             Object object = objects.get(SALARY_INDEX);
-            if (object instanceof EconomicLevel) {
-                return (EconomicLevel) object;
-            } else if (object instanceof String) {
-                try {
-                   return EconomicLevel.valueOf((String) object);
-                } catch (IllegalArgumentException ex) {
-                    throw new DataNotFoundException("The country level is undefined.");
-                }
-            }
-            throw new DataNotFoundException("The received value is incorrect.");
+            return getEconomicLevel(object);
         }
         throw new DataNotFoundException("Data not found.");
+    }
+
+    public static EconomicLevel getEconomicLevel(Object object) {
+        if (object == null){
+            throw new DataNotFoundException("Data not found.");
+        }
+        if (object instanceof EconomicLevel) {
+            return (EconomicLevel) object;
+        } else if (object instanceof String) {
+            try {
+               return EconomicLevel.valueOf((String) object);
+            } catch (IllegalArgumentException ex) {
+                throw new DataNotFoundException("The country level is undefined.");
+            }
+        }
+        throw new DataNotFoundException("The received value is incorrect.");
     }
 }

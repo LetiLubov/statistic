@@ -8,16 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-////////////////////////////
-//
-//          w.p.
-//
-//    Nothing to show
-//
-////////////////////////////
-
-
+import java.util.Map;
 
 /**
  * Composite statistical information on the performance indicators in the country
@@ -48,12 +39,8 @@ public class CountryProfileController {
      */
     @ResponseBody
     @PostMapping
-    public ResponseEntity<CountryProfileDTO> getProfiles(@RequestBody DataRange data) {
-        ////////////////////////////
-        //
-        //          w.p.
-        //
-        ////////////////////////////
-        return null;
+    public ResponseEntity< Map<String, CountryProfileDTO>> getProfiles(@RequestBody DataRange data) {
+        Map<String, CountryProfileDTO> map = countryService.getProfiles(data.getValidFrom(), data.getValidTo());
+        return ResponseEntity.ok(map);
     }
 }

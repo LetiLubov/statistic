@@ -30,7 +30,7 @@ public class EmployeeProfileDTOResultMapper implements ResultMapper<List<Object[
             for (Object[] object : objects) {
                 if (object != null) {
                     String name = resolveStringValue(object[COUNTRY_INDEX]);
-                    Double salary = DoubleResultMapper.getaDouble(object[SALARY_INDEX]);
+                    Double salary = DoubleResultMapper.getDouble(object[SALARY_INDEX]);
                     Integer age = IntegerResultMapper.getInteger(object[AGE_INDEX]);
                     Integer experience = IntegerResultMapper.getInteger(object[EXPERIENCE_INDEX]);
                     Integer numOfEmp = IntegerResultMapper.getInteger(object[NUM_OF_EMP_INDEX]);

@@ -40,7 +40,7 @@ public class EmployeeProfileController {
     @ResponseBody
     @PostMapping
     public ResponseEntity<Map<String, EmployeeProfileDTO>> getProfiles(@RequestBody DataRange data) {
-        Map<String, EmployeeProfileDTO> map = countryService.getProfiles(data.getValidFrom(), data.getValidTo());
+        Map<String, EmployeeProfileDTO> map = countryService.getEmployeeProfiles(data.getValidFrom(), data.getValidTo());
         return ResponseEntity.ok(map);
     }
 }

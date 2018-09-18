@@ -69,7 +69,7 @@ import javax.persistence.*;
                                 "AS count_table"),
 
                 @NamedNativeQuery(
-                        name = "COUNTRY_PROFILES",
+                        name = "EMPLOYEE_PROFILES",
                         query = "SELECT " +
                                 "       country_name_field       AS country, " +
                                 "       AVG(avgSalary)           AS salary," +
@@ -91,7 +91,21 @@ import javax.persistence.*;
                                 "                                      AND (vacancy.date_closed ISNULL OR vacancy.date_closed >= :to_date)) " +
                                 "             INNER JOIN employee ON vacancy.employee_id = employee.id " +
                                 "      GROUP BY company.name, country.name) AS country_comp " +
-                                "GROUP BY country_name_field")
+                                "GROUP BY country_name_field"),
+                @NamedNativeQuery(
+                        name = "COUNTRY_PROFILES",
+                        query = "SELECT country.name, " +
+                                "       country.live_index, " +
+                                "       COUNT(distinct vacancy.id)  as number_of_vac, " +
+                                "       COUNT(distinct employee.id) as number_of_em " +
+                                "FROM country " +
+                                "       INNER JOIN company ON (country.id = company.country_id AND company.date_opened <= :to_date AND " +
+                                "                              (company.date_closed ISNULL OR company.date_closed >= :from_date)) " +
+                                "       INNER JOIN vacancy ON (company.id = vacancy.company_id AND vacancy.opened = TRUE AND vacancy.date_opened >= :from_date AND " +
+                                "             (vacancy.date_closed ISNULL OR vacancy.date_closed >= :to_date)) " +
+                                "       INNER JOIN employee ON vacancy.employee_id = employee.id " +
+                                "GROUP BY (country.name, country.live_index)"
+                )
         }
 )
 @Entity
@@ -104,6 +118,7 @@ public class Country extends BaseEntity {
     public static String AVG_EXPERIENCE = "AVG_EXPERIENCE";
     public static String AVG_NUM_OF_EMP_IN_COMPANIES = "AVG_NUM_OF_EMP_IN_COMPANIES";
     public static String AVG_AGE = "AVG_AGE";
+    public static String EMPLOYEE_PROFILES = "EMPLOYEE_PROFILES";
     public static String COUNTRY_PROFILES = "COUNTRY_PROFILES";
 
     @Column(name = "NAME")

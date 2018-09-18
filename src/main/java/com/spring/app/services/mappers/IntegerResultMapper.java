@@ -27,20 +27,21 @@ public class IntegerResultMapper implements ResultMapper<List<Object>, Integer> 
 
     /**
      * Resolver for an object that should contain an integer value
+     *
      * @param object - input
      * @return converted object
      */
     public static Integer getInteger(Object object) {
-        if (object != null) {
-            if (object instanceof BigDecimal) {
-                return ((BigDecimal) object).intValue();
-            } else if (object instanceof BigInteger) {
-                return ((BigInteger) object).intValue();
-            } else if (object instanceof Double) {
-                return ((Double) object).intValue();
-            }
-            throw new DataNotFoundException("The received value is incorrect.");
+        if (object == null) {
+            throw new DataNotFoundException("Data not found.");
         }
-        throw new DataNotFoundException("Data not found.");
+        if (object instanceof BigDecimal) {
+            return ((BigDecimal) object).intValue();
+        } else if (object instanceof BigInteger) {
+            return ((BigInteger) object).intValue();
+        } else if (object instanceof Double) {
+            return ((Double) object).intValue();
+        }
+        throw new DataNotFoundException("The received value is incorrect.");
     }
 }

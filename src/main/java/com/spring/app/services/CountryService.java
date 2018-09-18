@@ -1,9 +1,9 @@
 package com.spring.app.services;
 
-import com.spring.app.EconomicLevel;
 import com.spring.app.domain.Country;
 import com.spring.app.domain.dao.CountryDAO;
 import com.spring.app.dto.CountryDTO;
+import com.spring.app.dto.CountryProfileDTO;
 import com.spring.app.dto.EmployeeProfileDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,7 +94,17 @@ public class CountryService {
      * @param date2       - end date of the period
      * @return map of employee profiles (as a value) and countries name (as a key)
      */
-    public Map<String, EmployeeProfileDTO> getProfiles(Date date1, Date date2) {
+    public Map<String, EmployeeProfileDTO> getEmployeeProfiles(Date date1, Date date2) {
+        return repository.getEmployeeProfiles(date1, date2);
+    }
+
+    /**
+     * Find out profiles for all countries
+     * @param date1       - start date of the period
+     * @param date2       - end date of the period
+     * @return map of country profiles (as a value) and countries name (as a key)
+     */
+    public Map<String, CountryProfileDTO> getProfiles(Date date1, Date date2) {
         return repository.getProfiles(date1, date2);
     }
 

@@ -21,15 +21,22 @@ public class LongResultMapper implements ResultMapper<List<Object>, Long> {
     public Long map(List<Object> objects) throws DataNotFoundException {
         if (objects != null && !objects.isEmpty() && objects.get(INDEX) != null) {
             Object object = objects.get(INDEX);
-            if (object instanceof BigDecimal) {
-                return ((BigDecimal) object).longValue();
-            }else if (object instanceof BigInteger) {
-                return ((BigInteger) object).longValue();
-            }else if (object instanceof Double) {
-                return ((Double) object).longValue();
-            }
-            throw new DataNotFoundException("The received value is incorrect.");
+            return getLong(object);
         }
         throw new DataNotFoundException("Data not found.");
+    }
+
+    public static Long getLong(Object object) {
+        if (object == null){
+            throw new DataNotFoundException("Data not found.");
+        }
+        if (object instanceof BigDecimal) {
+            return ((BigDecimal) object).longValue();
+        }else if (object instanceof BigInteger) {
+            return ((BigInteger) object).longValue();
+        }else if (object instanceof Double) {
+            return ((Double) object).longValue();
+        }
+        throw new DataNotFoundException("The received value is incorrect.");
     }
 }
