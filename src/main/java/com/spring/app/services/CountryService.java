@@ -24,7 +24,7 @@ public class CountryService {
     private final CountryDAO repository;
 
     /**
-     * Inject a country repository
+     * Injects a country repository
      * @param repository - country repository
      */
     public CountryService(@Autowired CountryDAO repository) {
@@ -32,7 +32,7 @@ public class CountryService {
     }
 
     /**
-     * Get all countries from repository and convert them to CountryDTO format
+     * Gets all countries from repository and convert them to CountryDTO format
      * @return list of countries
      */
     public List<CountryDTO> getList(){
@@ -44,7 +44,7 @@ public class CountryService {
     }
 
     /**
-     * Calculate the average salary of employees in the country
+     * Calculates the average salary of employees in the country
      * @param countryName - country's name
      * @param date1       - start date of the period
      * @param date2       - end date of the period
@@ -55,7 +55,7 @@ public class CountryService {
     }
 
     /**
-     * Calculate the average employee's experience in the country
+     * Calculates the average employee's experience in the country
      * @param countryName - country's Name
      * @param date1       - start date of the period
      * @param date2       - end date of the period
@@ -66,7 +66,7 @@ public class CountryService {
     }
 
     /**
-     * Calculate the average employee's age in the country
+     * Calculates the average employee's age in the country
      * @param countryName - country's Name
      * @param date1       - start date of the period
      * @param date2       - end date of the period
@@ -77,7 +77,7 @@ public class CountryService {
     }
 
     /**
-     * Calculate the average number of employees in companies in the country
+     * Calculates the average number of employees in companies in the country
      * @param countryName - country's Name
      * @param date1       - start date of the period
      * @param date2       - end date of the period
@@ -89,7 +89,7 @@ public class CountryService {
 
 
     /**
-     * Find out employee profiles for all countries
+     * Finds out employee profiles for all countries
      * @param date1       - start date of the period
      * @param date2       - end date of the period
      * @return map of employee profiles (as a value) and countries name (as a key)
@@ -99,7 +99,7 @@ public class CountryService {
     }
 
     /**
-     * Find out profiles for all countries
+     * Finds out profiles for all countries
      * @param date1       - start date of the period
      * @param date2       - end date of the period
      * @return map of country profiles (as a value) and countries name (as a key)
@@ -109,7 +109,7 @@ public class CountryService {
     }
 
     /**
-     * Save a new country to DB
+     * Saves a new country to DB
      * @param country - the country to save in DB
      */
     public void save(Country country){

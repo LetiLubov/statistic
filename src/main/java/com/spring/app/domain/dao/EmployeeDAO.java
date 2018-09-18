@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public class EmployeeDAO extends GenericDaoImpl<Employee> {
 
     /**
-     * Set Employee.class as a persistent class
+     * Sets Employee.class as a persistent class
      */
     public EmployeeDAO(){
         setPersistentClass(Employee.class);

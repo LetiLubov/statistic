@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 /**
- * Map data set to single value and cast it to Integer
+ * Maps data set to single value and cast it to Integer
  *
  * @author Lyubov Ruzanova
  */
@@ -26,7 +26,7 @@ public class IntegerResultMapper implements ResultMapper<List<Object>, Integer> 
     }
 
     /**
-     * Resolver for an object that should contain an integer value
+     * Resolver for an object that should contains an integer value
      *
      * @param object - input
      * @return converted object

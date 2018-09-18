@@ -6,7 +6,7 @@ import com.spring.app.EconomicLevel;
 import java.util.List;
 
 /**
- * Map data set to single value and cast it to EconomicLevel
+ * Maps data set to single value and cast it to EconomicLevel
  *
  * @author Lyubov Ruzanova
  */
@@ -26,6 +26,12 @@ public class EconomyLevelResultMapper implements ResultMapper<List<Object>, Econ
         throw new DataNotFoundException("Data not found.");
     }
 
+    /**
+     * Resolver for an object that should contains the economic level value
+     *
+     * @param object - input
+     * @return converted object
+     */
     public static EconomicLevel getEconomicLevel(Object object) {
         if (object == null){
             throw new DataNotFoundException("Data not found.");

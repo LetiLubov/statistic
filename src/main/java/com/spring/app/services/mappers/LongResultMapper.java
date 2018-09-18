@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 /**
- * Map data set to single value and cast it to Long
+ * Maps data set to single value and cast it to Long
  *
  * @author Lyubov Ruzanova
  */
@@ -26,6 +26,12 @@ public class LongResultMapper implements ResultMapper<List<Object>, Long> {
         throw new DataNotFoundException("Data not found.");
     }
 
+    /**
+     * Resolver for an object that should contains an Long value
+     *
+     * @param object - input
+     * @return converted object
+     */
     public static Long getLong(Object object) {
         if (object == null){
             throw new DataNotFoundException("Data not found.");

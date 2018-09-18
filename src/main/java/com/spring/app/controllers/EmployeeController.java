@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Rest controller for an employees
- * Provide all actions with employees
+ * Provides all actions with employees
  *
  * @author Lyubov Ruzanova
  */
@@ -22,7 +22,7 @@ public class EmployeeController {
     private final EmployeeService service;
 
     /**
-     * Inject a employee service
+     * Injects a employee service
      * @param service - employee service
      */
     public EmployeeController(@Autowired EmployeeService service) {
@@ -30,7 +30,7 @@ public class EmployeeController {
     }
 
     /**
-     * Send a request to the service to get all employees
+     * Sends a request to the service to get all employees
      * @return list of employees
      */
     @GetMapping
@@ -40,7 +40,7 @@ public class EmployeeController {
     }
 
     /**
-     * Send a request to the service to save a new instance
+     * Sends a request to the service to save a new instance
      * @param dto - employee info
      * @return employeeDTO object
      */

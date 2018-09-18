@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Map data set to single value and cast it to Double
+ * Maps data set to single value and cast it to Double
  *
  * @author Lyubov Ruzanova
  */
@@ -26,7 +26,7 @@ public class DoubleResultMapper implements ResultMapper<List<Object>, Double> {
     }
 
     /**
-     * Resolver for an object that should contain a double value
+     * Resolver for an object that should contains a double value
      *
      * @param object - input
      * @return converted object

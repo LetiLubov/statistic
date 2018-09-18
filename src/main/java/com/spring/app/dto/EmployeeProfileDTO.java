@@ -17,8 +17,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeProfileDTO implements Serializable {
-    private Integer age;
     private Double salary;
+    private Integer age;
     private Integer experience;
     private Integer numberOfEmployees;
 }

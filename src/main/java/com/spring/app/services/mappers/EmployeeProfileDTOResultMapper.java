@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Map data set to pairs of employee profiles (as a value) and countries name (as a key)
+ * Maps data set to pairs of employee profiles (as a value) and countries name (as a key)
  *
  * @author Lyubov Ruzanova
  */
@@ -52,7 +52,7 @@ public class EmployeeProfileDTOResultMapper implements ResultMapper<List<Object[
     }
 
     /**
-     * Resolver for an object that should contain a String value
+     * Resolver for an object that should contains a String value
      *
      * @param object - input
      * @return converted object

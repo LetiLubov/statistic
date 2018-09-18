@@ -19,7 +19,7 @@ public class CompanyService {
     private final CompanyDAO repository;
 
     /**
-     * Inject a company repository
+     * Injects a company repository
      * @param repository - company repository
      */
     public CompanyService(@Autowired CompanyDAO repository) {
@@ -27,7 +27,7 @@ public class CompanyService {
     }
 
     /**
-     * Get all companies from repository and convert them to CompanyDTO format
+     * Gets all companies from repository and converts them to CompanyDTO format
      * @return list of companies
      */
     public List<CompanyDTO> getList(){
@@ -38,7 +38,7 @@ public class CompanyService {
     }
 
     /**
-     * Save a new company to DB
+     * Saves a new company to DB
      * @param company - the company to save in DB
      */
     public void save(Company company){

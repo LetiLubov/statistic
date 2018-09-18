@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * Composite statistical information about average indicators for developers in the country
+ * Provides statistical information about average indicators for developers in the countries
  *
  * @author Lyubov Ruzanova
  */
@@ -23,7 +23,7 @@ public class EmployeeProfileController {
     private final CountryService countryService;
 
     /**
-     * Inject a country service
+     * Injects a country service
      *
      * @param service - country service
      */
@@ -32,7 +32,7 @@ public class EmployeeProfileController {
     }
 
     /**
-     * Send requests to the service to get all statistical information
+     * Sends requests to the service to get all statistical information
      *
      * @param data - period of time
      * @return map of employee's profile DTO by the country's name key

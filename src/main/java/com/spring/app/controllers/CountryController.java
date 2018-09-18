@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Rest controller for a countries
- * Provide all actions with countries
+ * Provides all actions with countries
  *
  * @author Lyubov Ruzanova
  */
@@ -24,7 +24,7 @@ public class CountryController {
     private final CountryService service;
 
     /**
-     * Inject a country service
+     * Injects a country service
      *
      * @param service - country service
      */
@@ -33,7 +33,7 @@ public class CountryController {
     }
 
     /**
-     * Send a request to the service to get all countries
+     * Sends a request to the service to get all countries
      *
      * @return list of countries
      */
@@ -44,7 +44,7 @@ public class CountryController {
     }
 
     /**
-     * Send a request to the service to save a new instance
+     * Sends a request to the service to save a new instance
      *
      * @param dto - country info storage
      * @return countryDTO object
@@ -58,7 +58,7 @@ public class CountryController {
     }
 
     /**
-     * Get the average salary by country name from country's service
+     * Gets the average salary by country name from country's service
      *
      * @param countryName - country's name
      * @param data        - period of time
@@ -76,7 +76,7 @@ public class CountryController {
     }
 
     /**
-     * Get the average number of employee's experience by country from country's service
+     * Gets the average number of employee's experience by country from country's service
      *
      * @param countryName - country's name
      * @param data        - period of time
@@ -91,7 +91,7 @@ public class CountryController {
     }
 
     /**
-     * Get the average employee's age by country from country's service
+     * Gets the average employee's age by country from country's service
      *
      * @param countryName - country's name
      * @param data        - period of time
@@ -107,7 +107,7 @@ public class CountryController {
 
 
     /**
-     * Get the average number of employees in companies by country from country's service
+     * Gets the average number of employees in companies by country from country's service
      *
      * @param countryName - country's name
      * @param data        - period of time
