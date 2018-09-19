@@ -31,7 +31,7 @@ public class CountryProfileDTOResultMapper implements GeneralResultMapper<List<O
                     objects.stream()
                             .filter(x -> x != null)
                             .collect(Collectors.toMap(
-                                    object -> resolveStringValue(object[COUNTRY_INDEX]),
+                                    object -> StringResolveUtils.resolveStringValue(object[COUNTRY_INDEX]),
                                     object -> new CountryProfileDTO(
                                             new LongResultMapper().convertObject(object[VAC_NUMBER_INDEX]),
                                             new LongResultMapper().convertObject(object[EMP_NUMBER_INDEX]),
@@ -40,22 +40,6 @@ public class CountryProfileDTOResultMapper implements GeneralResultMapper<List<O
             return dtoHashMap;
         }
         return new HashMap<>();
-    }
-
-    /**
-     * Resolver for an object that should contains a String value
-     *
-     * @param object - input
-     * @return converted object
-     */
-    private String resolveStringValue(Object object) {
-        if (object != null) {
-            if (object instanceof String) {
-                return object.toString();
-            }
-            throw new DataNotFoundException("The received value is incorrect.");
-        }
-        throw new DataNotFoundException("Data not found.");
     }
 
     /**

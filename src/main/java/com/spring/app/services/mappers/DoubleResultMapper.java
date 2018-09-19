@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Lyubov Ruzanova
  */
-public class DoubleResultMapper implements ResultMapper<Object, List<Object>, Double> {
+public class DoubleResultMapper implements ResultMapper<Object, Double> {
 
     private static final int SALARY_INDEX = 0;
 

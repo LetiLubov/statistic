@@ -3,7 +3,6 @@ package com.spring.app.services.mappers;
 import com.spring.app.DataNotFoundException;
 import com.spring.app.dto.EmployeeProfileDTO;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ public class EmployeeProfileDTOResultMapper implements GeneralResultMapper<List<
                     objects.stream()
                             .filter(x -> x!= null)
                             .collect(Collectors.toMap(
-                                    object -> resolveStringValue(object[COUNTRY_INDEX]),
+                                    object -> StringResolveUtils.resolveStringValue(object[COUNTRY_INDEX]),
                                     object -> new EmployeeProfileDTO(
                                             new DoubleResultMapper().convertObject(object[SALARY_INDEX]),
                                             new IntegerResultMapper().convertObject(object[AGE_INDEX]),
@@ -39,24 +38,7 @@ public class EmployeeProfileDTOResultMapper implements GeneralResultMapper<List<
                                             new IntegerResultMapper().convertObject(object[NUM_OF_EMP_INDEX]))
                                     )
                             );
-
             return dtoHashMap;
-        }
-        throw new DataNotFoundException("Data not found.");
-    }
-
-    /**
-     * Resolver for an value of the Object type that must contains a string value
-     *
-     * @param object - input
-     * @return converted object
-     */
-    private String resolveStringValue(Object object) {
-        if (object != null) {
-            if (object instanceof String) {
-                return object.toString();
-            }
-            return "";
         }
         throw new DataNotFoundException("Data not found.");
     }

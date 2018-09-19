@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Lyubov Ruzanova
  */
-public class IntegerResultMapper implements ResultMapper<Object, List<Object>, Integer> {
+public class IntegerResultMapper implements ResultMapper<Object, Integer> {
     private static final int INDEX = 0;
 
     /**

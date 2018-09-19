@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Lyubov Ruzanova
  */
-public class LongResultMapper implements ResultMapper<Object, List<Object>, Long> {
+public class LongResultMapper implements ResultMapper<Object, Long> {
     private static final int INDEX = 0;
 
     /**

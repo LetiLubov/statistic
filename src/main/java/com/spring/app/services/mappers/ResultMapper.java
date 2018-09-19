@@ -9,12 +9,12 @@ import java.util.List;
  *
  * @author Lyubov Ruzanova
  */
-public interface ResultMapper<F, R extends List<F>, T> extends GeneralResultMapper<R, T> {
+public interface ResultMapper<F, T> extends GeneralResultMapper<List<F>, T> {
 
     /**
      * Convert one value to another
-     * @param t - input data
+     * @param f - input data
      * @return converted value
      */
-    T convertObject(F t) throws DataNotFoundException;
+    T convertObject(F f) throws DataNotFoundException;
 }
