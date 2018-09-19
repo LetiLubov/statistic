@@ -114,12 +114,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Country extends BaseEntity {
-    public static String MEAN_SALARY = "MEAN_SALARY";
-    public static String AVG_EXPERIENCE = "AVG_EXPERIENCE";
-    public static String AVG_NUM_OF_EMP_IN_COMPANIES = "AVG_NUM_OF_EMP_IN_COMPANIES";
-    public static String AVG_AGE = "AVG_AGE";
-    public static String EMPLOYEE_PROFILES = "EMPLOYEE_PROFILES";
-    public static String COUNTRY_PROFILES = "COUNTRY_PROFILES";
+    public static final String MEAN_SALARY = "MEAN_SALARY";
+    public static final String AVG_EXPERIENCE = "AVG_EXPERIENCE";
+    public static final String AVG_NUM_OF_EMP_IN_COMPANIES = "AVG_NUM_OF_EMP_IN_COMPANIES";
+    public static final String AVG_AGE = "AVG_AGE";
+    public static final String EMPLOYEE_PROFILES = "EMPLOYEE_PROFILES";
+    public static final String COUNTRY_PROFILES = "COUNTRY_PROFILES";
 
     @Column(name = "NAME")
     private String name;

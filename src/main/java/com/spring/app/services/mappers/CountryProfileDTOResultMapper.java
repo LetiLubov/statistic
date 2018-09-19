@@ -1,12 +1,12 @@
 package com.spring.app.services.mappers;
 
 import com.spring.app.DataNotFoundException;
-import com.spring.app.EconomicLevel;
 import com.spring.app.dto.CountryProfileDTO;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Maps data set to pairs of country profiles (as a value) and countries name (as a key)
@@ -26,27 +26,19 @@ public class CountryProfileDTOResultMapper implements ResultMapper<List<Object[]
     @Override
     public Map<String, CountryProfileDTO> map(List<Object[]> objects) {
         if (objects != null && !objects.isEmpty()) {
-            Map<String, CountryProfileDTO> dtoHashMap = new HashMap<>();
-            for (Object[] object : objects) {
-                if (object != null) {
-                    String name = resolveStringValue(object[COUNTRY_INDEX]);
-                    EconomicLevel economyIndex = EconomyLevelResultMapper.getEconomicLevel(object[ECONOMY_INDEX]);
-                    Long vacNumber = LongResultMapper.getLong(object[VAC_NUMBER_INDEX]);
-                    Long empNumber = LongResultMapper.getLong(object[EMP_NUMBER_INDEX]);
-
-                    CountryProfileDTO countryProfileDTO = new CountryProfileDTO();
-                    countryProfileDTO.setNumberOfEmployees(empNumber);
-                    countryProfileDTO.setNumberOfVacancies(vacNumber);
-                    countryProfileDTO.setEconomicLevel(economyIndex);
-
-                    dtoHashMap.put(name, countryProfileDTO);
-                } else {
-                    throw new DataNotFoundException("The received value is incorrect.");
-                }
-            }
+            Map<String, CountryProfileDTO> dtoHashMap =
+                    objects.stream()
+                            .filter(x -> x != null)
+                            .collect(Collectors.toMap(
+                                    object -> resolveStringValue(object[COUNTRY_INDEX]),
+                                    object -> new CountryProfileDTO(
+                                            LongResultMapper.getLong(object[VAC_NUMBER_INDEX]),
+                                            LongResultMapper.getLong(object[EMP_NUMBER_INDEX]),
+                                            EconomyLevelResultMapper.getEconomicLevel(object[ECONOMY_INDEX])))
+                            );
             return dtoHashMap;
         }
-        throw new DataNotFoundException("Data not found.");
+        return new HashMap<>();
     }
 
     /**

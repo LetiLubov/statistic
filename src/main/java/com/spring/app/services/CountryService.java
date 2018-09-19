@@ -50,7 +50,7 @@ public class CountryService {
      * @param date2       - end date of the period
      * @return the double value of the average salary
      */
-    public Double getMeanSalary(String countryName, Date date1, Date date2) {
+    public double getMeanSalary(String countryName, Date date1, Date date2) {
         return repository.findMeanSalary(countryName, date1, date2);
     }
 
@@ -59,9 +59,9 @@ public class CountryService {
      * @param countryName - country's Name
      * @param date1       - start date of the period
      * @param date2       - end date of the period
-     * @return the Integer value of the average experience
+     * @return the int value of the average experience
      */
-    public Integer getAvgExperience(String countryName, Date date1, Date date2) {
+    public int getAvgExperience(String countryName, Date date1, Date date2) {
         return repository.findAvgExperience(countryName, date1, date2);
     }
 
@@ -70,9 +70,9 @@ public class CountryService {
      * @param countryName - country's Name
      * @param date1       - start date of the period
      * @param date2       - end date of the period
-     * @return the Integer value of the average experience
+     * @return the int value of the average experience
      */
-    public Integer getAvgAge(String countryName, Date date1, Date date2) {
+    public int getAvgAge(String countryName, Date date1, Date date2) {
         return repository.findAvgAge(countryName, date1, date2);
     }
 
@@ -81,9 +81,9 @@ public class CountryService {
      * @param countryName - country's Name
      * @param date1       - start date of the period
      * @param date2       - end date of the period
-     * @return the Integer value of the average number of employee
+     * @return the int value of the average number of employee
      */
-    public Integer getAvgNumberOfEmployeesInCompanies(String countryName, Date date1, Date date2) {
+    public int getAvgNumberOfEmployeesInCompanies(String countryName, Date date1, Date date2) {
         return repository.findAvgNumberOfEmployeesInCompanies(countryName, date1, date2);
     }
 

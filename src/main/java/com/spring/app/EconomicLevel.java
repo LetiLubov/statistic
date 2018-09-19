@@ -14,5 +14,6 @@ public enum EconomicLevel {
     NORMAL,
     PROBLEMATIC,
     BAD,
-    HOPELESS
+    HOPELESS,
+    UNDEFINED
 }

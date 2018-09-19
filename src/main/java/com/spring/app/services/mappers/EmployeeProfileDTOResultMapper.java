@@ -3,9 +3,9 @@ package com.spring.app.services.mappers;
 import com.spring.app.DataNotFoundException;
 import com.spring.app.dto.EmployeeProfileDTO;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Maps data set to pairs of employee profiles (as a value) and countries name (as a key)
@@ -26,26 +26,19 @@ public class EmployeeProfileDTOResultMapper implements ResultMapper<List<Object[
     @Override
     public Map<String, EmployeeProfileDTO> map(List<Object[]> objects) {
         if (objects != null && !objects.isEmpty()) {
-            Map<String, EmployeeProfileDTO> dtoHashMap = new HashMap<>();
-            for (Object[] object : objects) {
-                if (object != null) {
-                    String name = resolveStringValue(object[COUNTRY_INDEX]);
-                    Double salary = DoubleResultMapper.getDouble(object[SALARY_INDEX]);
-                    Integer age = IntegerResultMapper.getInteger(object[AGE_INDEX]);
-                    Integer experience = IntegerResultMapper.getInteger(object[EXPERIENCE_INDEX]);
-                    Integer numOfEmp = IntegerResultMapper.getInteger(object[NUM_OF_EMP_INDEX]);
+            Map<String, EmployeeProfileDTO> dtoHashMap =
+                    objects.stream()
+                            .filter(x -> x!= null)
+                            .collect(Collectors.toMap(
+                                    object -> resolveStringValue(object[COUNTRY_INDEX]),
+                                    object -> new EmployeeProfileDTO(
+                                            DoubleResultMapper.getDouble(object[SALARY_INDEX]),
+                                            IntegerResultMapper.getInteger(object[AGE_INDEX]),
+                                            IntegerResultMapper.getInteger(object[EXPERIENCE_INDEX]),
+                                            IntegerResultMapper.getInteger(object[NUM_OF_EMP_INDEX]))
+                                    )
+                            );
 
-                    EmployeeProfileDTO employeeProfileDTO = new EmployeeProfileDTO();
-                    employeeProfileDTO.setNumberOfEmployees(numOfEmp);
-                    employeeProfileDTO.setExperience(experience);
-                    employeeProfileDTO.setAge(age);
-                    employeeProfileDTO.setSalary(salary);
-
-                    dtoHashMap.put(name, employeeProfileDTO);
-                } else {
-                    throw new DataNotFoundException("The received value is incorrect.");
-                }
-            }
             return dtoHashMap;
         }
         throw new DataNotFoundException("Data not found.");

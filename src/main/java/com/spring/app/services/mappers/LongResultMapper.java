@@ -23,7 +23,7 @@ public class LongResultMapper implements ResultMapper<List<Object>, Long> {
             Object object = objects.get(INDEX);
             return getLong(object);
         }
-        throw new DataNotFoundException("Data not found.");
+        return 0l;
     }
 
     /**
@@ -32,7 +32,7 @@ public class LongResultMapper implements ResultMapper<List<Object>, Long> {
      * @param object - input
      * @return converted object
      */
-    public static Long getLong(Object object) {
+    public static long getLong(Object object) {
         if (object == null){
             throw new DataNotFoundException("Data not found.");
         }

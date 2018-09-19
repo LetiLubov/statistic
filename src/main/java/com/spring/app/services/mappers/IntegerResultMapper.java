@@ -22,7 +22,7 @@ public class IntegerResultMapper implements ResultMapper<List<Object>, Integer> 
         if (objects != null && !objects.isEmpty() && objects.get(INDEX) != null) {
             return getInteger(objects.get(INDEX));
         }
-        throw new DataNotFoundException("Data not found.");
+        return 0;
     }
 
     /**
@@ -31,7 +31,7 @@ public class IntegerResultMapper implements ResultMapper<List<Object>, Integer> 
      * @param object - input
      * @return converted object
      */
-    public static Integer getInteger(Object object) {
+    public static int getInteger(Object object) {
         if (object == null) {
             throw new DataNotFoundException("Data not found.");
         }

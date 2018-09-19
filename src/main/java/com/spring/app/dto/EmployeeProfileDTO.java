@@ -1,6 +1,5 @@
 package com.spring.app.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,10 +14,16 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class EmployeeProfileDTO implements Serializable {
-    private Double salary;
-    private Integer age;
-    private Integer experience;
-    private Integer numberOfEmployees;
+    private double salary;
+    private int age;
+    private int experience;
+    private int numberOfEmployees;
+
+    public EmployeeProfileDTO(double salary, int age, int experience, int numberOfEmployees) {
+        this.salary = salary;
+        this.age = age;
+        this.experience = experience;
+        this.numberOfEmployees = numberOfEmployees;
+    }
 }

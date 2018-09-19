@@ -23,7 +23,7 @@ public class EconomyLevelResultMapper implements ResultMapper<List<Object>, Econ
             Object object = objects.get(SALARY_INDEX);
             return getEconomicLevel(object);
         }
-        throw new DataNotFoundException("Data not found.");
+        return EconomicLevel.UNDEFINED;
     }
 
     /**
@@ -36,9 +36,7 @@ public class EconomyLevelResultMapper implements ResultMapper<List<Object>, Econ
         if (object == null){
             throw new DataNotFoundException("Data not found.");
         }
-        if (object instanceof EconomicLevel) {
-            return (EconomicLevel) object;
-        } else if (object instanceof String) {
+        if (object instanceof String) {
             try {
                return EconomicLevel.valueOf((String) object);
             } catch (IllegalArgumentException ex) {

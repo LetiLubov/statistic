@@ -22,7 +22,7 @@ public class DoubleResultMapper implements ResultMapper<List<Object>, Double> {
         if (objects != null && !objects.isEmpty()) {
             return getDouble(objects.get(SALARY_INDEX));
         }
-        throw new DataNotFoundException("Data not found.");
+        return 0d;
     }
 
     /**
@@ -31,7 +31,7 @@ public class DoubleResultMapper implements ResultMapper<List<Object>, Double> {
      * @param object - input
      * @return converted object
      */
-    public static Double getDouble(Object object) {
+    public static double getDouble(Object object) {
         if (object == null) {
             throw new DataNotFoundException("Data not found.");
         }
