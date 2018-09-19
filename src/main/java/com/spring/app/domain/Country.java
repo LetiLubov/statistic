@@ -68,56 +68,20 @@ import javax.persistence.*;
                                 "    GROUP BY company.name) " +
                                 "AS count_table"),
 
+
                 @NamedNativeQuery(
                         name = "EMPLOYEE_PROFILES",
-                        query = "SELECT country_name_2           AS country, " +
-                                "       AVG(avgSalary)           AS salary, " +
-                                "       AVG(avgAge)              AS age, " +
-                                "       AVG(avgExp)              AS experience, " +
-                                "       AVG(number_of_employees) AS number_of_employees " +
-                                "FROM ( " +
-                                "    " +
-                                "     SELECT COUNT(company.id) AS number_of_employees, " +
-                                "            country.name      AS country_name " +
-                                "     FROM country " +
-                                "             INNER JOIN company ON (country.id = company.country_id " +
-                                "                                      AND company.date_opened <= :to_date " +
-                                "                                      AND (company.date_closed ISNULL OR company.date_closed >= :from_date)) " +
-                                "             INNER JOIN vacancy ON (company.id = vacancy.company_id " +
-                                "                                      AND vacancy.opened = TRUE " +
-                                "                                      AND vacancy.date_opened >= :from_date " +
-                                "                                      AND (vacancy.date_closed ISNULL OR vacancy.date_closed >= :to_date)) " +
-                                "     GROUP BY company.name, country.name) AS companies_in_country_stat " +
-                                "       INNER JOIN ( " +
-                                "                  SELECT AVG(vacancy.salary)             AS avgSalary, " +
-                                "                         AVG(employee.birth_year)        AS avgAge, " +
-                                "                         AVG(employee.career_start_year) AS avgExp, " +
-                                "                         country.name                    AS country_name_2 " +
-                                "                  FROM country " +
-                                "             INNER JOIN company ON (country.id = company.country_id " +
-                                "                                      AND company.date_opened <= :to_date " +
-                                "                                      AND (company.date_closed ISNULL OR company.date_closed >= :from_date)) " +
-                                "             INNER JOIN vacancy ON (company.id = vacancy.company_id " +
-                                "                                      AND vacancy.opened = TRUE " +
-                                "                                      AND vacancy.date_opened >= :from_date " +
-                                "                                      AND (vacancy.date_closed ISNULL OR vacancy.date_closed >= :to_date)) " +
-                                "             INNER JOIN employee ON vacancy.employee_id = employee.id " +
-                                "                  GROUP BY country.name) AS country_comp2 ON country_name = country_name_2 " +
-                                "GROUP BY country_name_2 "
-                ),
-                @NamedNativeQuery(
-                        name = "EMPLOYEE_PROFILES_OLD",
                         query = "SELECT " +
                                 "       country_name_field       AS country, " +
                                 "       AVG(avgSalary)           AS salary," +
-                                "       AVG(avgAge)              AS age, " +
-                                "       AVG(avgExp)              AS experience, " +
+                                "       AVG((cast(extract(year FROM cast(:to_date AS DATE)) AS int)) - avgAge)              AS age, " +
+                                "       AVG((cast(extract(year FROM cast(:to_date AS DATE)) AS int)) - avgExp)              AS experience, " +
                                 "       AVG(number_of_employees) AS number_of_employees " +
                                 "FROM (SELECT COUNT(country.id)                                                                          AS number_of_employees, " +
                                 "             country.name                                                                               AS country_name_field, " +
                                 "             AVG(vacancy.salary)                                                                        AS avgSalary, " +
-                                "             AVG((cast(extract(year FROM cast(:to_date AS DATE)) AS int)) - employee.birth_year)        AS avgAge, " +
-                                "             AVG((cast(extract(year FROM cast(:to_date AS DATE)) AS int)) - employee.career_start_year) AS avgExp " +
+                                "             AVG(employee.birth_year)        AS avgAge, " +
+                                "             AVG(employee.career_start_year) AS avgExp " +
                                 "      FROM country " +
                                 "             INNER JOIN company ON (country.id = company.country_id " +
                                 "                                      AND company.date_opened <= :to_date " +
