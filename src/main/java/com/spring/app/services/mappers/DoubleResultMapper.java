@@ -33,9 +33,6 @@ public class DoubleResultMapper implements ResultMapper<Object, Double> {
      */
     @Override
     public Double convertObject(Object object) throws DataNotFoundException {
-        if (object == null) {
-            throw new DataNotFoundException("Data not found.");
-        }
         if (object instanceof BigDecimal) {
             return ((BigDecimal) object).doubleValue();
         } else if (object instanceof Double) {

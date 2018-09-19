@@ -34,9 +34,6 @@ public class LongResultMapper implements ResultMapper<Object, Long> {
      */
     @Override
     public Long convertObject(Object object) throws DataNotFoundException {
-        if (object == null){
-            throw new DataNotFoundException("Data not found.");
-        }
         if (object instanceof BigDecimal) {
             return ((BigDecimal) object).longValue();
         }else if (object instanceof BigInteger) {

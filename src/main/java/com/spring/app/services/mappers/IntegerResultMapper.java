@@ -33,9 +33,6 @@ public class IntegerResultMapper implements ResultMapper<Object, Integer> {
      */
     @Override
     public Integer convertObject(Object object) throws DataNotFoundException {
-        if (object == null) {
-            throw new DataNotFoundException("Data not found.");
-        }
         if (object instanceof BigDecimal) {
             return ((BigDecimal) object).intValue();
         } else if (object instanceof BigInteger) {

@@ -10,12 +10,9 @@ public final class StringResolveUtils {
      * @return converted object
      */
     public static String resolveStringValue(Object object) {
-        if (object != null) {
             if (object instanceof String) {
                 return object.toString();
             }
             throw new DataNotFoundException("The received value is incorrect.");
-        }
-        throw new DataNotFoundException("Data not found.");
     }
 }

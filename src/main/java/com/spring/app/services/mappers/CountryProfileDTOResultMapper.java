@@ -49,9 +49,6 @@ public class CountryProfileDTOResultMapper implements GeneralResultMapper<List<O
      * @return converted object
      */
     public EconomicLevel resolveEconomicLevelValue(Object object) throws DataNotFoundException {
-        if (object == null){
-            throw new DataNotFoundException("Data not found.");
-        }
         if (object instanceof String) {
             try {
                 return EconomicLevel.valueOf((String) object);
