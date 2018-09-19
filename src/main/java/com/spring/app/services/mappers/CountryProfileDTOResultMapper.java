@@ -33,8 +33,8 @@ public class CountryProfileDTOResultMapper implements GeneralResultMapper<List<O
                             .collect(Collectors.toMap(
                                     object -> StringResolveUtils.resolveStringValue(object[COUNTRY_INDEX]),
                                     object -> new CountryProfileDTO(
-                                            new LongResultMapper().convertObject(object[VAC_NUMBER_INDEX]),
-                                            new LongResultMapper().convertObject(object[EMP_NUMBER_INDEX]),
+                                            new IntegerResultMapper().convertObject(object[VAC_NUMBER_INDEX]),
+                                            new IntegerResultMapper().convertObject(object[EMP_NUMBER_INDEX]),
                                             resolveEconomicLevelValue(object[ECONOMY_INDEX])))
                             );
             return dtoHashMap;
