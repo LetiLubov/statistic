@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Lyubov Ruzanova
  */
-public class IntegerResultMapper implements ResultMapper<List<Object>, Integer> {
+public class IntegerResultMapper implements ResultMapper<Object, List<Object>, Integer> {
     private static final int INDEX = 0;
 
     /**
@@ -20,18 +20,19 @@ public class IntegerResultMapper implements ResultMapper<List<Object>, Integer> 
     @Override
     public Integer map(List<Object> objects) throws DataNotFoundException {
         if (objects != null && !objects.isEmpty() && objects.get(INDEX) != null) {
-            return getInteger(objects.get(INDEX));
+            return convertObject(objects.get(INDEX));
         }
         return 0;
     }
 
     /**
-     * Resolver for an object that should contains an integer value
+     * Resolver for an value of the Object type that must contains a int value
      *
      * @param object - input
      * @return converted object
      */
-    public static int getInteger(Object object) {
+    @Override
+    public Integer convertObject(Object object) throws DataNotFoundException {
         if (object == null) {
             throw new DataNotFoundException("Data not found.");
         }

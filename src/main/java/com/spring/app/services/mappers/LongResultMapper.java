@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Lyubov Ruzanova
  */
-public class LongResultMapper implements ResultMapper<List<Object>, Long> {
+public class LongResultMapper implements ResultMapper<Object, List<Object>, Long> {
     private static final int INDEX = 0;
 
     /**
@@ -21,18 +21,19 @@ public class LongResultMapper implements ResultMapper<List<Object>, Long> {
     public Long map(List<Object> objects) throws DataNotFoundException {
         if (objects != null && !objects.isEmpty() && objects.get(INDEX) != null) {
             Object object = objects.get(INDEX);
-            return getLong(object);
+            return convertObject(object);
         }
         return 0l;
     }
 
     /**
-     * Resolver for an object that should contains an Long value
+     * Resolver for an value of the Object type that must contains a long value
      *
      * @param object - input
      * @return converted object
      */
-    public static long getLong(Object object) {
+    @Override
+    public Long convertObject(Object object) throws DataNotFoundException {
         if (object == null){
             throw new DataNotFoundException("Data not found.");
         }

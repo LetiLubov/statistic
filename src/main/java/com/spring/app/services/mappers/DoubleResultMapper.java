@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Lyubov Ruzanova
  */
-public class DoubleResultMapper implements ResultMapper<List<Object>, Double> {
+public class DoubleResultMapper implements ResultMapper<Object, List<Object>, Double> {
 
     private static final int SALARY_INDEX = 0;
 
@@ -20,18 +20,19 @@ public class DoubleResultMapper implements ResultMapper<List<Object>, Double> {
     @Override
     public Double map(List<Object> objects) throws DataNotFoundException {
         if (objects != null && !objects.isEmpty()) {
-            return getDouble(objects.get(SALARY_INDEX));
+            return convertObject(objects.get(SALARY_INDEX));
         }
         return 0d;
     }
 
     /**
-     * Resolver for an object that should contains a double value
+     * Resolver for an value of the Object type that must contains a double value
      *
      * @param object - input
      * @return converted object
      */
-    public static double getDouble(Object object) {
+    @Override
+    public Double convertObject(Object object) throws DataNotFoundException {
         if (object == null) {
             throw new DataNotFoundException("Data not found.");
         }

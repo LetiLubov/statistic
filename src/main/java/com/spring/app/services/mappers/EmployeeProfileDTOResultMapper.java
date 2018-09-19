@@ -3,6 +3,7 @@ package com.spring.app.services.mappers;
 import com.spring.app.DataNotFoundException;
 import com.spring.app.dto.EmployeeProfileDTO;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
  *
  * @author Lyubov Ruzanova
  */
-public class EmployeeProfileDTOResultMapper implements ResultMapper<List<Object[]>, Map<String, EmployeeProfileDTO>> {
+public class EmployeeProfileDTOResultMapper implements GeneralResultMapper<List<Object[]>, Map<String, EmployeeProfileDTO>> {
 
     private static final int COUNTRY_INDEX = 0;
     private static final int SALARY_INDEX = 1;
@@ -32,10 +33,10 @@ public class EmployeeProfileDTOResultMapper implements ResultMapper<List<Object[
                             .collect(Collectors.toMap(
                                     object -> resolveStringValue(object[COUNTRY_INDEX]),
                                     object -> new EmployeeProfileDTO(
-                                            DoubleResultMapper.getDouble(object[SALARY_INDEX]),
-                                            IntegerResultMapper.getInteger(object[AGE_INDEX]),
-                                            IntegerResultMapper.getInteger(object[EXPERIENCE_INDEX]),
-                                            IntegerResultMapper.getInteger(object[NUM_OF_EMP_INDEX]))
+                                            new DoubleResultMapper().convertObject(object[SALARY_INDEX]),
+                                            new IntegerResultMapper().convertObject(object[AGE_INDEX]),
+                                            new IntegerResultMapper().convertObject(object[EXPERIENCE_INDEX]),
+                                            new IntegerResultMapper().convertObject(object[NUM_OF_EMP_INDEX]))
                                     )
                             );
 
@@ -45,7 +46,7 @@ public class EmployeeProfileDTOResultMapper implements ResultMapper<List<Object[
     }
 
     /**
-     * Resolver for an object that should contains a String value
+     * Resolver for an value of the Object type that must contains a string value
      *
      * @param object - input
      * @return converted object
@@ -55,7 +56,7 @@ public class EmployeeProfileDTOResultMapper implements ResultMapper<List<Object[
             if (object instanceof String) {
                 return object.toString();
             }
-            throw new DataNotFoundException("The received value is incorrect.");
+            return "";
         }
         throw new DataNotFoundException("Data not found.");
     }

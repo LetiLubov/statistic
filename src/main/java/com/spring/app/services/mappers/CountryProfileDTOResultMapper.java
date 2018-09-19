@@ -1,6 +1,7 @@
 package com.spring.app.services.mappers;
 
 import com.spring.app.DataNotFoundException;
+import com.spring.app.EconomicLevel;
 import com.spring.app.dto.CountryProfileDTO;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
  *
  * @author Lyubov Ruzanova
  */
-public class CountryProfileDTOResultMapper implements ResultMapper<List<Object[]>, Map<String, CountryProfileDTO>> {
+public class CountryProfileDTOResultMapper implements GeneralResultMapper<List<Object[]>, Map<String, CountryProfileDTO>> {
 
     private static final int COUNTRY_INDEX = 0;
     private static final int ECONOMY_INDEX = 1;
@@ -32,9 +33,9 @@ public class CountryProfileDTOResultMapper implements ResultMapper<List<Object[]
                             .collect(Collectors.toMap(
                                     object -> resolveStringValue(object[COUNTRY_INDEX]),
                                     object -> new CountryProfileDTO(
-                                            LongResultMapper.getLong(object[VAC_NUMBER_INDEX]),
-                                            LongResultMapper.getLong(object[EMP_NUMBER_INDEX]),
-                                            EconomyLevelResultMapper.getEconomicLevel(object[ECONOMY_INDEX])))
+                                            new LongResultMapper().convertObject(object[VAC_NUMBER_INDEX]),
+                                            new LongResultMapper().convertObject(object[EMP_NUMBER_INDEX]),
+                                            resolveEconomicLevelValue(object[ECONOMY_INDEX])))
                             );
             return dtoHashMap;
         }
@@ -55,5 +56,25 @@ public class CountryProfileDTOResultMapper implements ResultMapper<List<Object[]
             throw new DataNotFoundException("The received value is incorrect.");
         }
         throw new DataNotFoundException("Data not found.");
+    }
+
+    /**
+     * Resolver for an value of the Object type that must contains a economic level value
+     *
+     * @param object - input
+     * @return converted object
+     */
+    public EconomicLevel resolveEconomicLevelValue(Object object) throws DataNotFoundException {
+        if (object == null){
+            throw new DataNotFoundException("Data not found.");
+        }
+        if (object instanceof String) {
+            try {
+                return EconomicLevel.valueOf((String) object);
+            } catch (IllegalArgumentException ex) {
+                throw new DataNotFoundException("The country level is undefined.");
+            }
+        }
+        throw new DataNotFoundException("The received value is incorrect.");
     }
 }
