@@ -31,7 +31,7 @@ import javax.persistence.*;
                                 "WHERE country.name = :country_name"),
                 @NamedNativeQuery(
                         name = "AVG_EXPERIENCE",
-                        query = "SELECT AVG((cast(extract(year FROM cast (:to_date AS DATE)) AS int)) -  employee.career_start_year) " +
+                        query = "SELECT (cast(extract(year FROM cast (:to_date AS DATE)) AS int)) - AVG(employee.career_start_year) " +
                                 "FROM country " +
                                 "INNER JOIN company ON (country.id = company.country_id " +
                                 "           AND company.date_opened <= :to_date " +
@@ -43,7 +43,7 @@ import javax.persistence.*;
                                 "WHERE country.name = :country_name"),
                 @NamedNativeQuery(
                         name = "AVG_AGE",
-                        query = "SELECT AVG((cast(extract(year FROM cast (:to_date AS DATE)) AS int)) -  employee.birth_year) " +
+                        query = "SELECT (cast(extract(year FROM cast (:to_date AS DATE)) AS int)) - AVG(employee.birth_year) " +
                                 "FROM country " +
                                 "INNER JOIN company ON (country.id = company.country_id " +
                                 "           AND company.date_opened <= :to_date " +
@@ -72,14 +72,14 @@ import javax.persistence.*;
                 @NamedNativeQuery(
                         name = "EMPLOYEE_PROFILES",
                         query = "SELECT " +
-                                "       country_name_field       AS country, " +
-                                "       AVG(avgSalary)           AS salary," +
-                                "       AVG((cast(extract(year FROM cast(:to_date AS DATE)) AS int)) - avgAge)              AS age, " +
-                                "       AVG((cast(extract(year FROM cast(:to_date AS DATE)) AS int)) - avgExp)              AS experience, " +
+                                "       country_name_field                                                      AS country, " +
+                                "       AVG(avgSalary)                                                          AS salary," +
+                                "       (cast(extract(year FROM cast(:to_date AS DATE)) AS int)) - AVG(avgAge)  AS age, " +
+                                "       (cast(extract(year FROM cast(:to_date AS DATE)) AS int)) - AVG(avgExp)  AS experience, " +
                                 "       AVG(number_of_employees) AS number_of_employees " +
-                                "FROM (SELECT COUNT(country.id)                                                                          AS number_of_employees, " +
-                                "             country.name                                                                               AS country_name_field, " +
-                                "             AVG(vacancy.salary)                                                                        AS avgSalary, " +
+                                "FROM (SELECT COUNT(country.id)               AS number_of_employees, " +
+                                "             country.name                    AS country_name_field, " +
+                                "             AVG(vacancy.salary)             AS avgSalary, " +
                                 "             AVG(employee.birth_year)        AS avgAge, " +
                                 "             AVG(employee.career_start_year) AS avgExp " +
                                 "      FROM country " +
