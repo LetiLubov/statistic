@@ -33,14 +33,10 @@ public class EmployeeProfileDTOResultMapper implements ResultMapper<List<Object[
                                     object -> (object[COUNTRY_INDEX] != null) ?
                                             object[COUNTRY_INDEX].toString() : "undefined",
                                     object -> new EmployeeProfileDTO(
-                                            (object[SALARY_INDEX] != null) ?
-                                                    (Double) object[SALARY_INDEX] : 0d,
-                                            (object[AGE_INDEX] != null) ?
-                                                    ((BigDecimal) object[AGE_INDEX]).intValue() : 0,
-                                            (object[EXPERIENCE_INDEX] != null) ?
-                                                    ((BigDecimal) object[EXPERIENCE_INDEX]).intValue() : 0,
-                                            (object[NUM_OF_EMP_INDEX] != null) ?
-                                                    ((BigDecimal) object[NUM_OF_EMP_INDEX]).intValue() : 0
+                                            new WTFResultMapper<Double>().map(object[SALARY_INDEX]),
+                                            new WTFResultMapper<Double>().map(object[AGE_INDEX]).intValue(),
+                                            new WTFResultMapper<Double>().map(object[EXPERIENCE_INDEX]).intValue(),
+                                            new WTFResultMapper<Double>().map(object[NUM_OF_EMP_INDEX]).intValue()
                                     )
                             ));
         }

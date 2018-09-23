@@ -27,19 +27,18 @@ public class CountryProfileDTOResultMapper implements ResultMapper<List<Object[]
     @Override
     public Map<String, CountryProfileDTO> map(List<Object[]> objects) {
         if (objects != null && !objects.isEmpty()) {
-            return objects.stream()
+            Map<String, CountryProfileDTO> collect = objects.stream()
                     .filter(Objects::nonNull)
                     .collect(Collectors.toMap(
                             object -> (object[COUNTRY_INDEX] != null) ?
                                     object[COUNTRY_INDEX].toString() : "undefined",
                             object -> new CountryProfileDTO(
-                                    (object[VAC_NUMBER_INDEX] != null) ?
-                                            ((BigInteger) object[VAC_NUMBER_INDEX]).intValue() : 0,
-                                    (object[EMP_NUMBER_INDEX] != null) ?
-                                            ((BigInteger) object[EMP_NUMBER_INDEX]).intValue() : 0,
+                                    new WTFResultMapper<Integer>().map(object[VAC_NUMBER_INDEX]),
+                                    new WTFResultMapper<Integer>().map(object[EMP_NUMBER_INDEX]),
                                     resolveEconomicLevelValue(object[ECONOMY_INDEX])
                             ))
                     );
+            return collect;
 
         }
         return null;
