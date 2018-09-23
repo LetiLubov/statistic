@@ -41,6 +41,7 @@ public class EmployeeProfileController {
     @PostMapping
     public ResponseEntity<Map<String, EmployeeProfileDTO>> getProfiles(@RequestBody DataRange data) {
         Map<String, EmployeeProfileDTO> map = countryService.getEmployeeProfiles(data.getValidFrom(), data.getValidTo());
+        //todo: if i want to return null... is it OK_response_status
         return ResponseEntity.ok(map);
     }
 }

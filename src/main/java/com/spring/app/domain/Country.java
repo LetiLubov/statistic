@@ -43,7 +43,7 @@ import javax.persistence.*;
                                 "WHERE country.name = :country_name"),
                 @NamedNativeQuery(
                         name = "AVG_AGE",
-                        query = "SELECT (cast(extract(year FROM cast (:to_date AS DATE)) AS int)) - AVG(employee.birth_year) " +
+                        query = "SELECT ((cast(extract(year FROM cast (:to_date AS DATE)) AS int)) - AVG(employee.birth_year)) " +
                                 "FROM country " +
                                 "INNER JOIN company ON (country.id = company.country_id " +
                                 "           AND company.date_opened <= :to_date " +
@@ -67,8 +67,6 @@ import javax.persistence.*;
                                 "    WHERE country.name = :country_name " +
                                 "    GROUP BY company.name) " +
                                 "AS count_table"),
-
-
                 @NamedNativeQuery(
                         name = "EMPLOYEE_PROFILES",
                         query = "SELECT " +
@@ -96,9 +94,9 @@ import javax.persistence.*;
                 @NamedNativeQuery(
                         name = "COUNTRY_PROFILES",
                         query = "SELECT country.name, " +
-                                "       country.live_index, " +
                                 "       COUNT(distinct vacancy.id)  as number_of_vac, " +
-                                "       COUNT(distinct employee.id) as number_of_em " +
+                                "       COUNT(distinct employee.id) as number_of_em, " +
+                                "       country.live_index as live_index " +
                                 "FROM country " +
                                 "       INNER JOIN company ON (country.id = company.country_id AND company.date_opened <= :to_date AND " +
                                 "                              (company.date_closed ISNULL OR company.date_closed >= :from_date)) " +

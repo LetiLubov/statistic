@@ -1,20 +1,15 @@
 package com.spring.app.services.mappers;
 
-import com.spring.app.DataNotFoundException;
-
-import java.util.List;
-
 /**
- * Converts input data to a new data
+ * Maps input data to a new data of correct type
  *
  * @author Lyubov Ruzanova
  */
-public interface ResultMapper<F, T> extends GeneralResultMapper<List<F>, T> {
-
+public interface ResultMapper<R, T> {
     /**
-     * Convert one value to another
-     * @param f - input data
+     * Maps one value to another of correct type
+     * @param r - input data
      * @return converted value
      */
-    T convertObject(F f) throws DataNotFoundException;
+    T map(R r);
 }

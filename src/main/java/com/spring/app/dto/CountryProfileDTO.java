@@ -1,6 +1,7 @@
 package com.spring.app.dto;
 
 import com.spring.app.EconomicLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,14 +16,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class CountryProfileDTO implements Serializable {
-    private long numberOfVacancies;
-    private long numberOfEmployees;
+    private int numberOfVacancies;
+    private int numberOfEmployees;
     private EconomicLevel economicLevel;
-
-    public CountryProfileDTO(long numberOfVacancies, long numberOfEmployees, EconomicLevel economicLevel) {
-        this.numberOfVacancies = numberOfVacancies;
-        this.numberOfEmployees = numberOfEmployees;
-        this.economicLevel = economicLevel;
-    }
 }

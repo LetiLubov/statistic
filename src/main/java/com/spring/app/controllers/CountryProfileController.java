@@ -39,8 +39,9 @@ public class CountryProfileController {
      */
     @ResponseBody
     @PostMapping
-    public ResponseEntity< Map<String, CountryProfileDTO>> getProfiles(@RequestBody DataRange data) {
+    public ResponseEntity<Map<String, CountryProfileDTO>> getProfiles(@RequestBody DataRange data) {
         Map<String, CountryProfileDTO> map = countryService.getProfiles(data.getValidFrom(), data.getValidTo());
+        //todo: if i want to return null... is it OK_response_status
         return ResponseEntity.ok(map);
     }
 }

@@ -4,12 +4,12 @@ import com.spring.app.domain.Country;
 import com.spring.app.dto.CountryProfileDTO;
 import com.spring.app.dto.EmployeeProfileDTO;
 import com.spring.app.services.mappers.CountryProfileDTOResultMapper;
-import com.spring.app.services.mappers.DoubleResultMapper;
 import com.spring.app.services.mappers.EmployeeProfileDTOResultMapper;
-import com.spring.app.services.mappers.IntegerResultMapper;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,11 +31,13 @@ public class CountryDAO extends GenericDaoImpl<Country> {
      * @return the double value of the average salary
      */
     public double findMeanSalary(String countryName, Date date1, Date date2) {
-        return new DoubleResultMapper().map(em.createNamedQuery(Country.MEAN_SALARY)
+        Double result = (Double) em.createNamedQuery(Country.MEAN_SALARY)
                 .setParameter("country_name", countryName)
                 .setParameter("from_date", date1)
                 .setParameter("to_date", date2)
-                .getResultList());
+                .getResultList()
+                .get(0);
+        return (result != null) ? result : 0d;
     }
 
     /**
@@ -47,11 +49,13 @@ public class CountryDAO extends GenericDaoImpl<Country> {
      * @return the Integer value of the average number of employees
      */
     public int findAvgNumberOfEmployeesInCompanies(String countryName, Date date1, Date date2) {
-        return new IntegerResultMapper().map(em.createNamedQuery(Country.AVG_NUM_OF_EMP_IN_COMPANIES)
+        BigDecimal result = (BigDecimal) em.createNamedQuery(Country.AVG_NUM_OF_EMP_IN_COMPANIES)
                 .setParameter("country_name", countryName)
                 .setParameter("from_date", date1)
                 .setParameter("to_date", date2)
-                .getResultList());
+                .getResultList()
+                .get(0);
+        return (result != null) ? result.intValue() : 0;
 
     }
 
@@ -64,11 +68,13 @@ public class CountryDAO extends GenericDaoImpl<Country> {
      * @return the Integer value of the average experience
      */
     public int findAvgExperience(String countryName, Date date1, Date date2) {
-        return new IntegerResultMapper().map(em.createNamedQuery(Country.AVG_EXPERIENCE)
+        BigDecimal result = (BigDecimal) em.createNamedQuery(Country.AVG_EXPERIENCE)
                 .setParameter("country_name", countryName)
                 .setParameter("from_date", date1)
                 .setParameter("to_date", date2)
-                .getResultList());
+                .getResultList()
+                .get(0);
+        return (result != null) ? result.intValue() : 0;
     }
 
     /**
@@ -80,11 +86,13 @@ public class CountryDAO extends GenericDaoImpl<Country> {
      * @return the Integer value of the average experience
      */
     public int findAvgAge(String countryName, Date date1, Date date2) {
-        return new IntegerResultMapper().map(em.createNamedQuery(Country.AVG_AGE)
+        BigDecimal result = (BigDecimal) em.createNamedQuery(Country.AVG_AGE)
                 .setParameter("country_name", countryName)
                 .setParameter("from_date", date1)
                 .setParameter("to_date", date2)
-                .getResultList());
+                .getResultList()
+                .get(0);
+        return (result != null) ? result.intValue() : 0;
     }
 
     /**

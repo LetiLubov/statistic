@@ -1,10 +1,11 @@
 package com.spring.app.services.mappers;
 
-import com.spring.app.DataNotFoundException;
 import com.spring.app.dto.EmployeeProfileDTO;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
  *
  * @author Lyubov Ruzanova
  */
-public class EmployeeProfileDTOResultMapper implements GeneralResultMapper<List<Object[]>, Map<String, EmployeeProfileDTO>> {
+public class EmployeeProfileDTOResultMapper implements ResultMapper<List<Object[]>, Map<String, EmployeeProfileDTO>> {
 
     private static final int COUNTRY_INDEX = 0;
     private static final int SALARY_INDEX = 1;
@@ -26,20 +27,23 @@ public class EmployeeProfileDTOResultMapper implements GeneralResultMapper<List<
     @Override
     public Map<String, EmployeeProfileDTO> map(List<Object[]> objects) {
         if (objects != null && !objects.isEmpty()) {
-            Map<String, EmployeeProfileDTO> dtoHashMap =
-                    objects.stream()
-                            .filter(x -> x!= null)
+            return objects.stream()
+                            .filter(Objects::nonNull)
                             .collect(Collectors.toMap(
-                                    object -> StringResolveUtils.resolveStringValue(object[COUNTRY_INDEX]),
+                                    object -> (object[COUNTRY_INDEX] != null) ?
+                                            object[COUNTRY_INDEX].toString() : "undefined",
                                     object -> new EmployeeProfileDTO(
-                                            new DoubleResultMapper().convertObject(object[SALARY_INDEX]),
-                                            new IntegerResultMapper().convertObject(object[AGE_INDEX]),
-                                            new IntegerResultMapper().convertObject(object[EXPERIENCE_INDEX]),
-                                            new IntegerResultMapper().convertObject(object[NUM_OF_EMP_INDEX]))
+                                            (object[SALARY_INDEX] != null) ?
+                                                    (Double) object[SALARY_INDEX] : 0d,
+                                            (object[AGE_INDEX] != null) ?
+                                                    ((BigDecimal) object[AGE_INDEX]).intValue() : 0,
+                                            (object[EXPERIENCE_INDEX] != null) ?
+                                                    ((BigDecimal) object[EXPERIENCE_INDEX]).intValue() : 0,
+                                            (object[NUM_OF_EMP_INDEX] != null) ?
+                                                    ((BigDecimal) object[NUM_OF_EMP_INDEX]).intValue() : 0
                                     )
-                            );
-            return dtoHashMap;
+                            ));
         }
-        throw new DataNotFoundException("Data not found.");
+        return null;
     }
 }

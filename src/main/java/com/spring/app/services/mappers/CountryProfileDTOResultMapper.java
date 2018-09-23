@@ -1,12 +1,12 @@
 package com.spring.app.services.mappers;
 
-import com.spring.app.DataNotFoundException;
 import com.spring.app.EconomicLevel;
 import com.spring.app.dto.CountryProfileDTO;
 
-import java.util.HashMap;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
  *
  * @author Lyubov Ruzanova
  */
-public class CountryProfileDTOResultMapper implements GeneralResultMapper<List<Object[]>, Map<String, CountryProfileDTO>> {
+public class CountryProfileDTOResultMapper implements ResultMapper<List<Object[]>, Map<String, CountryProfileDTO>> {
 
     private static final int COUNTRY_INDEX = 0;
-    private static final int ECONOMY_INDEX = 1;
-    private static final int VAC_NUMBER_INDEX = 2;
-    private static final int EMP_NUMBER_INDEX = 3;
+    private static final int VAC_NUMBER_INDEX = 1;
+    private static final int EMP_NUMBER_INDEX = 2;
+    private static final int ECONOMY_INDEX = 3;
 
     /**
      * {@InheritDoc}
@@ -27,19 +27,22 @@ public class CountryProfileDTOResultMapper implements GeneralResultMapper<List<O
     @Override
     public Map<String, CountryProfileDTO> map(List<Object[]> objects) {
         if (objects != null && !objects.isEmpty()) {
-            Map<String, CountryProfileDTO> dtoHashMap =
-                    objects.stream()
-                            .filter(x -> x != null)
-                            .collect(Collectors.toMap(
-                                    object -> StringResolveUtils.resolveStringValue(object[COUNTRY_INDEX]),
-                                    object -> new CountryProfileDTO(
-                                            new IntegerResultMapper().convertObject(object[VAC_NUMBER_INDEX]),
-                                            new IntegerResultMapper().convertObject(object[EMP_NUMBER_INDEX]),
-                                            resolveEconomicLevelValue(object[ECONOMY_INDEX])))
-                            );
-            return dtoHashMap;
+            return objects.stream()
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toMap(
+                            object -> (object[COUNTRY_INDEX] != null) ?
+                                    object[COUNTRY_INDEX].toString() : "undefined",
+                            object -> new CountryProfileDTO(
+                                    (object[VAC_NUMBER_INDEX] != null) ?
+                                            ((BigInteger) object[VAC_NUMBER_INDEX]).intValue() : 0,
+                                    (object[EMP_NUMBER_INDEX] != null) ?
+                                            ((BigInteger) object[EMP_NUMBER_INDEX]).intValue() : 0,
+                                    resolveEconomicLevelValue(object[ECONOMY_INDEX])
+                            ))
+                    );
+
         }
-        return new HashMap<>();
+        return null;
     }
 
     /**
@@ -48,14 +51,11 @@ public class CountryProfileDTOResultMapper implements GeneralResultMapper<List<O
      * @param object - input
      * @return converted object
      */
-    public EconomicLevel resolveEconomicLevelValue(Object object) throws DataNotFoundException {
-        if (object instanceof String) {
-            try {
-                return EconomicLevel.valueOf((String) object);
-            } catch (IllegalArgumentException ex) {
-                throw new DataNotFoundException("The country level is undefined.");
-            }
+    public EconomicLevel resolveEconomicLevelValue(Object object) {
+        try {
+            return EconomicLevel.valueOf((String) object);
+        } catch (IllegalArgumentException ex) {
+            return EconomicLevel.UNDEFINED;
         }
-        throw new DataNotFoundException("The received value is incorrect.");
     }
 }
