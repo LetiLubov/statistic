@@ -2,7 +2,6 @@ package com.spring.app.services.mappers;
 
 import com.spring.app.dto.EmployeeProfileDTO;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -28,17 +27,17 @@ public class EmployeeProfileDTOResultMapper implements ResultMapper<List<Object[
     public Map<String, EmployeeProfileDTO> map(List<Object[]> objects) {
         if (objects != null && !objects.isEmpty()) {
             return objects.stream()
-                            .filter(Objects::nonNull)
-                            .collect(Collectors.toMap(
-                                    object -> (object[COUNTRY_INDEX] != null) ?
-                                            object[COUNTRY_INDEX].toString() : "undefined",
-                                    object -> new EmployeeProfileDTO(
-                                            new WTFResultMapper<Double>().map(object[SALARY_INDEX]),
-                                            new WTFResultMapper<Double>().map(object[AGE_INDEX]).intValue(),
-                                            new WTFResultMapper<Double>().map(object[EXPERIENCE_INDEX]).intValue(),
-                                            new WTFResultMapper<Double>().map(object[NUM_OF_EMP_INDEX]).intValue()
-                                    )
-                            ));
+                    .filter(Objects::nonNull)
+                    .filter(object -> object[COUNTRY_INDEX] != null)
+                    .collect(Collectors.toMap(
+                            object -> object[COUNTRY_INDEX].toString(),
+                            object -> new EmployeeProfileDTO(
+                                    ResultMapper.getDouble(object[SALARY_INDEX]),
+                                    ResultMapper.getInteger(object[AGE_INDEX]),
+                                    ResultMapper.getInteger(object[EXPERIENCE_INDEX]),
+                                    ResultMapper.getInteger(object[NUM_OF_EMP_INDEX])
+                            )
+                    ));
         }
         return null;
     }

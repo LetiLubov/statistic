@@ -3,7 +3,6 @@ package com.spring.app.services.mappers;
 import com.spring.app.EconomicLevel;
 import com.spring.app.dto.CountryProfileDTO;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -29,12 +28,12 @@ public class CountryProfileDTOResultMapper implements ResultMapper<List<Object[]
         if (objects != null && !objects.isEmpty()) {
             Map<String, CountryProfileDTO> collect = objects.stream()
                     .filter(Objects::nonNull)
+                    .filter(object -> object[COUNTRY_INDEX] != null)
                     .collect(Collectors.toMap(
-                            object -> (object[COUNTRY_INDEX] != null) ?
-                                    object[COUNTRY_INDEX].toString() : "undefined",
+                            object -> object[COUNTRY_INDEX].toString(),
                             object -> new CountryProfileDTO(
-                                    new WTFResultMapper<Integer>().map(object[VAC_NUMBER_INDEX]),
-                                    new WTFResultMapper<Integer>().map(object[EMP_NUMBER_INDEX]),
+                                    ResultMapper.getInteger(object[VAC_NUMBER_INDEX]),
+                                    ResultMapper.getInteger(object[EMP_NUMBER_INDEX]),
                                     resolveEconomicLevelValue(object[ECONOMY_INDEX])
                             ))
                     );
