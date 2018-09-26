@@ -19,6 +19,7 @@ public interface ResultMapper<R, T> {
 
     /**
      * Maps object to Integer
+     *
      * @param object - input value
      * @return object casted to Integer
      */
@@ -28,16 +29,14 @@ public interface ResultMapper<R, T> {
 
     /**
      * Maps object to Double
+     *
      * @param object - input value
      * @return object casted to Double
      */
     static Double getDouble(Object object) {
-        Double resDouble = 0d;
-        if (object != null) {
-            if (object instanceof Number) {
-                resDouble = ((Number) object).doubleValue();
-            }
+        if (object != null && object instanceof Number) {
+            return ((Number) object).doubleValue();
         }
-        return resDouble;
+        return 0d;
     }
 }
