@@ -24,7 +24,7 @@ import java.util.Map;
 public class CountryDAO extends GenericDaoImpl<Country> {
 
     /**
-     * Creates query to DB to finds out the average salary of the country in period of time
+     * Creates query to DB to find the average salary of the country in period of time
      *
      * @param date1       - start date of the period
      * @param date2       - end date of the period
@@ -41,7 +41,7 @@ public class CountryDAO extends GenericDaoImpl<Country> {
     }
 
     /**
-     * Creates query to DB to finds out the average number of employees in companies in the country in period of time
+     * Creates query to DB to find the average number of employees in companies in the country in period of time
      *
      * @param date1       - start date of the period
      * @param date2       - end date of the period
@@ -58,7 +58,7 @@ public class CountryDAO extends GenericDaoImpl<Country> {
     }
 
     /**
-     * Creates query to DB to finds out the average experience of employees in the country in period of time
+     * Creates query to DB to find the average experience of employees in the country in period of time
      *
      * @param date1       - start date of the period
      * @param date2       - end date of the period
@@ -75,7 +75,7 @@ public class CountryDAO extends GenericDaoImpl<Country> {
     }
 
     /**
-     * Creates query to DB to finds out the average age of employees in the country in period of time
+     * Creates query to DB to find the average age of employees in the country in period of time
      *
      * @param date1       - start date of the period
      * @param date2       - end date of the period
@@ -93,7 +93,7 @@ public class CountryDAO extends GenericDaoImpl<Country> {
     }
 
     /**
-     * Creates query to DB to finds out employee profiles for all countries
+     * Creates query to DB to find employee profiles for all countries
      *
      * @param date1       - start date of the period
      * @param date2       - end date of the period
@@ -108,7 +108,7 @@ public class CountryDAO extends GenericDaoImpl<Country> {
 
 
     /**
-     * Creates query to DB to finds out profiles for all countries
+     * Creates query to DB to find profiles for all countries
      *
      * @param date1       - start date of the period
      * @param date2       - end date of the period

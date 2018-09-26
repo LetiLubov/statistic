@@ -34,12 +34,8 @@ public interface ResultMapper<R, T> {
     static Double getDouble(Object object) {
         Double resDouble = 0d;
         if (object != null) {
-            if (object instanceof BigDecimal) {
-                resDouble = ((BigDecimal) object).doubleValue();
-            } else if (object instanceof BigInteger) {
-                resDouble = ((BigInteger) object).doubleValue();
-            } else if (object instanceof Double) {
-                resDouble = (Double) object;
+            if (object instanceof Number) {
+                resDouble = ((Number) object).doubleValue();
             }
         }
         return resDouble;
