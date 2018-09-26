@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Rest controller for a vacancies
- * Provide all actions with vacancies
+ * Provides all actions with vacancies
  *
  * @author Lyubov Ruzanova
  */
@@ -22,7 +22,7 @@ public class VacancyController {
     private final VacancyService service;
 
     /**
-     * Inject a vacancy service
+     * Injects a vacancy service
      * @param service - vacancy service
      */
     public VacancyController(@Autowired VacancyService service) {
@@ -30,7 +30,7 @@ public class VacancyController {
     }
 
     /**
-     * Send a request to the service to get all vacancies
+     * Sends a request to the service to get all vacancies
      * @return list of vacancies
      */
     @GetMapping
@@ -40,7 +40,7 @@ public class VacancyController {
     }
 
     /**
-     * Send a request to the service to save a new instance
+     * Sends a request to the service to save a new instance
      * @param dto - vacancy info
      * @return vacancyDTO object
      */

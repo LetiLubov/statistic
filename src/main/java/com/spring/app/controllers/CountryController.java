@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Rest controller for a countries
- * Provide all actions with countries
+ * Provides all actions with countries
  *
  * @author Lyubov Ruzanova
  */
@@ -24,7 +24,7 @@ public class CountryController {
     private final CountryService service;
 
     /**
-     * Inject a country service
+     * Injects a country service
      *
      * @param service - country service
      */
@@ -33,7 +33,7 @@ public class CountryController {
     }
 
     /**
-     * Send a request to the service to get all countries
+     * Sends a request to the service to get all countries
      *
      * @return list of countries
      */
@@ -44,7 +44,7 @@ public class CountryController {
     }
 
     /**
-     * Send a request to the service to save a new instance
+     * Sends a request to the service to save a new instance
      *
      * @param dto - country info storage
      * @return countryDTO object
@@ -58,62 +58,67 @@ public class CountryController {
     }
 
     /**
-     * Get the average salary by country name from country's service
+     * Gets the average salary by country name from country's service
      *
      * @param countryName - country's name
+     * @param data        - period of time
      * @return the double value of the average salary
      */
     @ResponseBody
     @PostMapping(value = "{countryName}/mean-salary")
     public ResponseEntity<String> findAverageSalaryByCountry(@PathVariable String countryName,
                                                              @RequestBody DataRange data) {
-        Double averageSalary = service.getMeanSalary(countryName, data.getValidFrom(), data.getValidTo());
+        double averageSalary = service.getMeanSalary(countryName, data.getValidFrom(), data.getValidTo());
         return ResponseEntity.ok(MessageEnum.MEAN_SALARY.getMessage(data.getValidFromToString(),
-                                                                         data.getValidToToString(),
-                                                                         countryName,
-                                                                         averageSalary));
+                data.getValidToToString(),
+                countryName,
+                averageSalary));
     }
 
     /**
-     * Get the average number of employee's experience by country from country's service
+     * Gets the average number of employee's experience by country from country's service
      *
      * @param countryName - country's name
-     * @return the Integer value of the average experience
+     * @param data        - period of time
+     * @return the int value of the average experience
      */
     @ResponseBody
     @PostMapping(value = "{countryName}/avg-experience")
     public ResponseEntity<String> findAverageExperienceByCountry(@PathVariable String countryName,
                                                                  @RequestBody DataRange data) {
-        Integer experience = service.getAvgExperience(countryName, data.getValidFrom(), data.getValidTo());
+        int experience = service.getAvgExperience(countryName, data.getValidFrom(), data.getValidTo());
         return ResponseEntity.ok(MessageEnum.AVG_EXPERIENCE.getMessage(countryName, experience));
     }
 
     /**
-     * Get the average employee's age by country from country's service
+     * Gets the average employee's age by country from country's service
      *
      * @param countryName - country's name
-     * @return the Integer value of the average age
+     * @param data        - period of time
+     * @return the int value of the average age
      */
     @ResponseBody
     @PostMapping(value = "{countryName}/avg-age")
     public ResponseEntity<String> findAverageAgeByCountry(@PathVariable String countryName,
                                                           @RequestBody DataRange data) {
-        Integer age = service.getAvgAge(countryName, data.getValidFrom(), data.getValidTo());
+        int age = service.getAvgAge(countryName, data.getValidFrom(), data.getValidTo());
         return ResponseEntity.ok(MessageEnum.AVG_AGE.getMessage(countryName, age));
     }
 
 
     /**
-     * Get the average number of employees in companies by country from country's service
+     * Gets the average number of employees in companies by country from country's service
      *
      * @param countryName - country's name
-     * @return the Integer value of the average number of employees
+     * @param data        - period of time
+     * @return the int value of the average number of employees
      */
     @ResponseBody
     @PostMapping(value = "{countryName}/average-number-of-employees")
     public ResponseEntity<String> findAverageNumberOfEmployeesByCountry(@PathVariable String countryName,
                                                                         @RequestBody DataRange data) {
-        Integer averageNumberOfEmployees = service.getAvgNumberOfEmployees(countryName, data.getValidFrom(), data.getValidTo());
+        int averageNumberOfEmployees = service.getAvgNumberOfEmployeesInCompanies(countryName, data.getValidFrom(),
+                data.getValidTo());
         return ResponseEntity.ok(MessageEnum.AVG_NUM_OF_EMP.getMessage(countryName, averageNumberOfEmployees));
     }
 

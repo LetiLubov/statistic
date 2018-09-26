@@ -20,7 +20,7 @@ public class EmployeeService {
     private final EmployeeDAO repository;
 
     /**
-     * Inject a employee repository
+     * Injects a employee repository
      * @param repository - employee repository
      */
     public EmployeeService(@Autowired EmployeeDAO repository) {
@@ -28,7 +28,7 @@ public class EmployeeService {
     }
 
     /**
-     * Get all employees from repository and convert them to EmployeeDTO format
+     * Gets all employees from repository and convert them to EmployeeDTO format
      * @return list of employees
      */
     public List<EmployeeDTO> getList(){
@@ -40,7 +40,7 @@ public class EmployeeService {
     }
 
     /**
-     * Save a new employee to DB
+     * Saves a new employee to DB
      * @param employee - the employee to save in DB
      */
     public void save(Employee employee){

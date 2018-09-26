@@ -25,7 +25,7 @@ public enum MessageEnum implements Serializable {
     private String message;
 
     /**
-     * Complete the message template with the args value information
+     * Completes the message template with the args value information
      * @param objects - arguments
      */
     public String getMessage(Object... objects) {

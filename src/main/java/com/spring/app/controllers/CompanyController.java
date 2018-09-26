@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Rest controller for a companies
- * Provide all actions with companies
+ * Provides all actions with companies
  *
  * @author Lyubov Ruzanova
  */
@@ -22,7 +22,7 @@ public class CompanyController {
     private final CompanyService service;
 
     /**
-     * Inject a company service
+     * Injects a company service
      * @param service - company service
      */
     public CompanyController(@Autowired CompanyService service){
@@ -30,7 +30,7 @@ public class CompanyController {
     }
 
     /**
-     * Send a request to the service to get all companies
+     * Sends a request to the service to get all companies
      * @return list of companies
      */
     @GetMapping
@@ -40,7 +40,7 @@ public class CompanyController {
     }
 
     /**
-     * Send a request to the service to save a new instance
+     * Sends a request to the service to save a new instance
      * @param dto - company info storage
      * @return companyDTO object
      */

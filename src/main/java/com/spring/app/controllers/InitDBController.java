@@ -1,6 +1,6 @@
 package com.spring.app.controllers;
 
-import com.spring.app.EconomyLevel;
+import com.spring.app.EconomicLevel;
 import com.spring.app.domain.Company;
 import com.spring.app.domain.Country;
 import com.spring.app.domain.Employee;
@@ -54,17 +54,17 @@ public class InitDBController {
     @PostConstruct
     public ResponseEntity initDB() {
         Country country1 = new Country();
-        country1.setEconomyLevel(EconomyLevel.GOOD);
+        country1.setEconomicLevel(EconomicLevel.GOOD);
         country1.setName("rus");
         countryService.save(country1);
 
         Country country2 = new Country();
-        country2.setEconomyLevel(EconomyLevel.GOOD);
+        country2.setEconomicLevel(EconomicLevel.GOOD);
         country2.setName("usa");
         countryService.save(country2);
 
         Country country3 = new Country();
-        country3.setEconomyLevel(EconomyLevel.EXCELLENT);
+        country3.setEconomicLevel(EconomicLevel.EXCELLENT);
         country3.setName("test");
         countryService.save(country3);
 
@@ -130,7 +130,7 @@ public class InitDBController {
         vacancy3 = new Vacancy();
         vacancy3.setDateClosed(date2);
         vacancy3.setDateOpened(date);
-        vacancy3.setCompany(company1);
+        vacancy3.setCompany(company2);
         vacancy3.setEmployee(employee1);
         vacancy3.setOpened(true);
         vacancy3.setSalary(1000);

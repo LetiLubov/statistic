@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class RestExceptionHandler  {
 
     /**
-     * Catch InvalidDataAccessResourceUsageException
+     * Catches InvalidDataAccessResourceUsageException
      * @return response to the client that there are some problems at the DAO layer
      */
     @ExceptionHandler(value = DataNotFoundException.class)
@@ -24,7 +24,7 @@ public class RestExceptionHandler  {
     }
 
     /**
-     * Catch RuntimeException
+     * Catches RuntimeException
      * @return response to the client that something goes wrong
      */
     @ExceptionHandler(value = RuntimeException.class)
@@ -33,7 +33,7 @@ public class RestExceptionHandler  {
     }
 
     /**
-     * Catch InvalidDataAccessResourceUsageException
+     * Catches InvalidDataAccessResourceUsageException
      * @return response to the client that there are some problems at the DAO layer
      */
     @ExceptionHandler(value = InvalidDataAccessResourceUsageException.class)

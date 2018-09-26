@@ -1,6 +1,6 @@
 package com.spring.app.dto;
 
-import com.spring.app.EconomyLevel;
+import com.spring.app.EconomicLevel;
 import com.spring.app.domain.Country;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CountryDTO implements IWrapper<Country, CountryDTO> {
     private String name;
-    private EconomyLevel economyLevel;
+    private EconomicLevel economicLevel;
 
     /**
      * Constructor for copying the Country object to the CountryDTO object
@@ -24,7 +24,7 @@ public class CountryDTO implements IWrapper<Country, CountryDTO> {
      */
     private CountryDTO(Country country){
         this.name = country.getName();
-        this.economyLevel = country.getEconomyLevel();
+        this.economicLevel = country.getEconomicLevel();
     }
 
     /**
@@ -42,7 +42,7 @@ public class CountryDTO implements IWrapper<Country, CountryDTO> {
     public Country toEntity() {
         Country country = new Country();
         country.setName(this.name);
-        country.setEconomyLevel(this.economyLevel);
+        country.setEconomicLevel(this.economicLevel);
         return country;
     }
 }

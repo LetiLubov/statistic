@@ -3,11 +3,14 @@ package com.spring.app.services;
 import com.spring.app.domain.Country;
 import com.spring.app.domain.dao.CountryDAO;
 import com.spring.app.dto.CountryDTO;
+import com.spring.app.dto.CountryProfileDTO;
+import com.spring.app.dto.EmployeeProfileDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -21,7 +24,7 @@ public class CountryService {
     private final CountryDAO repository;
 
     /**
-     * Inject a country repository
+     * Injects a country repository
      * @param repository - country repository
      */
     public CountryService(@Autowired CountryDAO repository) {
@@ -29,7 +32,7 @@ public class CountryService {
     }
 
     /**
-     * Get all countries from repository and convert them to CountryDTO format
+     * Gets all countries from repository and convert them to CountryDTO format
      * @return list of countries
      */
     public List<CountryDTO> getList(){
@@ -41,43 +44,72 @@ public class CountryService {
     }
 
     /**
-     * Calculate the average salary of employees in the country
-     * @param name - country's name
+     * Calculates the average salary of employees in the country
+     * @param countryName - country's name
+     * @param date1       - start date of the period
+     * @param date2       - end date of the period
      * @return the double value of the average salary
      */
-    public Double getMeanSalary(String name, Date data1, Date data2) {
-        return repository.findMeanSalary(name, data1, data2);
+    public double getMeanSalary(String countryName, Date date1, Date date2) {
+        return repository.findMeanSalary(countryName, date1, date2);
     }
 
     /**
-     * Calculate the average employee's experience in the country
-     * @param name - country's name
-     * @return the Integer value of the average experience
+     * Calculates the average employee's experience in the country
+     * @param countryName - country's Name
+     * @param date1       - start date of the period
+     * @param date2       - end date of the period
+     * @return the int value of the average experience
      */
-    public Integer getAvgExperience(String name, Date date1, Date date2) {
-        return repository.findAvgExperience(name, date1, date2);
+    public int getAvgExperience(String countryName, Date date1, Date date2) {
+        return repository.findAvgExperience(countryName, date1, date2);
     }
 
     /**
-     * Calculate the average employee's age in the country
-     * @param name - country's name
-     * @return the Integer value of the average experience
+     * Calculates the average employee's age in the country
+     * @param countryName - country's Name
+     * @param date1       - start date of the period
+     * @param date2       - end date of the period
+     * @return the int value of the average experience
      */
-    public Integer getAvgAge(String name, Date date1, Date date2) {
-        return repository.findAvgAge(name, date1, date2);
+    public int getAvgAge(String countryName, Date date1, Date date2) {
+        return repository.findAvgAge(countryName, date1, date2);
     }
 
     /**
-     * Calculate the average number of employees in companies in the country
-     * @param name - country's name
-     * @return the Integer value of the average number of employee
+     * Calculates the average number of employees in companies in the country
+     * @param countryName - country's Name
+     * @param date1       - start date of the period
+     * @param date2       - end date of the period
+     * @return the int value of the average number of employee
      */
-    public Integer getAvgNumberOfEmployees(String name, Date date1, Date date2) {
-        return repository.findAvgNumberOfEmployees(name, date1, date2);
+    public int getAvgNumberOfEmployeesInCompanies(String countryName, Date date1, Date date2) {
+        return repository.findAvgNumberOfEmployeesInCompanies(countryName, date1, date2);
+    }
+
+
+    /**
+     * Finds out employee profiles for all countries
+     * @param date1       - start date of the period
+     * @param date2       - end date of the period
+     * @return map of employee profiles (as a value) and countries name (as a key)
+     */
+    public Map<String, EmployeeProfileDTO> getEmployeeProfiles(Date date1, Date date2) {
+        return repository.getEmployeeProfiles(date1, date2);
     }
 
     /**
-     * Save a new country to DB
+     * Finds out profiles for all countries
+     * @param date1       - start date of the period
+     * @param date2       - end date of the period
+     * @return map of country profiles (as a value) and countries name (as a key)
+     */
+    public Map<String, CountryProfileDTO> getProfiles(Date date1, Date date2) {
+        return repository.getProfiles(date1, date2);
+    }
+
+    /**
+     * Saves a new country to DB
      * @param country - the country to save in DB
      */
     public void save(Country country){

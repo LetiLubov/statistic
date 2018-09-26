@@ -20,7 +20,7 @@ public class VacancyService {
     private final VacancyDAO repository;
 
     /**
-     * Inject a vacancy repository
+     * Injects a vacancy repository
      * @param repository - vacancy repository
      */
     public VacancyService(@Autowired VacancyDAO repository) {
@@ -28,7 +28,7 @@ public class VacancyService {
     }
 
     /**
-     * Get all vacancies from repository and convert them to VacancyDTO format
+     * Gets all vacancies from repository and convert them to VacancyDTO format
      * @return list of vacancies
      */
     public List<VacancyDTO> getList(){
@@ -39,7 +39,7 @@ public class VacancyService {
     }
 
     /**
-     * Save a new vacancy to DB
+     * Saves a new vacancy to DB
      * @param vacancy - the vacancy to save in DB
      */
     public void save(Vacancy vacancy){

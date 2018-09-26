@@ -1,17 +1,43 @@
 package com.spring.app.services.mappers;
 
-import com.spring.app.DataNotFoundException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
- * Convert input data to a new data
+ * Maps input data to a new data of correct type
  *
  * @author Lyubov Ruzanova
  */
-public interface ResultMapper<F, T> {
+public interface ResultMapper<R, T> {
     /**
-     * Map one value to another
-     * @param f - input data
+     * Maps one value to another of correct type
+     *
+     * @param r - input data
      * @return converted value
      */
-    T map(F f) throws DataNotFoundException;
+    T map(R r);
+
+    /**
+     * Maps object to Integer
+     * @param object - input value
+     * @return object casted to Integer
+     */
+    static Integer getInteger(Object object) {
+        return getDouble(object).intValue();
+    }
+
+    /**
+     * Maps object to Double
+     * @param object - input value
+     * @return object casted to Double
+     */
+    static Double getDouble(Object object) {
+        Double resDouble = 0d;
+        if (object != null) {
+            if (object instanceof Number) {
+                resDouble = ((Number) object).doubleValue();
+            }
+        }
+        return resDouble;
+    }
 }
