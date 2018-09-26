@@ -4,5 +4,4 @@ A service that displays information about developers in the world. The main atte
 Ref on postman https://www.getpostman.com/collections/74ff4bd410445479839f
 ---
 Plan:
-- refactoring
-- add queries
+- docker
