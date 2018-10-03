@@ -55,7 +55,7 @@
     </properties>
 
     <build>
-        <finalName>app</finalName>
+        <finalName>statistic</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -68,18 +68,20 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>app</name>
+                            <name>statistic</name>
                             <build>
                                 <dockerFileDir>${project.basedir}/src/main/docker</dockerFileDir>
                                 <assembly>
                                     <mode>dir</mode>
-                                    <targetDir>/app</targetDir>
+                                    <targetDir>/statistic</targetDir>
                                     <descriptor>${project.basedir}/src/main/docker/assembly.xml</descriptor>
                                 </assembly>
                             </build>
                         </image>
                     </images>
+
                 </configuration>
+
                 <executions>
                     <execution>
                         <id>build</id>
